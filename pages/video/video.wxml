@@ -1,0 +1,136 @@
+<!--pages/video/video.wxml-->
+<view class='container'>
+  <view class='author'>
+    <image src='../../images/touxiang.jpg'></image>
+    <view class='name'>
+      热门电影推荐
+    </view>
+    <view class='focus'>
+      关注
+    </view>
+  </view>
+
+  <view class='content'>
+    最佳男主角花落谁家？
+  </view>
+
+  <view class='zhengti'>
+    <view class='video'>
+    <video src=''></video>
+    <!-- 点赞 评论 收藏等功能 -->
+    <view class='option'>
+      <view class='like'>
+        <image src='../../images/like.png'></image>
+        <view>10000</view>
+      </view>
+
+      <view class='comment'>
+        <image src='../../images/comment.png'></image>
+        <view>500</view>
+      </view>
+
+      <view class='collect'>
+        <image src='../../images/collect.png'></image>
+        <!-- <view>10000</view> -->
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class='comment-list' scroll-y>
+    <!-- <></scroll-view> -->
+    <view class='item'>
+      <view class='discussant'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          张三
+        </view>
+      </view>
+      <view class='comment'>
+        <view class='text'>
+          这电影真好看！！！
+        </view>
+        <view class='like'>
+          <image src='../../images/like.png'></image>
+          <view>500</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='discussant'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          李四
+        </view>
+      </view>
+      <view class='comment'>
+        <view class='text'>
+          这电影真好看！！！
+        </view>
+        <view class='like'>
+          <image src='../../images/like.png'></image>
+          <view>100</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='discussant'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          张三
+        </view>
+      </view>
+      <view class='comment'>
+        <view class='text'>
+          这电影真好看！！！
+        </view>
+        <view class='like'>
+          <image src='../../images/like.png'></image>
+          <view>500</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='discussant'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          张三
+        </view>
+      </view>
+      <view class='comment'>
+        <view class='text'>
+          这电影真好看！！！
+        </view>
+        <view class='like'>
+          <image src='../../images/like.png'></image>
+          <view>500</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='discussant'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          张三
+        </view>
+      </view>
+      <view class='comment'>
+        <view class='text'>
+          这电影真好看！！！
+        </view>
+        <view class='like'>
+          <image src='../../images/like.png'></image>
+          <view>500</view>
+        </view>
+      </view>
+    </view>
+    
+  </scroll-view>
+  </view>
+
+
+</view>
+

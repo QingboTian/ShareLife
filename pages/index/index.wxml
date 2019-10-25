@@ -1,0 +1,27 @@
+<!-- <import src ="../title/title.wxml"> -->
+<view>
+  <!-- <template is='title'></template> -->
+  <!-- <view>首页</view> -->
+  <view>
+    <!--搜索-->
+    <mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" search="search"></mp-searchbar>
+  </view>
+
+  <view class='container-flowlayout'>
+    <!-- 左容器 -->
+  <view class='item'>
+    <block wx:for="{{leftShowImages}}" wx:for-item="image" wx:key="index">
+      <image src='{{image.url}}' mode='widthFix' bindtap='tapHandler'></image>
+    </block>
+  </view>
+
+  <!-- 右容器 -->
+  <view class='item'>
+    <block wx:for="{{rightShowImages}}" wx:for-item="image" wx:key="index">
+      <image src='{{image.url}}' mode='widthFix' bindtap='tapHandler'></image>
+    </block>
+    
+  </view>
+  </view>
+
+</view>

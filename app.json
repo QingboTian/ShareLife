@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/explore/explore",
+    "pages/upload/upload",
+    "pages/message/message",
+    "pages/me/me",
+    "pages/title/title",
+    "pages/chat/chat",
+    "pages/video/video"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "短视频",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "images/index.png",
+      "selectedIconPath": "images/index-select.png"
+    },
+    {
+      "pagePath": "pages/explore/explore",
+      "text": "发现",
+      "iconPath": "images/explore.png",
+      "selectedIconPath": "images/explore-select.png"
+    },
+    {
+      "pagePath": "pages/upload/upload",
+      "text": "上传",
+      "iconPath": "images/upload.png",
+      "selectedIconPath": "images/upload-select.png"
+    },
+    {
+      "pagePath": "pages/message/message",
+      "text": "消息",
+      "iconPath": "images/message.png",
+      "selectedIconPath": "images/message-select.png"
+    },
+    {
+      "pagePath": "pages/me/me",
+      "text": "我的",
+      "iconPath": "images/me.png",
+      "selectedIconPath": "images/me-select.png"
+    }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

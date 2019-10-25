@@ -1,0 +1,40 @@
+<!--pages/chat/chat.wxml-->
+<view class='container'>
+  <!-- 聊天主体 -->
+  <view class='chat'>
+    <view class='item'>
+    <view class='time'>12:00</view>
+    <view class='body'>
+      <view class='poster'>
+        <image src='../../images/message.jpeg'></image>
+      </view>
+      <view class='content'>
+        欢迎加入我们
+      </view>
+    </view>
+  </view>
+
+  <view class='item'>
+    <view class='time'>12:00</view>
+    <view class='body'>
+      <view class='poster'>
+        <image src='../../images/message.jpeg'></image>
+      </view>
+      <view class='content'>
+        你好呀
+      </view>
+    </view>
+  </view>
+  </view>
+  
+  <!-- 操作区域 内容编辑 发送-->
+  <view class='option'>
+    <view class='edit'>
+      <image src='../../images/keyboard.png'></image>
+      <input></input>
+    </view>
+    <view class='send'>发送</view>
+  </view>
+
+  
+</view>
