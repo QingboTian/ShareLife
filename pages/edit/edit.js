@@ -1,4 +1,4 @@
-// pages/me/me.js
+// pages/edit/edit.js
 Page({
 
   /**
@@ -8,20 +8,11 @@ Page({
 
   },
 
-  // 展示个人信息
-  showPersonInfo : function (e) {
-    wx.navigateTo({
-      url: '../personinfo/personinfo',
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: '我的',
-    })
+
   },
 
   /**

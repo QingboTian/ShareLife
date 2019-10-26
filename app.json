@@ -9,7 +9,8 @@
     "pages/video/video",
     "pages/userinfo/userinfo",
     "pages/classify/classify",
-    "pages/personinfo/personinfo"
+    "pages/personinfo/personinfo",
+    "pages/edit/edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

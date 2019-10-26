@@ -1,2 +1,22 @@
 <!--pages/personinfo/personinfo.wxml-->
-<text>pages/personinfo/personinfo.wxml</text>
+<view class='container'>
+  <view class='touxiang'>
+    <image src='../../images/touxiang.jpg'></image>
+    点击更换头像
+  </view>
+
+  <view class='info'>
+    <mp-cells ext-class="">
+      <mp-cell value="昵称" footer="bobo" hover link url="../edit/edit">       
+      </mp-cell>
+      <mp-cell value="ID" footer="888888"></mp-cell>
+      <mp-cell value="个性签名" footer="心若向阳，无畏悲伤" link hover ></mp-cell>
+      <mp-cell value="手机" footer="13888888888" link hover ></mp-cell>
+      <mp-cell value="邮箱" footer="tianqingbo@tianqb.cn" link hover ></mp-cell>
+      <mp-cell value="性别" footer="男" link hover ></mp-cell>
+      <mp-cell value="生日" footer="1998-03-20" link hover ></mp-cell>
+      <mp-cell value="地区" footer="中国-陕西省-榆林市" link hover ></mp-cell>
+    </mp-cells>
+    
+  </view>
+</view>

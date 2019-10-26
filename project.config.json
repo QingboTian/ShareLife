@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -97,6 +97,13 @@
 					"id": -1,
 					"name": "classify",
 					"pathName": "pages/classify/classify",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "personinfo",
+					"pathName": "pages/personinfo/personinfo",
 					"scene": null
 				}
 			]

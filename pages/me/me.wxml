@@ -7,7 +7,7 @@
     <view class='nick'>
       <view class='name'>
         bobo
-        <view class='info'>个人信息</view>
+        <view class='info' bindtap='showPersonInfo'>个人信息</view>
       </view>
     </view>
   </view>
