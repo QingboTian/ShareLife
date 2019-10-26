@@ -5,13 +5,13 @@ const app = getApp()
 Page({
   data : {
     images: [// 准备展示的图片
-      { url: "../../images/4.jpg", height: 313, width: 500 },
-      { url: "../../images/5.jpeg", height: 2560, width: 1440 },
-      { url: "../../images/6.jpeg", height: 1216, width: 700 },
-      { url: "../../images/1.jpg", height: 1200, width: 1920 },
-      { url: "../../images/2.jpg", height: 1200, width: 1920 },
-      { url: "../../images/3.jpg", height: 300, width: 533 },
-      { url: "../../images/6.jpeg", height: 1216, width: 700 },
+      { url: "../../images/4.jpg", height: 313, width: 500, poster : "../../images/touxiang.jpg", type : 1 },
+      { url: "../../images/5.jpeg", height: 2560, width: 1440, poster: "../../images/touxiang.jpg", type: 0 },
+      { url: "../../images/6.jpeg", height: 1216, width: 700, poster: "../../images/touxiang.jpg", type: 1 },
+      { url: "../../images/1.jpg", height: 1200, width: 1920, poster: "../../images/touxiang.jpg", type: 0 },
+      { url: "../../images/2.jpg", height: 1200, width: 1920, poster: "../../images/touxiang.jpg", type: 1 },
+      { url: "../../images/3.jpg", height: 300, width: 533, poster: "../../images/touxiang.jpg", type: 1 },
+      { url: "../../images/6.jpeg", height: 1216, width: 700, poster: "../../images/touxiang.jpg", type: 1 },
     ],
     leftShowImages: [],// 左边已经展示的图片
     rightShowImages: [],// 右边已经展示的图片
@@ -115,9 +115,13 @@ Page({
     }
   },
 
-  tapHandler : function () {
+  tapHandler : function (e) {
+
+    var type = e.target.dataset.type
+    console.log(e)
+
     wx.navigateTo({
-      url: '../video/video',
+      url: '../video/video?type=' + type,
     })
   }
 })

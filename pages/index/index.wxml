@@ -11,14 +11,40 @@
     <!-- 左容器 -->
   <view class='item'>
     <block wx:for="{{leftShowImages}}" wx:for-item="image" wx:key="index">
-      <image src='{{image.url}}' mode='widthFix' bindtap='tapHandler'></image>
+      <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
+        <!-- 作品 -->
+        <view class='product'>
+          <image src='{{image.url}}' mode='widthFix'></image>
+        </view>
+        <view class='author-type'>
+          <view class='poster'>
+            <image src='{{image.poster}}'></image>
+          </view>
+          <view class='type'>
+            <image src="{{image.type == 1 ? '../../images/video.png' : '../../images/image.png'}}"></image>
+          </view>
+        </view>
+      </view>
     </block>
   </view>
 
   <!-- 右容器 -->
   <view class='item'>
     <block wx:for="{{rightShowImages}}" wx:for-item="image" wx:key="index">
-      <image src='{{image.url}}' mode='widthFix' bindtap='tapHandler'></image>
+      <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
+        <!-- 作品 -->
+        <view class='product'>
+          <image src='{{image.url}}' mode='widthFix'></image>
+        </view>
+        <view class='author-type'>
+          <view class='poster'>
+            <image src='{{image.poster}}'></image>
+          </view>
+          <view class='type'>
+            <image src="{{image.type == 1 ? '../../images/video.png' : '../../images/image.png'}}"></image>
+          </view>
+        </view>
+      </view>
     </block>
     
   </view>

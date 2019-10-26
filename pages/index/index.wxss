@@ -10,13 +10,42 @@ page {
 
 .item {
   flex: 1;
-  margin: 0 15rpx;
+  margin: 0 5rpx;
+  /* margin-bottom: 10rpx; */
 }
 
-.item image {
+.item .product image {
   width: 100%;
   margin: 4rpx 0;
-  border: 10rpx solid white;
   /* 缓慢效果 */
   transition: all 0.3s ease-in-out;
+}
+
+.item .entry {
+  background-color: white;
+  border: 10rpx solid white;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10rpx;
+}
+
+.item .entry .author-type{
+  display: flex;
+  width: 100%;
+}
+
+.item .entry .author-type .poster image{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+}
+
+.item .entry .author-type .type image{
+  width: 30rpx;
+  height: 30rpx;
+  /* border-radius: 50%; */
+}
+
+.item .entry .author-type .poster{
+  flex: 1;
 }

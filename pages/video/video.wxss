@@ -8,8 +8,16 @@ page {
   height: 50%;
 } */
 
-.container {
+/* 当作品类型为视频时采用的容器样式 */
+.container-video {
   height: 100%;
+  width: 100%;
+}
+
+/* 当作品类型为图片时采用的容器样式 */
+.container-image {
+  /* height: 100%; */
+  width: 100%;
 }
 
 /* 在滑动过程中将最上面的作者信息隐藏 */
@@ -34,24 +42,33 @@ page {
 
 .author .name {
   color: red;
+  flex: 1;
   margin-right: 20rpx;
 }
 
 .author .focus {
-  font-size: 13px;
-  padding: 0 10rpx;
+  /* font-size: 13px; */
+  padding: 0 15rpx;
   border: 1px solid green;
   background-color: greenyellow;
-  border-radius: 15rpx;
+  border-radius: 13rpx;
+  margin-right: 20rpx;
 }
 
 .content {
   margin-top: 20rpx;
   margin-left: 20rpx;
+  margin-bottom: 20rpx;
 }
 
 .video{
-  margin-top: 20rpx;
+  /* margin-top: 20rpx; */
+}
+
+/* 当作品类型是图片时展示图片 */
+.video-image {
+  width: 100%;
+  overflow: hidden;
 }
 
 .video video{
@@ -86,8 +103,8 @@ page {
 
 .video .option .collect{
   flex: 1;
-  display: flex;
-  /* float: right; */
+  /* display: flex; */
+  float: right;
   /* justify-content: left; */
 }
 
@@ -102,7 +119,7 @@ page {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  margin-left: 20rpx;
+  /* margin-left: 20rpx; */
   margin-right: 20rpx;
 }
 
@@ -115,6 +132,7 @@ page {
 }
 
 .comment-list .item{
+  /* width: 100%; */
   display: flex;
   flex-direction: column;
   margin-left: 20rpx;
@@ -127,6 +145,7 @@ page {
 }
 
 .comment-list .item .comment{
+  width: 100%;
   display: flex;
   margin-top: 10rpx;
   /* align-items: center; */

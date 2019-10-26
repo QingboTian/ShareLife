@@ -7,7 +7,10 @@
     "pages/me/me",
     "pages/title/title",
     "pages/chat/chat",
-    "pages/video/video"
+    "pages/video/video",
+    "pages/userinfo/userinfo",
+    "pages/classify/classify",
+    "pages/personinfo/personinfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

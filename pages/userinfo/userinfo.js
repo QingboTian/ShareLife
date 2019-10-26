@@ -1,38 +1,18 @@
-// pages/video/video.js
+// pages/userinfo/userinfo.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    type : 0 // 1 ：video    0 ：image 
-  },
 
-  previewImage : function (e) {
-    // https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg
-    // var current = e.target.dataset.src
-    var current = "https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg"
-
-    console.log(current)
-
-    var urls = []
-    urls.push(current)
-
-    wx.previewImage({
-      current : current, // 此处传递的地址值必须是网络资源的链接 本地的无法显示
-      urls: urls
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log(options)
-    var type = options.type
-    this.setData({
-      type : type
-    })
+
   },
 
   /**
