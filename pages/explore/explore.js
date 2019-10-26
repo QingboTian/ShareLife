@@ -45,6 +45,13 @@ Page({
     ]
   },
 
+  // 进入专区详情页面
+  tapHandler : function (e) {
+    wx.navigateTo({
+      url: '../classify/classify',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

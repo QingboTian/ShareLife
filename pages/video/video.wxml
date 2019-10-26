@@ -1,6 +1,6 @@
 <!--pages/video/video.wxml-->
 <view class="{{type == 1 ? 'container-video' : 'container-image'}}">
-  <view class='author'>
+  <view class='author' bindtap='tapHandler'>
     <image src='../../images/touxiang.jpg'></image>
     <view class='name'>
       热门电影推荐
@@ -35,6 +35,13 @@
           <!-- <view>10000</view> -->
         </view>
       </view>
+
+      <!-- 标签 -->
+      <view class='lable'>
+        <view class='item'>电影</view>
+        <view class='item'>经典</view>
+        <view class='item'>强力推荐</view>
+      </view>
     </view>
 
 
@@ -42,7 +49,7 @@
     <scroll-view class='comment-list' scroll-y>
       <!-- <></scroll-view> -->
       <view class='item'>
-        <view class='discussant'>
+        <view class='discussant' bindtap='tapHandler'>
           <image src='../../images/touxiang.jpg'></image>
           <view class='name'>
             张三
@@ -60,7 +67,7 @@
       </view>
 
       <view class='item'>
-        <view class='discussant'>
+        <view class='discussant' bindtap='tapHandler'>
           <image src='../../images/touxiang.jpg'></image>
           <view class='name'>
             李四
@@ -78,7 +85,7 @@
       </view>
 
       <view class='item'>
-        <view class='discussant'>
+        <view class='discussant' bindtap='tapHandler'>
           <image src='../../images/touxiang.jpg'></image>
           <view class='name'>
             张三
@@ -96,7 +103,7 @@
       </view>
 
       <view class='item'>
-        <view class='discussant'>
+        <view class='discussant' bindtap='tapHandler'>
           <image src='../../images/touxiang.jpg'></image>
           <view class='name'>
             张三
@@ -114,7 +121,7 @@
       </view>
 
       <view class='item'>
-        <view class='discussant'>
+        <view class='discussant' bindtap='tapHandler'>
           <image src='../../images/touxiang.jpg'></image>
           <view class='name'>
             张三

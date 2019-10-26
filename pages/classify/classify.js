@@ -5,7 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    type : 0
+  },
 
+  tapHandler : function (e) {
+    wx.navigateTo({
+      url: '../userinfo/userinfo',
+    })
   },
 
   /**

@@ -1,1 +1,162 @@
 /* pages/classify/classify.wxss */
+page {
+  height: 100%;
+  background-color: #f0f0f0;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.introduce .poster image{
+  width: 100%;
+}
+
+/* .introduce .poster{
+  width: 100%;
+  height: 200px;
+} */
+
+.introduce .content {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.introduce .content .head {
+  display: flex;
+  align-items: center;
+}
+
+.introduce .content .head .title{
+  font-size: 20px;
+  flex: 1;
+}
+
+.introduce .content .head .focus{
+  border: 1px solid green;
+  background-color: greenyellow;
+  border-radius: 15rpx;
+  padding: 0 10rpx;
+  margin-right: 20rpx;
+}
+
+.introduce .content .desc{
+  margin-top: 10rpx;
+  margin-right: 20rpx;
+  color: #8a8a8a;
+}
+
+.introduce .content .nums{
+  margin-top: 5rpx;
+  font-size: 13px;
+  color: #bfbfbf;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.body .item{
+  margin-bottom: 20rpx;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+}
+
+.author image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.author .name {
+  color: red;
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.author .focus {
+  /* font-size: 13px; */
+  padding: 0 15rpx;
+  border: 1px solid green;
+  background-color: greenyellow;
+  border-radius: 13rpx;
+  margin-right: 20rpx;
+}
+
+.content {
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.video{
+  /* margin-top: 20rpx; */
+}
+
+/* 当作品类型是图片时展示图片 */
+.video-image {
+  width: 100%;
+  overflow: hidden;
+}
+
+.video video{
+  width: 100%;
+}
+
+.video .option{
+  margin-top: 10rpx;
+  display: flex;
+  flex: 1;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.video .option image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 5rpx;
+}
+
+.video .option .like{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.video .option .comment{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video .option .collect{
+  flex: 1;
+  /* display: flex; */
+  /* float: right; */
+  /* justify-content: right; */
+  text-align: right;
+}
+
+.video .lable {
+  margin-top: 10rpx;
+  display: flex;
+  margin-left: 20rpx;
+}
+
+.video .lable .item {
+  margin: 0 10rpx;
+  font-size: 14px;
+  border: 1px solid #8a8a8a;
+  padding: 0 10rpx;
+  border-radius: 20rpx;
+}

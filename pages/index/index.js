@@ -117,8 +117,8 @@ Page({
 
   tapHandler : function (e) {
 
-    var type = e.target.dataset.type
-    console.log(e)
+    var type = e.currentTarget.dataset.type
+    // console.log(e)
 
     wx.navigateTo({
       url: '../video/video?type=' + type,

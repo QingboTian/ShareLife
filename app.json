@@ -5,7 +5,6 @@
     "pages/upload/upload",
     "pages/message/message",
     "pages/me/me",
-    "pages/title/title",
     "pages/chat/chat",
     "pages/video/video",
     "pages/userinfo/userinfo",
@@ -33,7 +32,7 @@
     },
     {
       "pagePath": "pages/upload/upload",
-      "text": "上传",
+      "text": "发表",
       "iconPath": "images/upload.png",
       "selectedIconPath": "images/upload-select.png"
     },

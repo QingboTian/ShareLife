@@ -78,6 +78,7 @@ page {
 .video .option{
   margin-top: 10rpx;
   display: flex;
+  flex: 1;
   margin-left: 20rpx;
   margin-right: 20rpx;
 }
@@ -104,8 +105,23 @@ page {
 .video .option .collect{
   flex: 1;
   /* display: flex; */
-  float: right;
-  /* justify-content: left; */
+  /* float: right; */
+  /* justify-content: right; */
+  text-align: right;
+}
+
+.video .lable {
+  margin-top: 10rpx;
+  display: flex;
+  margin-left: 20rpx;
+}
+
+.video .lable .item {
+  margin: 0 10rpx;
+  font-size: 14px;
+  border: 1px solid #8a8a8a;
+  padding: 0 10rpx;
+  border-radius: 20rpx;
 }
 
 .comment-list {

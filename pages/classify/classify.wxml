@@ -1,2 +1,103 @@
-<!--pages/classify/classify.wxml-->
-<text>pages/classify/classify.wxml</text>
+<view class='container'>
+  <view class='introduce'>
+    <view class='poster'>
+      <image src='../../images/300.jpg' mode='widthFix'></image>
+    </view>
+    <view class='content'>
+      <view class='head'>
+        <view class='title'>美女专区</view>
+        <view class='focus'>关注</view>
+      </view>
+      <view class='desc'>
+        芳容丽质更妖娆，秋水精神瑞雪标，凤眼半弯藏琥珀，朱唇一颗点樱桃。与古典美女的清纯淡雅不同，艳美型的美女，美的很张扬，妖冶艳丽，千娇百媚，回眸一笑百媚生，六宫粉黛无颜色形容的就是她们，通常只需一眼便可夺人眼光。
+      </view>
+      <view class='nums'>
+        1w人看过
+      </view>
+    </view>
+  </view>
+
+  <view class='body'>
+    <view class='item'>
+      <view class='author' bindtap='tapHandler'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          热门电影推荐
+        </view>
+      </view>
+
+      <view class='content'>
+        最佳男主角花落谁家？
+      </view>      
+      <view class='video'>
+        <video src='' wx:if="{{type == 1}}"></video>
+        <image src='../../images/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='../../images/4.jpg'></image>
+        <!-- 点赞 评论 收藏等功能 -->
+        <view class='option'>
+          <view class='like'>
+            <image src='../../images/like.png'></image>
+            <view>10000</view>
+          </view>
+
+          <view class='comment'>
+            <image src='../../images/comment.png'></image>
+            <view>500</view>
+          </view>
+
+          <view class='collect'>
+            <image src='../../images/collect.png'></image>
+            <!-- <view>10000</view> -->
+          </view>
+        </view>
+
+        <!-- 标签 -->
+        <view class='lable'>
+          <view class='item'>电影</view>
+          <view class='item'>经典</view>
+          <view class='item'>强力推荐</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='author' bindtap='tapHandler'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          热门电影推荐
+        </view>
+      </view>
+
+      <view class='content'>
+        最佳男主角花落谁家？
+      </view>      
+      <view class='video'>
+        <video src='' wx:if="{{type == 1}}"></video>
+        <image src='../../images/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='../../images/4.jpg'></image>
+        <!-- 点赞 评论 收藏等功能 -->
+        <view class='option'>
+          <view class='like'>
+            <image src='../../images/like.png'></image>
+            <view>10000</view>
+          </view>
+
+          <view class='comment'>
+            <image src='../../images/comment.png'></image>
+            <view>500</view>
+          </view>
+
+          <view class='collect'>
+            <image src='../../images/collect.png'></image>
+            <!-- <view>10000</view> -->
+          </view>
+        </view>
+
+        <!-- 标签 -->
+        <view class='lable'>
+          <view class='item'>电影</view>
+          <view class='item'>经典</view>
+          <view class='item'>强力推荐</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

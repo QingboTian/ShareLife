@@ -8,6 +8,7 @@ Page({
     type : 0 // 1 ：video    0 ：image 
   },
 
+  // 放大看图
   previewImage : function (e) {
     // https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg
     // var current = e.target.dataset.src
@@ -21,6 +22,13 @@ Page({
     wx.previewImage({
       current : current, // 此处传递的地址值必须是网络资源的链接 本地的无法显示
       urls: urls
+    })
+  },
+
+  // 点击作者或者评论者的头像或名称区域进行跳转
+  tapHandler : function(e) {
+    wx.navigateTo({
+      url: '../userinfo/userinfo',
     })
   },
 

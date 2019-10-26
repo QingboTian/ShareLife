@@ -1,2 +1,100 @@
 <!--pages/userinfo/userinfo.wxml-->
-<text>pages/userinfo/userinfo.wxml</text>
+<view class='container'>
+  <view class='info'>
+    <view class='poster'> 
+      <image src='../../images/touxiang.jpg'></image>
+      <view class='id'>ID:999999</view>
+    </view>
+    <view class='other-info'>
+      <view class='other'>
+        <view class='item'>2.3w获赞</view>
+        <view class='item'>120关注</view>
+        <view class='item'>132粉丝</view>
+      </view>
+      <view class='focus'>关注</view>
+    </view>
+  </view>
+
+  <view class='num'>作品 120：</view>
+
+  <scroll-view class='zuopin' scroll-y>
+      <view class='author'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          热门电影推荐
+        </view>
+      </view>
+
+      <view class='content'>
+        最佳男主角花落谁家？
+      </view>      
+      <view class='video'>
+        <video src='' wx:if="{{type == 1}}"></video>
+        <image src='../../images/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='../../images/4.jpg'></image>
+        <!-- 点赞 评论 收藏等功能 -->
+        <view class='option'>
+          <view class='like'>
+            <image src='../../images/like.png'></image>
+            <view>10000</view>
+          </view>
+
+          <view class='comment'>
+            <image src='../../images/comment.png'></image>
+            <view>500</view>
+          </view>
+
+          <view class='collect'>
+            <image src='../../images/collect.png'></image>
+            <!-- <view>10000</view> -->
+          </view>
+        </view>
+
+        <!-- 标签 -->
+        <view class='lable'>
+          <view class='item'>电影</view>
+          <view class='item'>经典</view>
+          <view class='item'>强力推荐</view>
+        </view>
+      </view>
+
+
+      <view class='author'>
+        <image src='../../images/touxiang.jpg'></image>
+        <view class='name'>
+          热门电影推荐
+        </view>
+      </view>
+
+      <view class='content'>
+        最佳男主角花落谁家？
+      </view>  
+      <view class='video'>
+        <video src='' wx:if="{{type == 1}}"></video>
+        <image src='../../images/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='../../images/4.jpg'></image>
+        <!-- 点赞 评论 收藏等功能 -->
+        <view class='option'>
+          <view class='like'>
+            <image src='../../images/like.png'></image>
+            <view>10000</view>
+          </view>
+
+          <view class='comment'>
+            <image src='../../images/comment.png'></image>
+            <view>500</view>
+          </view>
+
+          <view class='collect'>
+            <image src='../../images/collect.png'></image>
+            <!-- <view>10000</view> -->
+          </view>
+        </view>
+
+        <!-- 标签 -->
+        <view class='lable'>
+          <view class='item'>电影</view>
+          <view class='item'>经典</view>
+          <view class='item'>强力推荐</view>
+        </view>
+      </view>
+  </scroll-view>
+</view>

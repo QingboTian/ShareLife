@@ -3,14 +3,15 @@
 
   <block wx:for='{{areas}}' wx:for-item='area'>
     <view class='item'>
-    <view class='poster'>
-      <image src='../../images/beauty.png'></image>
-    </view>
-    <view class='text'>
-      <view class='title'>{{area.name}}</view>
-      <view class='content'>{{area.content}}</view>
-    </view>
-    <view class='focus'>关注</view>
+      <!-- 此处代码略不优雅 谅解 哈哈 -->
+      <view class='poster' data-='' bindtap='tapHandler'>
+        <image src='../../images/beauty.png'></image>
+      </view>
+      <view class='text' data-='' bindtap='tapHandler'>
+        <view class='title'>{{area.name}}</view>
+        <view class='content'>{{area.content}}</view>
+      </view>
+      <view class='focus'>关注</view>
   </view>
   </block>
   
