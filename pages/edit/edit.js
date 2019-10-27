@@ -5,10 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type : 1,
+    type : 3,
     titles: ["昵称", "个性签名", "手机", "邮箱", "性别", "生日", "地区"],
-    wordLength : 0,
-    nickname : "bobo"
+    nickWordLength : 0,
+    nickname : "bobo",
+    signatureWordLength : 0,
+    signature : "心若向阳，无畏悲伤！",
+    checkBtnAble : false,
+    checkNumStr: "发送验证码",
+    phone : "13888888888"
   },
 
   /**
@@ -30,25 +35,55 @@ Page({
     })
 
     // 设置字符长度
-    var length = this.data.nickname.trim().length
+    var length1 = this.data.nickname.trim().length
+    var length2 = this.data.signature.trim().length
     this.setData({
-      wordLength: length
+      nickWordLength: length1,
+      signatureWordLength: length2
     })
   },
 
   // 判断字符长度
   wordLength : function(e) {
-    // console.log(e.detail.value)
-    var inputValue = e.detail.value.trim()
-    var length = inputValue.length
-    // console.log(length)
     
     // 这里应该进行非法字符判断
     // ...
 
+    var type = e.currentTarget.dataset.type
+    var data = {}
+    var inputValue = e.detail.value.trim()
+    var length = inputValue.length
+    data[type] = length
+
+    this.setData(data)
+  },
+
+  // 发送验证码按钮进行刷新
+  sendCheckNum : function(e) {
+
+    // 此处调用真正的发短信接口
+    // ...
+
+    // 设置不可用
     this.setData({
-      wordLength : length
+      checkBtnAble: true
     })
+    var that = this
+
+    var seconds = 60// 60s
+    var intervalID = setInterval(function(){
+      that.setData({
+        checkNumStr : --seconds + 's'
+      })
+      // 到时按钮可用
+      if (seconds == 0) {
+        that.setData({
+          checkBtnAble: false,
+          checkNumStr:  "发送验证码"
+        })
+        clearInterval(intervalID)// 清除计时器
+      }
+    },1000)// 每隔1s进行刷新
   },
 
   /**

@@ -8,10 +8,12 @@ page {
   height: 100%;
 }
 
+/* 保存按钮 */
 .save {
   margin: 0 20rpx;
 }
 
+/* 昵称样式 */
 .nick .item {
   margin: 20rpx 0;
 }
@@ -36,4 +38,75 @@ page {
 .nick .tips {
   font-size: 13px;
   color: #bfbfbf;
+}
+
+/* 个性签名样式 */
+.signature {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.signature .item {
+  margin: 20rpx 0;
+}
+
+.signature .name{
+  color: #bfbfbf;
+}
+
+.signature .tips {
+  font-size: 13px;
+  color: #bfbfbf;
+}
+
+.signature .textarea {
+  padding-top: 10rpx;
+  background-color: white;
+  margin-right: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  border-radius: 15rpx;
+}
+
+.signature .textarea textarea{
+  width: 100%;
+}
+
+/* 手机 */
+.phone {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.phone .item {
+  margin: 20rpx 0;
+}
+
+.phone .name{
+  color: #bfbfbf;
+}
+
+.phone .input {
+  border-bottom: 1px solid #bfbfbf;
+  font-size: 16px;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  display: flex;
+  align-items: center;
+}
+
+.phone .input input{
+  flex: 1;
+}
+
+.phone .input .checkBtn{
+  /* width: 200rpx; */
+  margin-right: 20rpx;
+}
+
+.phone .checknum {
+  border-bottom: 1px solid #bfbfbf;
+  /* padding-top: 15rpx; */
+  padding-bottom: 15rpx;
+  margin-bottom: 20rpx;
 }

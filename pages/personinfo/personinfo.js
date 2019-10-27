@@ -15,8 +15,8 @@ Page({
 
     wx.chooseImage({
       count : 1, // 选择一张照片
-      sizeType: ['original', 'compressed'], // 原图 压缩图
-      sourceType: ['album', 'camera'], // 拍照 相册
+      // sizeType: ['original', 'compressed'], // 原图 压缩图
+      // sourceType: ['album', 'camera'], // 拍照 相册
       success: function(res) {
         const tempFilePaths = res.tempFilePaths
         that.setData({
