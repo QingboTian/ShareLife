@@ -1,1 +1,39 @@
 /* pages/edit/edit.wxss */
+page {
+  height: 100%;
+  background-color: #f0f0f0;
+}
+
+.container {
+  height: 100%;
+}
+
+.save {
+  margin: 0 20rpx;
+}
+
+.nick .item {
+  margin: 20rpx 0;
+}
+
+.nick {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.nick .nickname{
+  color: #bfbfbf;
+}
+
+.nick .input {
+  /* border-top: 1px solid #bfbfbf; */
+  border-bottom: 1px solid #bfbfbf;
+  font-size: 16px;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+}
+
+.nick .tips {
+  font-size: 13px;
+  color: #bfbfbf;
+}

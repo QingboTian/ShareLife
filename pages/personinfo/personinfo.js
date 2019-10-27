@@ -5,7 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
+    src: "../../images/touxiang.jpg"
+  },
 
+  // 更换头像
+  replaceThepicture : function(e) {
+
+    var that = this
+
+    wx.chooseImage({
+      count : 1, // 选择一张照片
+      sizeType: ['original', 'compressed'], // 原图 压缩图
+      sourceType: ['album', 'camera'], // 拍照 相册
+      success: function(res) {
+        const tempFilePaths = res.tempFilePaths
+        that.setData({
+          src: tempFilePaths
+        })
+        console.log(tempFilePaths)
+      },
+    })
   },
 
   /**

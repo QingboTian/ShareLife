@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    type : 1,
+    titles: ["昵称", "个性签名", "手机", "邮箱", "性别", "生日", "地区"],
+    wordLength : 0,
+    nickname : "bobo"
   },
 
   /**
@@ -13,6 +16,39 @@ Page({
    */
   onLoad: function (options) {
 
+    var type = options.type
+
+    // console.log(options.type)
+    this.setData({
+      type: type
+    })
+
+    // 设置标题
+    var title = this.data.titles[type - 1]
+    wx.setNavigationBarTitle({
+      title: '修改' + title,
+    })
+
+    // 设置字符长度
+    var length = this.data.nickname.trim().length
+    this.setData({
+      wordLength: length
+    })
+  },
+
+  // 判断字符长度
+  wordLength : function(e) {
+    // console.log(e.detail.value)
+    var inputValue = e.detail.value.trim()
+    var length = inputValue.length
+    // console.log(length)
+    
+    // 这里应该进行非法字符判断
+    // ...
+
+    this.setData({
+      wordLength : length
+    })
   },
 
   /**

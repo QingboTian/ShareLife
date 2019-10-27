@@ -5,7 +5,8 @@
     <view class='name'>
       热门电影推荐
     </view>
-    <view class='focus'>
+    <!-- 注意：catchtap阻止事件冒泡 -->
+    <view class='focus' catchtap='focus'>
       关注
     </view>
   </view>

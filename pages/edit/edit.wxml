@@ -1,2 +1,50 @@
 <!--pages/edit/edit.wxml-->
-<text>pages/edit/edit.wxml</text>
+<view class='container'>
+  <!-- 修改昵称 -->
+  <view wx:if="{{type == 1}}" class='nick'>
+    <view class='item nickname'>我的昵称</view>
+    <view class='item input' >
+      <input type='text' value='{{nickname}}' bindinput='wordLength' placeholder='请输入昵称' maxlength="20"></input>
+    </view>
+    <view class='item tips'>{{wordLength}}/20</view>
+  </view>
+
+  <!-- 修改签名 -->
+  <view wx:elif="{{type == 2}}">
+
+  </view>
+
+  <!-- 修改手机 -->
+  <view wx:elif="{{type == 3}}">
+
+  </view>
+
+  <!-- 修改邮箱 -->
+  <view wx:elif="{{type == 4}}">
+
+  </view>
+
+  <!-- 修改性别 -->
+  <view wx:elif="{{type == 5}}">
+
+  </view>
+
+  <!-- 修改生日 -->
+  <view wx:elif="{{type == 6}}">
+
+  </view>
+
+  <!-- 修改地区 -->
+  <view wx:elif="{{type == 7}}">
+
+  </view>
+
+  <!-- 错误页面 -->
+  <view wx:else="{{type == -1}}">
+    x
+  </view>
+
+  <view class='save'>
+    <button type='primary'>保存</button>
+  </view>
+</view>
