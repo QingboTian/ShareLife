@@ -31,28 +31,77 @@
   </view>
 
   <!-- 修改邮箱 -->
-  <view wx:elif="{{type == 4}}">
-
+  <view wx:elif="{{type == 4}}" class='mail'>
+    <view class='item name'>邮箱</view>
+    <view class='item input'>
+      <view class='zhengti'>
+        <input type='text' value='{{mailBefore}}' data-type='mail-before' placeholder='example'></input>
+        @
+        <input type='text' value='{{mailLater}}' data-type='mail-later' placeholder='tianqb.cn'></input>
+      </view>
+      <view class='checkBtn'><button type='primary' size='mini' disabled="{{checkBtnAble}}"  bindtap='sendCheckNum'>{{checkNumStr}}</button></view>
+    </view>
+    <view class='item checknum'>
+      <input type='number' maxlength='6' placeholder='请输入验证码'></input>
+    </view>
   </view>
 
   <!-- 修改性别 -->
-  <view wx:elif="{{type == 5}}">
-
+  <view wx:elif="{{type == 5}}" class='sex'>
+    <view class='item name'>性别</view>
+    <view class='item'>
+      <picker bindchange="bindPickerChange" data-type='index' value="{{index}}" range="{{array}}">
+        <view class='picker'>
+          <view class="show">
+          {{array[index]}}
+          </view>
+          <image src='../../images/right.png'></image>
+        </view>
+      </picker>
+    </view>
   </view>
 
   <!-- 修改生日 -->
-  <view wx:elif="{{type == 6}}">
-
+  <view wx:elif="{{type == 6}}" class='birthday'>
+    <view class='item name'>生日</view>
+    <view class='item'>
+      <picker bindchange="bindPickerChange" value="{{date}}" data-type='date' range="{{array}}" mode="date" start="1918-01-01" end="2020-01-01">
+        <view class='picker'>
+          <view class="show">
+          <!-- {{array[index]}} -->
+          {{date}}
+          </view>
+          <image src='../../images/right.png'></image>
+        </view>
+      </picker>
+    </view>
   </view>
 
   <!-- 修改地区 -->
-  <view wx:elif="{{type == 7}}">
-
+  <view wx:elif="{{type == 7}}" class='area'>
+    <view class='item name'>地区</view>
+    <view class='item current-location'>
+      <view class='item zhengti'>
+        <image src='../../images/location.png'></image>
+          当前位置：{{currentLocation}}
+      </view>
+      <view class='item reLocation' bindtap='switchLocation'>重新定位</view>
+    </view>
+    <view class='item'>
+      <picker bindchange="bindPickerChange" data-type='region' value="{{region}}" custom-item="{{customItem}}" mode="region">
+        <view class='picker'>
+          <view class="show">
+          {{region[0]}}，{{region[1]}}，{{region[2]}}
+          </view>
+          <image src='../../images/right.png'></image>
+        </view>
+      </picker>
+    </view>
   </view>
 
   <!-- 错误页面 -->
   <view wx:else="{{type == -1}}">
-    x
+    遇到了一个错误
   </view>
 
   <view class='save'>

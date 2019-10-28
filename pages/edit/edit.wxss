@@ -124,3 +124,184 @@ page {
   margin-right: 20rpx;
   border-radius: 15rpx;
 }
+
+/* 邮箱 */
+.mail {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.mail .name{
+  color: #bfbfbf;
+}
+
+.mail .input {
+  font-size: 16px;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  display: flex;
+  align-items: center;
+}
+
+.mail .input input{
+  background-color: white;
+  padding: 15rpx 0;
+  padding-left: 15rpx;
+  /* margin-right: 20rpx; */
+  border-radius: 15rpx;
+}
+
+.mail .input .zhengti{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.mail .input .checkBtn{
+  margin: 0 20rpx;
+}
+
+.mail .checknum {
+  padding-bottom: 15rpx;
+  margin-bottom: 20rpx;
+  background-color: white;
+  padding-left: 15rpx;
+  padding-top: 15rpx;
+  margin-right: 20rpx;
+  border-radius: 15rpx;
+}
+
+/* 性别 */
+.sex {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.sex .name{
+  color: #bfbfbf;
+  /* display: flex;
+  justify-content: center;
+  margin-right: 20rpx; */
+}
+
+.sex .item {
+  margin: 20rpx 0;
+}
+
+.sex .picker {
+  background-color: white;
+  margin-top: 20rpx;
+  padding: 10rpx 0;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-right: 20rpx;
+}
+
+.sex .picker .show{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.sex .picker image{
+  width: 15px;
+  height: 15px;
+}
+
+/* 生日 */
+.birthday {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.birthday .name{
+  color: #bfbfbf;
+}
+
+.birthday .item {
+  margin: 20rpx 0;
+}
+
+.birthday .picker {
+  background-color: white;
+  margin-top: 20rpx;
+  padding: 10rpx 0;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-right: 20rpx;
+}
+
+.birthday .picker .show{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.birthday .picker image{
+  width: 15px;
+  height: 15px;
+}
+
+/* 地区 */
+.area {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+
+.area .name{
+  color: #bfbfbf;
+}
+
+.area .item {
+  margin: 20rpx 0;
+}
+
+.area .picker {
+  background-color: white;
+  margin-top: 20rpx;
+  padding: 10rpx 0;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-right: 20rpx;
+}
+
+.area .picker .show{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.area .picker image{
+  width: 15px;
+  height: 15px;
+}
+
+.area .current-location {
+  display: flex;
+}
+
+.area .current-location .item{
+  margin-right: 20rpx;
+}
+
+.area .current-location .reLocation {
+  color: blue;
+}
+
+.area .current-location .reLocation .zhengti{
+  display: flex;
+  align-items: center;
+}
+
+.area .current-location image{
+  width: 15px;
+  height: 15px;
+}
+
+.area .current-location image{
+  width: 15px;
+  height: 15px;
+}
