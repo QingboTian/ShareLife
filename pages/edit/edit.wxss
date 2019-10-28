@@ -29,10 +29,14 @@ page {
 
 .nick .input {
   /* border-top: 1px solid #bfbfbf; */
-  border-bottom: 1px solid #bfbfbf;
+  /* border-bottom: 1px solid #bfbfbf; */
   font-size: 16px;
   padding-top: 15rpx;
   padding-bottom: 15rpx;
+  padding-left: 15rpx;
+  background-color: white;
+  border-radius: 15rpx;
+  margin-right: 20rpx;
 }
 
 .nick .tips {
@@ -87,7 +91,7 @@ page {
 }
 
 .phone .input {
-  border-bottom: 1px solid #bfbfbf;
+  /* border-bottom: 1px solid #bfbfbf; */
   font-size: 16px;
   padding-top: 15rpx;
   padding-bottom: 15rpx;
@@ -97,6 +101,11 @@ page {
 
 .phone .input input{
   flex: 1;
+  background-color: white;
+  padding: 15rpx 0;
+  padding-left: 15rpx;
+  margin-right: 20rpx;
+  border-radius: 15rpx;
 }
 
 .phone .input .checkBtn{
@@ -105,8 +114,13 @@ page {
 }
 
 .phone .checknum {
-  border-bottom: 1px solid #bfbfbf;
+  /* border-bottom: 1px solid #bfbfbf; */
   /* padding-top: 15rpx; */
   padding-bottom: 15rpx;
   margin-bottom: 20rpx;
+  background-color: white;
+  padding-left: 15rpx;
+  padding-top: 15rpx;
+  margin-right: 20rpx;
+  border-radius: 15rpx;
 }
