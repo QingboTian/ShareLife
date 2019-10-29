@@ -6,7 +6,7 @@
     </view>
     <view class='nick'>
       <view class='name'>
-        bobo
+        官方宝宝
         <view class='info' bindtap='showPersonInfo'>个人信息</view>
       </view>
     </view>

@@ -85,7 +85,8 @@
         <image src='../../images/location.png'></image>
           当前位置：{{currentLocation}}
       </view>
-      <view class='item reLocation' bindtap='switchLocation'>重新定位</view>
+      <view class='item reLocation' bindtap='switchLocation' wx:if="{{!locationFlag}}">重新定位</view>
+      <view class='item reLocation' bindtap='chooseLocation' wx:else>选择该地址</view>
     </view>
     <view class='item'>
       <picker bindchange="bindPickerChange" data-type='region' value="{{region}}" custom-item="{{customItem}}" mode="region">
@@ -105,6 +106,6 @@
   </view>
 
   <view class='save'>
-    <button type='primary'>保存</button>
+    <button type='primary' bindtap='save'>保存</button>
   </view>
 </view>

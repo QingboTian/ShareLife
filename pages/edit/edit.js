@@ -24,9 +24,10 @@ Page({
     index : 1,
     array : ["火星人","男","女"],
     date : "",
-    region: [],
+    region: ["陕西省","榆林市","定边县"],
     customItem: '全部',
     currentLocation : "",
+    locationFlag : true // 显示选择该地址
   },
 
   // 性别 生日 地区picker改变值时触发的函数
@@ -47,7 +48,8 @@ Page({
 
     var fail = function (res) {
       that.setData({
-        currentLocation: "遇到了一个错误,请检查网络是否连接"
+        currentLocation: "遇到了一个错误,请检查网络是否连接",
+        locationFlag : false
       })
     }
 
@@ -58,12 +60,20 @@ Page({
         var province = res.originalData.result.addressComponent.province
         var city = res.originalData.result.addressComponent.city
         var district = res.originalData.result.addressComponent.district // 区
+
+        // 检查当前的region是否有值
         var region = that.data.region
-        region.push(province)
-        region.push(city)
-        region.push(district)
+        if (region.length > 0) {
+          // region存在值
+        }else {
+          // 不存在值
+          region.push(province)
+          region.push(city)
+          region.push(district)
+        }
+
         that.setData({
-          currentLocation: province + city + district,
+          currentLocation: province + "-" + city + "-" + district,
           region: region // 这里应该获取的是用户的地区信息 若没有地区信息，应该设置为当前位置
         })
       }
@@ -76,6 +86,18 @@ Page({
     //     that.parse()
     //   },
     // })
+  },
+
+  // 选择该地址
+  chooseLocation: function (e) {
+    // console.log(this.data.currentLocation)
+    var currentLocation = this.data.currentLocation
+    var locations = currentLocation.split("-")
+    // 将当前位置信息设置为地区信息
+    // console.log(locations)
+    this.setData({
+      region : locations
+    })
   },
 
   /**
@@ -104,18 +126,22 @@ Page({
       signatureWordLength: length2
     })
 
-    // 获取当前日期
-    var datetime = util.formatTime(new Date());
-    var str = datetime.split(" ")
-    var date = str[0]
-    date = date.replace("/","-")
-    date = date.replace("/", "-")
-    this.setData({
-      date: date
-    })
+    if (type == 6){
+      // 获取当前日期
+      var datetime = util.formatTime(new Date());
+      var str = datetime.split(" ")
+      var date = str[0]
+      date = date.replace("/", "-")
+      date = date.replace("/", "-")
+      this.setData({
+        date: date
+      })
+    }
 
-    // 获取位置
-    this.switchLocation()
+    if(type == 7) {
+      // 获取位置
+      this.switchLocation()
+    }
   },
 
   // 判断字符长度
@@ -159,6 +185,15 @@ Page({
         clearInterval(intervalID)// 清除计时器
       }
     },1000)// 每隔1s进行刷新
+  },
+
+  // 点击保存按钮
+  save : function (e) {
+    // 具体的数据处理策略 这里进行
+    // ...
+    
+    // 返回上一页面
+    wx.navigateBack()
   },
 
   /**
