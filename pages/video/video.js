@@ -12,7 +12,7 @@ Page({
   previewImage : function (e) {
     // https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg
     // var current = e.target.dataset.src
-    var current = "https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg"
+    var current = "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg"
 
     console.log(current)
 

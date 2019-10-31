@@ -1,7 +1,7 @@
 <!--pages/video/video.wxml-->
 <view class="{{type == 1 ? 'container-video' : 'container-image'}}">
   <view class='author' bindtap='tapHandler'>
-    <image src='../../images/touxiang.jpg'></image>
+    <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
     <view class='name'>
       热门电影推荐
     </view>
@@ -18,7 +18,7 @@
   <view class='zhengti'>
     <view class='video'>
       <video src='' wx:if="{{type == 1}}"></video>
-      <image src='../../images/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='../../images/4.jpg'></image>
+      <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg'></image>
       <!-- 点赞 评论 收藏等功能 -->
       <view class='option'>
         <view class='like'>
@@ -51,7 +51,7 @@
       <!-- <></scroll-view> -->
       <view class='item'>
         <view class='discussant' bindtap='tapHandler'>
-          <image src='../../images/touxiang.jpg'></image>
+          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
           <view class='name'>
             张三
           </view>
@@ -69,7 +69,7 @@
 
       <view class='item'>
         <view class='discussant' bindtap='tapHandler'>
-          <image src='../../images/touxiang.jpg'></image>
+          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
           <view class='name'>
             李四
           </view>
@@ -123,7 +123,7 @@
 
       <view class='item'>
         <view class='discussant' bindtap='tapHandler'>
-          <image src='../../images/touxiang.jpg'></image>
+          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
           <view class='name'>
             张三
           </view>

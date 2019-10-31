@@ -2,26 +2,26 @@
 <view class='container'>
   <view class='person'>
     <view class='poster'>
-      <image src='../../images/touxiang.jpg'></image>
+      <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
     </view>
     <view class='nick'>
       <view class='name'>
-        官方宝宝
+        啵啵
         <view class='info' bindtap='showPersonInfo'>个人信息</view>
       </view>
     </view>
   </view>
 
   <view class='slider'>
-    <swiper indicator-dots autoplay circular interval="2000" indicator-active-color="red">
+    <swiper indicator-dots autoplay circular interval="3000" indicator-active-color="red">
       <swiper-item>
-        <image src='../../images/1.jpg' mode='widthFix'></image>
+        <image src='../../images/70.png' mode='widthFix'></image>
       </swiper-item>
       <swiper-item>
-        <image src='../../images/2.jpg' mode='widthFix'></image>
+        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg' mode='widthFix'></image>
       </swiper-item>
       <swiper-item>
-        <image src='../../images/4.jpg' mode='widthFix'></image>
+        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' mode='widthFix'></image>
       </swiper-item>
     </swiper>
   </view>

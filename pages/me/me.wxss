@@ -51,7 +51,7 @@ page {
 }
 
 .slider {
-  height: 150px;
+  /* height: 150px; */
   margin-top: 20rpx;
   width: 100%;
 }
