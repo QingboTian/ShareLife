@@ -1,0 +1,68 @@
+/* pages/focus/focus.wxss */
+page {
+  background-color: #F0F0F0;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabbar {
+  /* border-bottom: 1px solid #bfbfbf; */
+  display: flex;
+  padding: 10rpx 0;
+}
+
+.tabbar .item {
+  flex: 1;
+  /* align-items: center; */
+  text-align: center;
+}
+
+/* 判断是否选择 */
+.isChoose {
+  padding-bottom: 10rpx;
+  border-bottom: 5rpx solid red;
+  color: red;
+  font-weight: bold;
+}
+
+.content .item {
+  display: flex;
+  align-items: center;
+}
+
+.content .item image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin: 0 20rpx;
+}
+
+.content .item .body{
+  flex: 1;
+}
+
+/* .content .item .body .name{
+  font-weight: bold;
+} */
+
+.content .item .body .desc{
+  color: #bfbfbf;
+  font-size: 14px;
+}
+
+.content .item .body .signature{
+  color: #bfbfbf;
+  font-size: 14px;
+}
+
+.content .item .focus{
+  margin-right: 20rpx;
+  padding: 0 20rpx;
+  border-radius: 15rpx;
+  background-color: greenyellow;
+}

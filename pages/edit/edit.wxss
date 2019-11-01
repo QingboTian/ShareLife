@@ -291,9 +291,10 @@ page {
   color: blue;
 }
 
-.area .current-location .reLocation .zhengti{
+.area .current-location .zhengti{
   display: flex;
   align-items: center;
+  font-size: 14px;
 }
 
 .area .current-location image{

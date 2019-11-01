@@ -1,0 +1,37 @@
+<!--pages/focus/focus.wxml-->
+<view class="container" bindtouchstart="touchStartHandler" bindtouchend="touchEndHandler">
+  <view class="tabbar">
+    <view class="item {{isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="0">关注的人</view>
+    <view class="item {{!isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="1">专区</view>
+  </view>
+
+
+  <view class="content">
+    <!-- 关注的人 -->
+    <view class="people" hidden="{{!showFlag}}">
+      <block wx:for="{{focusPeople}}" wx:for-item="item" wx:key="index">
+        <view class="item">
+          <view class="poster"><image src="{{item.poster}}"></image></view>
+          <view class="body">
+            <view class="name">{{item.name}}</view>
+            <view class="signature">{{item.signature}}</view>
+          </view>
+          <view class="focus">关注</view>
+        </view>
+      </block>
+    </view>
+    <!-- 关注的专区 -->
+    <view class="area"  hidden="{{showFlag}}">
+      <block wx:for="{{focusArea}}" wx:for-item="item" wx:key="index">
+        <view class="item">
+          <view class="poster"><image src="{{item.poster}}"></image></view>
+          <view class="body">
+            <view class="name">{{item.name}}</view>
+            <view class="desc">{{item.desc}}</view>
+          </view>
+          <view class="focus">关注</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

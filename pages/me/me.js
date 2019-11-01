@@ -15,6 +15,13 @@ Page({
     })
   },
 
+  toFocusPage : function(e) {
+    // 访问关注的页面
+    wx.navigateTo({
+      url: '../focus/focus',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -10,7 +10,8 @@
     "pages/userinfo/userinfo",
     "pages/classify/classify",
     "pages/personinfo/personinfo",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/focus/focus"
   ],
   "window": {
     "backgroundTextStyle": "light",
