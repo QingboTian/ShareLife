@@ -5,7 +5,60 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    // 操作
+    ops : [
+      {
+        id : "0",
+        icon: "../../images/pinglun.png",// 图标
+        url: "../comment/comment",// 跳转的页面
+        name : "评论"
+      },
+      {
+        id: "1",
+        icon: "../../images/shoucang.png",
+        url: "../collect/collect",// 跳转的页面
+        name: "收藏"
+      },
+      {
+        id: "2",
+        icon: "../../images/fensi.png",
+        url: "../fans/fans",// 跳转的页面
+        name: "粉丝"
+      },
+      {
+        id: "3",
+        icon: "../../images/guanzhu.png",
+        url: "../focus/focus",// 跳转的页面
+        name: "关注"
+      },
+      {
+        id: "4",
+        icon: "../../images/dianzan.png",
+        url: "../like/like",// 跳转的页面
+        name: "点赞"
+      },
+      {
+        id: "5",
+        icon: "../../images/shezhi.png",
+        url: "../setting/setting",// 跳转的页面
+        name: "设置"
+      },
+    ],
+    // 轮播图
+    swiper : [
+      {
+        src: "../../images/70.png",
+        desc : "" // 描述
+      },
+      {
+        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",
+        desc : ""
+      },
+      {
+        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg",
+        desc : ""
+      }
+    ]
   },
 
   // 展示个人信息
@@ -15,10 +68,11 @@ Page({
     })
   },
 
-  toFocusPage : function(e) {
-    // 访问关注的页面
+  opTapHandler : function(e) {
+    // 访问对应页面
+    var pageUrl = e.currentTarget.dataset.url
     wx.navigateTo({
-      url: '../focus/focus',
+      url: pageUrl,
     })
   },
 

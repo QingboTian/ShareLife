@@ -11,13 +11,19 @@
     "pages/classify/classify",
     "pages/personinfo/personinfo",
     "pages/edit/edit",
-    "pages/focus/focus"
+    "pages/focus/focus",
+    "pages/fans/fans",
+    "pages/comment/comment",
+    "pages/collect/collect",
+    "pages/like/like",
+    "pages/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "短视频",
-    "navigationBarTextStyle": "black"
+    "backgroundColor" : "#fff",
+    "navigationBarTextStyle" : "black"
   },
   "tabBar": {
     "list": [{

@@ -23,7 +23,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.0",
-	"appid": "wxcfac461978e3cbc4",
+	"appid": "wx72bd0d179195bfcb",
 	"projectname": "share-life",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -122,6 +122,27 @@
 					"id": -1,
 					"name": "pages/focus/focus",
 					"pathName": "pages/focus/focus",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/fans/fans",
+					"pathName": "pages/fans/fans",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/comment/comment",
+					"pathName": "pages/comment/comment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/collect/collect",
+					"pathName": "pages/collect/collect",
 					"scene": null
 				}
 			]

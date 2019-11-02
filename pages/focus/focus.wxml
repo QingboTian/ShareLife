@@ -1,7 +1,7 @@
 <!--pages/focus/focus.wxml-->
 <view class="container" bindtouchstart="touchStartHandler" bindtouchend="touchEndHandler">
   <view class="tabbar">
-    <view class="item {{isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="0">关注的人</view>
+    <view class="item {{isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="0">用户</view>
     <view class="item {{!isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="1">专区</view>
   </view>
 

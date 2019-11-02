@@ -1,0 +1,46 @@
+<!--pages/collect/collect.wxml-->
+<view class="container">
+  <block wx:for="{{collects}}" wx:for-item="item" wx:key="index">
+      <view class="item">
+        <view class='author'>
+        <image src='{{item.poster}}'></image>
+        <view class='name'>
+          {{item.name}}
+        </view>
+      </view>
+
+      <view class='content'>
+        {{item.content}}
+      </view> 
+           
+      <view class='video'>
+        <video src='{{item.src}}' wx:if="{{item.type == 1}}"></video>
+        <image src='{{item.src}}' wx:if="{{item.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.src}}'></image>
+        <!-- 点赞 评论 收藏等功能 -->
+        <view class='option'>
+          <view class='like'>
+            <image src='../../images/like.png'></image>
+            <view>{{item.like}}</view>
+          </view>
+
+          <view class='comment'>
+            <image src='../../images/comment.png'></image>
+            <view>{{item.comment}}</view>
+          </view>
+
+          <view class='collect'>
+            <image src='../../images/collect.png'></image>
+            <!-- <view>10000</view> -->
+          </view>
+        </view>
+
+        <!-- 标签 -->
+        <view class='lable'>
+          <block wx:for="{{item.labels}}" wx:for-item="label" wx:key="index">
+            <view class='item'>{{label.name}}</view>
+          </block>
+        </view>
+      </view>
+      </view>
+  </block>
+</view>

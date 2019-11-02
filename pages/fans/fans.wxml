@@ -1,0 +1,13 @@
+<!--pages/fans/fans.wxml-->
+<view class="container">
+  <block wx:for="{{fans}}" wx:for-item="item" wx:key="index">
+        <view class="item">
+          <view class="poster"><image src="{{item.poster}}"></image></view>
+          <view class="body">
+            <view class="name">{{item.name}}</view>
+            <view class="signature">{{item.signature}}</view>
+          </view>
+          <view class="{{item.isFocus == 1 ? 'focused' : 'noFocus'}}" data-isFocus="{{item.isFocus}}" data-id="{{item.id}}" bindtap="focusHandler">{{item.isFocus == 1 ? "互相关注" : "关注"}}</view>
+        </view>
+      </block>
+</view>

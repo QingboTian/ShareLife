@@ -14,54 +14,22 @@
 
   <view class='slider'>
     <swiper indicator-dots autoplay circular interval="3000" indicator-active-color="red">
-      <swiper-item>
-        <image src='../../images/70.png' mode='widthFix'></image>
-      </swiper-item>
-      <swiper-item>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg' mode='widthFix'></image>
-      </swiper-item>
-      <swiper-item>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' mode='widthFix'></image>
-      </swiper-item>
+      <block wx:for="{{swiper}}" wx:for-item="item" wx:key="index">
+        <swiper-item>
+          <image src='{{item.src}}' mode='widthFix'></image>
+        </swiper-item>
+      </block>
     </swiper>
   </view>
 
   <view class='more'>
-    <view class='item'>
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>评论</view>
-    </view>
-    <view class='item'>
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>收藏</view>
-    </view>
-    <view class='item'>
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>粉丝</view>
-    </view>
-    <view class='item' bindtap="toFocusPage">
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>关注</view>
-    </view>
-    <view class='item'>
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>点赞</view>
-    </view>
-    <view class='item'>
-      <view class='img'>
-        <image src='../../images/pinglun.png' mode='widthFix'></image>
-      </view>
-      <view>设置</view>
-    </view>
+    <block wx:for="{{ops}}" wx:for-item="item" wx:key="index">
+      <view class='item' data-url="{{item.url}}" bindtap="opTapHandler">
+        <view class='img'>
+          <image src='{{item.icon}}' mode='widthFix'></image>
+        </view>
+        <view>{{item.name}}</view>
+      </view>  
+    </block>
   </view>
 </view>

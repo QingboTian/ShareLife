@@ -6,8 +6,6 @@
 
 let touchDotX = 0;//X按下时坐标
 let touchDotY = 0;//y按下时坐标
-let interval;//计时器
-let time = 0;//从按下到松开共多少时间*100
 
 Page({
 
@@ -118,14 +116,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.setNavigationBarTitle({
+      title: '关注',
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
