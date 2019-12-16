@@ -21,6 +21,18 @@ Page({
   },
 
   onLoad() {
+    // wx.getUserInfo({
+    //   success: function (res) {
+
+    //     console.log(res);
+    //     // that.data.userInfo = res.userInfo;
+
+    //     // that.setData({
+    //     //   userInfo: that.data.userInfo
+    //     // })
+    //   }
+    // })
+
     this.setData({
       search: this.search.bind(this)
     })

@@ -16,7 +16,8 @@
     "pages/comment/comment",
     "pages/collect/collect",
     "pages/like/like",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -8,18 +8,18 @@ Page({
     collects : [
       {
         poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "热门电影推荐",
-        content: "最佳男主角花落谁家？",
+        name: "学习资料",
+        content: "问卷系统开发过程",
         like : 10000,
         comment : 500,
         type : 1,
-        src : "",
+        src: "http://132.232.203.84/group1/M00/00/00/rBsADF2paFKACDiUAE_iT3tRxwc221.mp4",
         labels : [
           {
-            name : "电影"
+            name : "学习"
           },
           {
-            name: "经典"
+            name: "Java"
           },
           {
             name: "强力推荐"

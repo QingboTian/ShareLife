@@ -63,6 +63,12 @@ Page({
     wx.setNavigationBarTitle({
       title: '发现',
     })
+
+    wx.getUserInfo({
+      success: function (res) {
+        console.log(res)
+      }
+    })
   },
 
   /**

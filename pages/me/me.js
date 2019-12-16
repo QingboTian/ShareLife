@@ -1,3 +1,5 @@
+const app = getApp()
+
 // pages/me/me.js
 Page({
 
@@ -7,57 +9,9 @@ Page({
   data: {
     // 操作
     ops : [
-      {
-        id : "0",
-        icon: "../../images/pinglun.png",// 图标
-        url: "../comment/comment",// 跳转的页面
-        name : "评论"
-      },
-      {
-        id: "1",
-        icon: "../../images/shoucang.png",
-        url: "../collect/collect",// 跳转的页面
-        name: "收藏"
-      },
-      {
-        id: "2",
-        icon: "../../images/fensi.png",
-        url: "../fans/fans",// 跳转的页面
-        name: "粉丝"
-      },
-      {
-        id: "3",
-        icon: "../../images/guanzhu.png",
-        url: "../focus/focus",// 跳转的页面
-        name: "关注"
-      },
-      {
-        id: "4",
-        icon: "../../images/dianzan.png",
-        url: "../like/like",// 跳转的页面
-        name: "点赞"
-      },
-      {
-        id: "5",
-        icon: "../../images/shezhi.png",
-        url: "../setting/setting",// 跳转的页面
-        name: "设置"
-      },
     ],
     // 轮播图
     swiper : [
-      {
-        src: "../../images/70.png",
-        desc : "" // 描述
-      },
-      {
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",
-        desc : ""
-      },
-      {
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg",
-        desc : ""
-      }
     ]
   },
 
@@ -82,6 +36,41 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '我的',
+    })
+
+    // 加载功能区
+    this.loadGongengqu(this);
+    // 加载轮播图
+    this.loadSlide(this);
+  },
+
+  loadGongengqu : function (that) {
+    
+    // var that = this
+    wx.request({
+      url: app.api.me.gongneng,
+      method : "GET",
+      success : function (data) {
+        // console.log(data.data.data)
+        that.setData({
+          ops : data.data.data
+        })
+        // console.log(data.data.data)
+      }
+    })
+  },
+
+  loadSlide : function (that) {
+    wx.request({
+      url: app.api.me.slide,
+      method: "GET",
+      success: function (data) {
+        // console.log(data.data.data)
+        that.setData({
+          swiper: data.data.data
+        })
+        console.log(data.data.data)
+      }
     })
   },
 

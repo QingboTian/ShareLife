@@ -78,7 +78,7 @@ page {
 
 .more .item {
   width: 250rpx;
-  height: 230rpx;
+  height: 250rpx;
 }
 
 .more .item image{
