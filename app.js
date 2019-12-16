@@ -10,6 +10,12 @@ App({
       slide: server + "/api/short_video/me/slide"
     },
     login: server + "/api/short_video/login/auto",
+    regist : {
+      // 获取短信验证码
+      msgcode: server + "/api/short_video/regist/messagecode",
+      // 用户注册
+      regist: server + "/api/short_video/regist"
+    }
   },
 
   onLaunch: function () {
@@ -19,15 +25,14 @@ App({
     wx.setStorageSync('logs', logs)
 
     // 首先在缓存中查询是否存在用户信息
-
-    var accesstoken = wx.getStorageSync("accessToken")
-    var timestamp = Date.parse(new Date());// 获取当前时间的时间戳与expired进行比较
-    var flag = true;
-    if (timestamp > accesstoken.expires){
-      flag = false;// token 过期
-    }
-    (accesstoken && flag) || this.login(this)
-
+    this.preLogin(this)
+    // 测试
+    // wx.login({
+    //   success: res => {
+    //     console.log(res)
+    //   }
+    // }),
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -40,7 +45,7 @@ App({
               // console.log(res)
               // console.log(this.globalData.userInfo)
 
-              this.globalData.userInfo = res.userInfo
+              // this.globalData.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -60,11 +65,23 @@ App({
     })
   },
 
+  preLogin : function(that) {
+    var accesstoken = wx.getStorageSync("accessToken")
+    var timestamp = Date.parse(new Date());// 获取当前时间的时间戳与expired进行比较
+    var flag = true;
+    if (timestamp > accesstoken.expires) {
+      flag = false;// token 过期
+    }
+    (accesstoken && flag) || this.login(that)
+  },
+
   login : function(that) {
     console.log("没有缓存或缓存过期，正在登录")
     // 登录
     wx.login({
       success: res => {
+        
+
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res)
         // console.log(this.globalData.userInfo)
@@ -80,12 +97,13 @@ App({
               wx.redirectTo({
                 url: '../login/login',
               })
-              return;
+              return false;
             }
             
             // console.log(data.data.data)
             that.globalData.accesstoken = data.data.data;
-            // console.log(that.globalData.userInfo)
+            console.log("app")
+            console.log(that.globalData.accesstoken)
             var accesstoken = that.globalData.accesstoken;
             // that.globalData.userInfo = accesstoken.data.userinfo;
             // 将用户信息添加到缓存信息中

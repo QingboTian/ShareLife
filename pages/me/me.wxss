@@ -22,6 +22,25 @@ page {
   justify-content: center;
 }
 
+.login {
+  margin-top: 40rpx;
+  height: 150px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.person .poster .image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  display: block;
+  overflow: hidden;
+}
+
 .person .poster image{
   width: 200rpx;
   height: 200rpx;

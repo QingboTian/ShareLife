@@ -1,9 +1,42 @@
 <!--pages/login/login.wxml-->
-<view>
-  <open-data type="userNickName"></open-data>
-  <open-data type="userAvatarUrl"></open-data>
-  <open-data type="userGender"></open-data>
-  <open-data type="userCity"></open-data>
-  <open-data type="userProvince"></open-data>
-  <open-data type="userCountry"></open-data>
+<view class="container">
+  <view class="info">
+    <view class="phone item">
+      <view class="text">手机</view>
+        <view class="input">
+          <input placeholder="请输入手机号码" type="number" maxlength="11" value="{{phone}}" data-type='phone' bindinput="inputHandler"></input>
+          <view class="send"><button size="mini" type="primary"disabled="{{checkBtnAble}}"  bindtap='sendCheckNum'>{{checkNumStr}}</button></view>
+        </view>
+        <view class="tips">
+          {{currPhoneLength}}/11
+        </view>
+    </view>
+    <view>
+      <view class="text">验证码</view>
+        <view class="input">
+          <input placeholder="请输入验证码" type="number" maxlength="6" value="{{checknum}}" data-type='checknum' bindinput="inputHandler"></input>
+      </view>
+    </view>
+    <view class="passwd item">
+      <view class="text">密码</view>
+        <view class="input">
+          <input placeholder="请输入密码" password maxlength="20" value="{{pwd}}" data-type='pwd' bindinput="inputHandler"></input>
+        </view>
+        <view class="tips">
+          {{currPwdLength}}/20
+        </view>
+    </view>
+    <view class="repasswd item">
+      <view class="text">二次密码</view>
+        <view class="input">
+          <input placeholder="请再次输入密码" password maxlength="20" value="{{repwd}}" data-type='repwd' bindinput="inputHandler"></input>
+        </view>
+        <view class="tips">
+          {{rePwdTips}}
+        </view>
+    </view>
+  </view>
+  <view class="wxlogin">
+    <button type="primary" bindgetuserinfo="getUserInfoHandler" open-type="getUserInfo">微信登录</button>
+  </view>
 </view>

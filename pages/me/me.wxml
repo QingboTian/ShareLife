@@ -1,17 +1,22 @@
 <!--pages/me/me.wxml-->
 <view class='container'>
-  <view class='person'>
+  <view class='person' wx:if="{{true}}">
     <view class='poster'>
       <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
+      <!-- <view class="image">
+        <open-data type="userAvatarUrl" class="image"></open-data>
+      </view> -->
     </view>
     <view class='nick'>
       <view class='name'>
-        啵啵
+        <open-data type="userNickName"></open-data>
         <view class='info' bindtap='showPersonInfo'>个人信息</view>
       </view>
     </view>
   </view>
-
+  <view class="login" wx:if="{{false}}">
+    <view bindtap="login">对不起，你还没有登录，点击这里进行登录</view>
+  </view>
   <view class='slider'>
     <swiper indicator-dots autoplay circular interval="3000" indicator-active-color="red">
       <block wx:for="{{swiper}}" wx:for-item="item" wx:key="index">

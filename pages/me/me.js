@@ -12,13 +12,21 @@ Page({
     ],
     // 轮播图
     swiper : [
-    ]
+    ],
+    // 是否用户是否登录
+    // isLogin: null
   },
 
   // 展示个人信息
   showPersonInfo : function (e) {
     wx.navigateTo({
       url: '../personinfo/personinfo',
+    })
+  },
+
+  login : function (e) {
+    wx.redirectTo({
+      url: '../login/login',
     })
   },
 
@@ -34,6 +42,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    // 判断用户是否登录
+    app.preLogin(app);
+
     wx.setNavigationBarTitle({
       title: '我的',
     })
@@ -85,7 +97,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 判断用户是否登录
+    // var accesstoken = app.globalData.accesstoken;
+    // this.setData({
+    //   isLogin: accesstoken != null
+    // })
+    // console.log("xianshi")
   },
 
   /**
