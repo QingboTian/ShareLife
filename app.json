@@ -17,7 +17,7 @@
     "pages/collect/collect",
     "pages/like/like",
     "pages/setting/setting",
-    "pages/login/login"
+    "pages/regist/regist"
   ],
   "window": {
     "backgroundTextStyle": "light",

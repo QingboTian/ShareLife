@@ -23,9 +23,6 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
-    // 首先在缓存中查询是否存在用户信息
-    this.preLogin(this)
     // 测试
     // wx.login({
     //   success: res => {
@@ -65,59 +62,13 @@ App({
     })
   },
 
-  preLogin : function(that) {
-    var accesstoken = wx.getStorageSync("accessToken")
-    var timestamp = Date.parse(new Date());// 获取当前时间的时间戳与expired进行比较
-    var flag = true;
-    if (timestamp > accesstoken.expires) {
-      flag = false;// token 过期
+  gettoken : function () {
+    if (this.globalData.accesstoken != null) {// 首先从全局变量取数据
+      return this.globalData.accesstoken.token
+    }else {// 全局没有从缓存中取
+      var accesstoken = wx.getStorageInfoSync("accesstoken");
+      return accesstoken.token
     }
-    (accesstoken && flag) || this.login(that)
-  },
-
-  login : function(that) {
-    console.log("没有缓存或缓存过期，正在登录")
-    // 登录
-    wx.login({
-      success: res => {
-        
-
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res)
-        // console.log(this.globalData.userInfo)
-        wx.request({
-          url: that.api.login + "/" + res.code,
-          success : function (data) {
-
-            // 检查status状态
-            // 500服务器错误 403用户不存在（跳转到登陆页面进行注册及登录）
-            console.log(data.data)
-            var status = data.data.status;
-            if (status == 500 || status == 403){
-              wx.redirectTo({
-                url: '../login/login',
-              })
-              return false;
-            }
-            
-            // console.log(data.data.data)
-            that.globalData.accesstoken = data.data.data;
-            console.log("app")
-            console.log(that.globalData.accesstoken)
-            var accesstoken = that.globalData.accesstoken;
-            // that.globalData.userInfo = accesstoken.data.userinfo;
-            // 将用户信息添加到缓存信息中
-            // 保存时长为30分钟
-            that.setOpenIdStorageSync("accessToken", accesstoken)
-          }
-        })
-      }
-    })
-  },
-
-  
-  setOpenIdStorageSync : function (key,value) {
-    wx.setStorageSync(key, value);
   },
 
   globalData: {

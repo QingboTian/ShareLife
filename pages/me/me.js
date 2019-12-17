@@ -1,5 +1,4 @@
 const app = getApp()
-
 // pages/me/me.js
 Page({
 
@@ -44,7 +43,7 @@ Page({
   onLoad: function (options) {
 
     // 判断用户是否登录
-    app.preLogin(app);
+    // app.preLogin(app);
 
     wx.setNavigationBarTitle({
       title: '我的',

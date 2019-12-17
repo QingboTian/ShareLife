@@ -3,9 +3,9 @@
 const app = getApp()
 
 Page({
-  data : {
+  data: {
     images: [// 准备展示的图片
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg", height: 313, width: 500, poster : "../../images/touxiang.jpg", type : 1 },
+      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg", height: 313, width: 500, poster: "../../images/touxiang.jpg", type: 1 },
       { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/5.jpeg", height: 2560, width: 1440, poster: "../../images/touxiang.jpg", type: 0 },
       { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/6.jpeg", height: 1216, width: 700, poster: "../../images/touxiang.jpg", type: 1 },
       { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/1.jpg", height: 1200, width: 1920, poster: "../../images/touxiang.jpg", type: 0 },
@@ -32,10 +32,83 @@ Page({
     //     // })
     //   }
     // })
+    // 首先在缓存中查询是否存在用户信息
+    this.preLogin(this)
+  },
 
-    this.setData({
-      search: this.search.bind(this)
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    
+  },
+
+  preLogin: function (that) {
+    var accesstoken = wx.getStorageSync("accessToken")
+    var timestamp = Date.parse(new Date());// 获取当前时间的时间戳与expired进行比较
+    var flag = true;
+    if (timestamp > accesstoken.expires) {
+      flag = false;// token 过期
+    }
+
+    var tempflag = accesstoken && flag;
+    tempflag || this.login(that)
+    
+    if (tempflag) {// 从注册页面跳转过来执行的动作----（已经登录，缓存中存在用户信息）
+      // console.log("regist")
+      that.loginback();
+    }
+    
+  },
+
+  login: function (that) {
+    console.log("没有缓存或缓存过期，正在登录")
+    // 登录
+    wx.login({
+      success: res => {
+
+
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log(res)
+        // console.log(this.globalData.userInfo)
+        wx.request({
+          url: app.api.login + "/" + res.code,
+          success: function (data) {
+
+            // 检查status状态
+            // 500服务器错误 403用户不存在（跳转到登陆页面进行注册及登录）
+            console.log(data.data)
+            var status = data.data.status;
+            if (status == 500 || status == 403) {
+              wx.redirectTo({
+                url: '../regist/regist',
+              })
+              return false;
+            }else {// 执行成功(登录成功之后再做的事情)
+
+              that.loginback(that);
+
+              // console.log(data.data.data)
+              app.globalData.accesstoken = data.data.data;
+              // console.log("app")
+              // console.log(that.globalData.accesstoken)
+              var accesstoken = app.globalData.accesstoken;
+              // that.globalData.userInfo = accesstoken.data.userinfo;
+              // 将用户信息添加到缓存信息中
+              // 时长1day
+              that.setOpenIdStorageSync("accessToken", accesstoken)
+            }
+          }
+        })
+      }
     })
+  },
+
+  // 登录成功后做的动作
+  loginback : function(that) {
+    // that.setData({
+    //   search: that.search.bind(that)
+    // })
 
     var length = this.data.images.length
     for (var i = 0; i < length; i++) {
@@ -47,6 +120,11 @@ Page({
     })
 
     // wx.hideShareMenu()
+  },
+
+
+  setOpenIdStorageSync: function (key, value) {
+    wx.setStorageSync(key, value);
   },
 
   search: function (value) {

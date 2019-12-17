@@ -147,9 +147,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/login/login",
-					"pathName": "pages/login/login",
+					"id": 13,
+					"name": "pages/regist/regist",
+					"pathName": "pages/regist/regist",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -1,5 +1,8 @@
 var app = getApp();
 var util = require('../../utils/util.js');
+const CryptoJS = require('../../utils/crypto-js.js');
+const key = CryptoJS.enc.Utf8.parse("5!aq0r(m2dtjeg%q$x*0nz@k)gjz&x^q");  //十六位十六进制数作为密钥
+const iv = CryptoJS.enc.Utf8.parse('5945438788888888');   //十六位十六进制数作为密钥偏移量
 // pages/login/login.js
 Page({
 
@@ -15,7 +18,8 @@ Page({
     rePwdTips : "",
     checkBtnAble: false,
     checkNumStr: "发送验证码",
-    checknum : ""
+    checknum : "",
+    resmsg : ""
   },
 
   inputHandler : function (e) {
@@ -101,10 +105,29 @@ Page({
 
   getUserInfoHandler : function(e) {
     var wxUserInfo = e.detail.rawData;
-    console.log(wxUserInfo)
+    // console.log(wxUserInfo)
     var phone = this.data.phone;
     var password = this.data.pwd;
-    var checkcode = this.data.checknum
+    var checkcode = this.data.checknum;
+    var repwd = this.data.repwd;
+
+    // 数据简单校验
+    if (phone.length < 11) {
+      return;
+    }else if (password.length < 9) {
+      return; // 密码最少8位
+    }else if(checkcode.length < 7) {
+      return;
+    }else if (password != repwd) {
+      return;
+    }
+
+    // 清空resmsg
+    this.setData({
+      resmsg : ""
+    })
+
+    var that = this;
     wx.login({
       success : function(res){
         var code = res.code;
@@ -120,7 +143,24 @@ Page({
           },
           method: "POST",
           success : function (data) {
-            console.log(data)
+            var status = data.data.status
+            if (status == 403){
+              that.setData({
+                resmsg : data.data.msg
+              })
+              console.log(403)
+            }else if (status == 200) {// 注册成功页面
+              wx.setStorageSync("accessToken", data.data.data)
+              console.log(200)
+              wx.switchTab({
+                url: '../index/index',
+              })
+            }else {
+              console.log(data)
+              that.setData({
+                resmsg: "服务器故障，请稍后再试"
+              })
+            }
           }
         })
       }
@@ -136,7 +176,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.setNavigationBarTitle({
+      title: '注册',
+    })
   },
 
   /**

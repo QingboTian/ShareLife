@@ -20,7 +20,7 @@
     <view class="passwd item">
       <view class="text">密码</view>
         <view class="input">
-          <input placeholder="请输入密码" password maxlength="20" value="{{pwd}}" data-type='pwd' bindinput="inputHandler"></input>
+          <input placeholder="请输入密码(最少8位)" password maxlength="20" value="{{pwd}}" data-type='pwd' bindinput="inputHandler"></input>
         </view>
         <view class="tips">
           {{currPwdLength}}/20
@@ -36,6 +36,7 @@
         </view>
     </view>
   </view>
+  <view class="resmsg">{{resmsg}}</view>
   <view class="wxlogin">
     <button type="primary" bindgetuserinfo="getUserInfoHandler" open-type="getUserInfo">微信登录</button>
   </view>
