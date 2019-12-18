@@ -3,7 +3,7 @@
   <view class='touxiang'>
     <view>
       <view class='poster' bindtap='replaceThepicture'>
-        <image src='{{src}}'></image>
+        <image src='{{info.avatarurl}}'></image>
         <view class='camera'><image src='../../images/camera.png'></image></view>
       </view>
     </view>
@@ -12,15 +12,15 @@
 
   <view class='info'>
     <mp-cells ext-class="">
-      <mp-cell value="昵称" footer="bobo" hover link url="../edit/edit?type=1">       
+      <mp-cell value="昵称" footer="{{info.nick}}" hover link url="../edit/edit?type=1">       
       </mp-cell>
-      <mp-cell value="ID" footer="888888"></mp-cell>
-      <mp-cell value="个性签名" footer="心若向阳，无畏悲伤" link hover url="../edit/edit?type=2"></mp-cell>
-      <mp-cell value="手机" footer="13888888888" link hover url="../edit/edit?type=3"></mp-cell>
-      <mp-cell value="邮箱" footer="tianqingbo@tianqb.cn" link hover url="../edit/edit?type=4"></mp-cell>
-      <mp-cell value="性别" footer="男" link hover url="../edit/edit?type=5"></mp-cell>
-      <mp-cell value="生日" footer="1998-03-20" link hover url="../edit/edit?type=6"></mp-cell>
-      <mp-cell value="地区" footer="中国-陕西省-榆林市" link hover url="../edit/edit?type=7"></mp-cell>
+      <mp-cell value="ID" footer="{{info.randomid}}"></mp-cell>
+      <mp-cell value="个性签名" footer="{{info.signature}}" link hover url="../edit/edit?type=2"></mp-cell>
+      <mp-cell value="手机" footer="{{info.phone}}" link hover url="../edit/edit?type=3"></mp-cell>
+      <mp-cell value="邮箱" footer="{{info.mail}}" link hover url="../edit/edit?type=4"></mp-cell>
+      <mp-cell value="性别" footer="{{sex}}" link hover url="../edit/edit?type=5"></mp-cell>
+      <mp-cell value="生日" footer="{{info.birthday}}" link hover url="../edit/edit?type=6"></mp-cell>
+      <mp-cell value="地区" footer="{{area}}" link hover url="../edit/edit?type=7"></mp-cell>
     </mp-cells>
     
   </view>

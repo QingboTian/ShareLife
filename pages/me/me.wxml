@@ -2,14 +2,15 @@
 <view class='container'>
   <view class='person' wx:if="{{true}}">
     <view class='poster'>
-      <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-      <!-- <view class="image">
+      <image src='{{info.avatarUrl}}'></image>
+      <!-- <view class="image" wx:if="{{info.nick == ''}}">
         <open-data type="userAvatarUrl" class="image"></open-data>
       </view> -->
     </view>
     <view class='nick'>
       <view class='name'>
-        <open-data type="userNickName"></open-data>
+        <view wx:if="{{info.nick == ''}}"><open-data type="userNickName"></open-data></view>
+        {{info.nick}}
         <view class='info' bindtap='showPersonInfo'>个人信息</view>
       </view>
     </view>

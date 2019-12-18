@@ -116,11 +116,16 @@ Page({
       return;
     }else if (password.length < 9) {
       return; // 密码最少8位
-    }else if(checkcode.length < 7) {
+    }else if(checkcode.length < 6) {
       return;
     }else if (password != repwd) {
       return;
     }
+
+    //  显示登录ing
+    wx.showLoading({
+      title: '登录中',
+    })
 
     // 清空resmsg
     this.setData({
@@ -161,6 +166,9 @@ Page({
                 resmsg: "服务器故障，请稍后再试"
               })
             }
+          },
+          complete : function(){
+            wx.hideLoading()
           }
         })
       }

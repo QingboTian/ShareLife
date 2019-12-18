@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    src: "../../images/touxiang.jpg"
+    info : {
+    },
+    area : "",// 需要将省市县串联成字符串
+    sex : ""
   },
 
   // 更换头像
@@ -31,7 +34,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
 
+  loadInfo : function() {
+    var accessToken = wx.getStorageSync("accessToken");
+    var userinfo = accessToken.userinfo;
+    this.setData({
+      info : userinfo
+    })
+
+    var sexType = userinfo.sex
+    var sex = ""
+    if (sexType == 0) {
+      sex = "火星人"
+    }else if (sexType == 1) {
+      sex = "男"
+    }else if (sexType == 2) {
+      sex = "女"
+    }
+
+    this.setData({
+      sex : sex
+    })
+
+    // 获取省市县的信息
+    var country = userinfo.country
+    var province = userinfo.province
+    var city = userinfo.city
+    var county = userinfo.county
+    var area = country;
+    if (province != "" && province != null) {
+      area += province
+    } else if (city != "" && city != null) {
+      area += "-" + city
+    } else if (county != "" && county != null) {
+      area += "-" + county
+    }
+    this.setData({
+      area : area
+    })
   },
 
   /**
@@ -45,7 +87,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 加载个人信息
+    this.loadInfo();
   },
 
   /**

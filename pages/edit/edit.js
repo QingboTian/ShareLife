@@ -2,6 +2,7 @@
 var util = require('../../utils/util.js');
 // 经纬度逆解析
 var bmap = require('../../libs/bmap-wx.min.js');
+const app = getApp();
 var wxMarkerData = []; 
 
 Page({
@@ -191,9 +192,45 @@ Page({
   save : function (e) {
     // 具体的数据处理策略 这里进行
     // ...
+    // 判断当前要修改的是什么数据
+    // // 1 昵称 2 个性签名 3 手机 4 邮箱 5 性别 6 生日 7 地区
+    var type = this.data.type
+    var value = ""
+
+    // 更新本地缓存信息
+    var accessToken = wx.getStorageSync("accessToken");
+    var userinfo = accessToken.userinfo;
+    console.log(userinfo)
+    if (type == 1) {
+      userinfo["nick"] = this.data.nickname;
+      console.log(this.data.nickname)
+    }
     
+    console.log(userinfo)
+
+    // 将修改后的信息重新放入缓存中
+    accessToken.userinfo = userinfo
+    wx.setStorageSync("accessToken", accessToken);
+
+    // 获取当前token
+    var token = accessToken.token
+    console.log(token)
+    console.log(userinfo)
+
+    wx.request({
+      url: app.api.user,
+      method : "PUT",
+      header: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+      data : {
+        userInfo: userinfo,
+        token : token
+      },
+      success : function(data) {
+        console.log(data)
+      }
+    })
     // 返回上一页面
-    wx.navigateBack()
+    // wx.navigateBack()
   },
 
   /**

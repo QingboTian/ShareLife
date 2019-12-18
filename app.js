@@ -15,7 +15,8 @@ App({
       msgcode: server + "/api/short_video/regist/messagecode",
       // 用户注册
       regist: server + "/api/short_video/regist"
-    }
+    },
+    user: server + "/api/short_video/user"
   },
 
   onLaunch: function () {

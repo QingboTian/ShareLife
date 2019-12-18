@@ -12,8 +12,11 @@ Page({
     // 轮播图
     swiper : [
     ],
-    // 是否用户是否登录
-    // isLogin: null
+    // 头像和昵称
+    info : {
+      avatarUrl : "",
+      nick : ""// 由于存在有的用户头像只存在emoji 数据库数据为空 这里采用open-data展示
+    }
   },
 
   // 展示个人信息
@@ -53,6 +56,8 @@ Page({
     this.loadGongengqu(this);
     // 加载轮播图
     this.loadSlide(this);
+    // 加载头像和昵称
+    this.loadInfo();
   },
 
   loadGongengqu : function (that) {
@@ -81,6 +86,22 @@ Page({
           swiper: data.data.data
         })
         console.log(data.data.data)
+      }
+    })
+  },
+
+  loadInfo : function() {
+    // 从缓存中取数据
+    var accessToken = wx.getStorageSync("accessToken")
+    // console.log(accessToken)
+    var userinfo = accessToken.userinfo;
+    // console.log(userinfo)
+    var avatarUrl = userinfo.avatarurl;
+    var nick = userinfo.nick;
+    this.setData({
+      info : {
+        avatarUrl: avatarUrl,
+        nick: nick
       }
     })
   },
