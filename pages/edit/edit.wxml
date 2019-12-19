@@ -65,7 +65,7 @@
   <view wx:elif="{{type == 6}}" class='birthday'>
     <view class='item name'>生日</view>
     <view class='item'>
-      <picker bindchange="bindPickerChange" value="{{date}}" data-type='date' range="{{array}}" mode="date" start="1918-01-01" end="2020-01-01">
+      <picker bindchange="bindPickerChange" value="{{date}}" data-type='date' mode="date" start="1918-01-01" end="2020-01-01">
         <view class='picker'>
           <view class="show">
           <!-- {{array[index]}} -->

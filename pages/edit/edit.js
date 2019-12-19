@@ -11,22 +11,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type : 7,
+    type : -1,
     titles: ["昵称", "个性签名", "手机", "邮箱", "性别", "生日", "地区"],
     nickWordLength : 0,
-    nickname : "bobo",
+    nickname : "",
     signatureWordLength : 0,
-    signature : "心若向阳，无畏悲伤！",
+    signature : "",
     checkBtnAble : false,
     checkNumStr: "发送验证码",
     checkNum : "",
-    phone : "13888888888",
+    phone : "",
     mailBefore : "",
     mailLater : "",
     index : 1,
     array : ["火星人","男","女"],
     date : "",
-    region: ["陕西省","榆林市","定边县"],
+    region: [],
     customItem: '全部',
     currentLocation : "",
     locationFlag : true // 显示选择该地址
@@ -37,6 +37,7 @@ Page({
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     var data = {}
     data[e.currentTarget.dataset.type] = e.detail.value
+    console.log(data)
     this.setData(data)
   },
 
@@ -120,6 +121,9 @@ Page({
       title: '修改' + title,
     })
 
+    // 加载信息
+    this.loadinfo();
+
     // 设置字符长度
     var length1 = this.data.nickname.trim().length
     var length2 = this.data.signature.trim().length
@@ -128,22 +132,77 @@ Page({
       signatureWordLength: length2
     })
 
-    if (type == 6){
+    // if (type == 6){
+      
+    // }
+
+    if(type == 7) {
+      // 获取位置
+      this.switchLocation()
+    }
+  },
+
+  loadinfo : function() {
+    var accessToken = wx.getStorageSync("accessToken")
+    var userinfo = accessToken.userinfo
+    var nickname = userinfo.nick
+    if (typeof (nickname) == "undefined"){
+      nickname = ""
+    }
+    // var id = userinfo.randomid
+    var signature = userinfo.signature
+    var phone = userinfo.phone
+    var mail = userinfo.mail
+    if (typeof (mail) == "undefined"){
+      mail = ""
+    }
+    var mailarr = mail.split("@")
+    var mailBefore = ""
+    var mailLater = ""
+    if (mailarr.length == 2) {
+      mailBefore = mailarr[0]
+      mailLater = mailarr[1]
+    }
+    // 按照@分割mail
+    var index = userinfo.sex
+    var date = userinfo.birthday// date
+    if (typeof (date) == "undefined") {
       // 获取当前日期
       var datetime = util.formatTime(new Date());
       var str = datetime.split(" ")
       var date = str[0]
       date = date.replace("/", "-")
       date = date.replace("/", "-")
-      this.setData({
-        date: date
-      })
     }
+    var province = userinfo.province
+    var city = userinfo.city
+    var county = userinfo.county
 
-    if(type == 7) {
-      // 获取位置
-      this.switchLocation()
+    // region
+    if (typeof (province) == "undefined" || province == null || province == "") {
+      province = "全部"
     }
+    if (typeof (city) == "undefined" || city == null || city == "") {
+      city = "全部"
+    }
+    if (typeof (county) == "undefined" || county == null || county == "") {
+      county = "全部"
+    }
+    var region = []
+    region.push(province)
+    region.push(city)
+    region.push(county)
+
+    this.setData({
+      nickname: nickname,
+      signature: signature,
+      phone: phone,
+      mailBefore: mailBefore,
+      mailLater : mailLater,
+      index: index,
+      date:date,
+      region: region
+    })
   },
 
   // 判断字符长度
@@ -236,7 +295,7 @@ Page({
     var userinfo = accessToken.userinfo;
 
     // 将userinfo赋值给新data
-    var data = userinfo
+    var data = JSON.parse(JSON.stringify(userinfo))// js对象赋值赋的是地址
     console.log(userinfo)
     if (type == 1) {
       userinfo["nick"] = this.data.nickname;
@@ -283,11 +342,26 @@ Page({
       data['type'] = 4
       data['checkNum'] = checkNum
     } else if (type == 5) {
-      userinfo['sex'] = this.data.sex
+      var sex = this.data.index
+      data['sex'] = sex
+      console.log(1)
+      console.log(userinfo)
+      userinfo['sex'] = sex
+      // data['sex'] = sex
     } else if (type == 6) {
-      userinfo["birthday"] = this.data.birthday
+      userinfo["birthday"] = this.data.date
+      data['birthday'] = this.data.date
     } else if (type == 7) {
-      userinfo['area'] = this.data.area
+      var region = this.data.region
+      var province = region[0]
+      var city = region[1]
+      var county = region[2]
+      userinfo['province'] = province
+      userinfo['city'] = city
+      userinfo['county'] = county
+      data['province'] = province
+      data['city'] = city
+      data['county'] = county
     }
     
     console.log(userinfo)

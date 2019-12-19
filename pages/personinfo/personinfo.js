@@ -59,16 +59,16 @@ Page({
     })
 
     // 获取省市县的信息
-    var country = userinfo.country
+    var country = "中国"
     var province = userinfo.province
     var city = userinfo.city
     var county = userinfo.county
     var area = country;
-    if (province != "" && province != null) {
-      area += province
-    } else if (city != "" && city != null) {
+    if (province != null && province != "") {
+      area += "-" + province
+    } else if (city != null && city != "") {
       area += "-" + city
-    } else if (county != "" && county != null) {
+    } else if (county != null && county != "") {
       area += "-" + county
     }
     this.setData({
