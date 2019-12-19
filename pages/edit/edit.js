@@ -19,6 +19,7 @@ Page({
     signature : "心若向阳，无畏悲伤！",
     checkBtnAble : false,
     checkNumStr: "发送验证码",
+    checkNum : "",
     phone : "13888888888",
     mailBefore : "",
     mailLater : "",
@@ -158,13 +159,46 @@ Page({
     data[type] = length
 
     this.setData(data)
+
+
+    // 数据双向绑定
+    var t = e.currentTarget.dataset.t
+    var obj = {}
+    var value = e.detail.value.trim()
+    console.log(value)
+    obj[t] = value
+    this.setData(obj)
   },
 
   // 发送验证码按钮进行刷新
   sendCheckNum : function(e) {
+    var phone = this.data.phone;
+
+    if (phone.length < 11) {
+      return;
+    }
+
+    var type = this.data.type
+    var mailBefore = this.data.mailBefore
+    var mailLater = this.data.mailLater
 
     // 此处调用真正的发短信接口
     // ...
+    wx.request({
+      url: app.api.regist.msgcode,
+      data: {
+        phone: phone,
+        type : type,
+        mail : mailBefore + "@" +mailLater
+      },
+      // type : 4 邮箱 3 手机
+      method: "GET",
+      // 实际不回调 手机接收短信
+      // success : function(data) {
+      //   console.log("模拟短信验证");
+      //   console.log(data)
+      // }
+    })
 
     // 设置不可用
     this.setData({
@@ -197,36 +231,103 @@ Page({
     var type = this.data.type
     var value = ""
 
-    // 更新本地缓存信息
+    // 获取本地缓存信息
     var accessToken = wx.getStorageSync("accessToken");
     var userinfo = accessToken.userinfo;
+
+    // 将userinfo赋值给新data
+    var data = userinfo
     console.log(userinfo)
     if (type == 1) {
       userinfo["nick"] = this.data.nickname;
-      console.log(this.data.nickname)
+      data['nick'] = this.data.nickname
+      // console.log(this.data.nickname + "00000000000")
+    } else if (type == 2) {
+      var signature = this.data.signature
+      if (signature == "") {
+        signature = "这个人好懒哦，居然没有个性签名！"
+      }
+      userinfo['signature'] = this.data.signature
+      data['signature'] = this.data.signature
+    } else if (type == 3) {
+      // 检验手机号和验证码的长度
+      var phone = this.data.phone
+      var checkNum = this.data.checkNum
+      if (phone.length < 11) {
+        return;
+      }else if (checkNum.length < 6){
+        return;
+      }
+      userinfo['phone'] = phone
+
+      // 这里必须传递type参数和验证码 后台判定是否在修改手机号
+      // userinfo['type'] = 3
+      data['phone'] = phone
+      data['type'] = 3
+      data['checkNum'] = checkNum
+      // userinfo['checkNum'] = checkNum
+    } else if (type == 4) {
+
+      // 邮箱字符串拼接
+      var mailBefore = this.data.mailBefore
+      var mailLater = this.data.mailLater
+      var mail = mailBefore + "@" +mailLater
+      var checkNum = this.data.checkNum
+
+      if (checkNum.length < 6) {
+        return;
+      }
+
+      userinfo['mail'] = mail
+      data['mail'] = mail
+      data['type'] = 4
+      data['checkNum'] = checkNum
+    } else if (type == 5) {
+      userinfo['sex'] = this.data.sex
+    } else if (type == 6) {
+      userinfo["birthday"] = this.data.birthday
+    } else if (type == 7) {
+      userinfo['area'] = this.data.area
     }
     
     console.log(userinfo)
 
-    // 将修改后的信息重新放入缓存中
+    
     accessToken.userinfo = userinfo
-    wx.setStorageSync("accessToken", accessToken);
+    
 
     // 获取当前token
     var token = accessToken.token
-    console.log(token)
-    console.log(userinfo)
+    data['token'] = token;
+    // console.log(data)
+    // 加载loading
+    wx.showLoading({
+      title: '保存中',
+    })
 
     wx.request({
       url: app.api.user,
       method : "PUT",
       header: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
-      data : {
-        userInfo: userinfo,
-        token : token
-      },
+      data : data,
       success : function(data) {
-        console.log(data)
+
+        if (data.data.status == 200) {
+          console.log(data)
+          
+          // 将修改后的信息重新放入缓存中
+          wx.setStorageSync("accessToken", accessToken);
+          // 返回上一页面
+          wx.navigateBack()
+        }else if (data.data.status == 403) {
+          console.log(data)
+        } else {
+          console.log(data)
+        }
+      },
+      complete : function() {
+        // 清除loading
+        wx.hideLoading();
       }
     })
     // 返回上一页面

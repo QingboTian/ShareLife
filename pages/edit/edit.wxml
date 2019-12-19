@@ -4,7 +4,7 @@
   <view wx:if="{{type == 1}}" class='nick'>
     <view class='item nickname'>我的昵称</view>
     <view class='item input' >
-      <input type='text' value='{{nickname}}' data-type='nickWordLength' bindinput='wordLength' placeholder='请输入昵称' maxlength="20" focus></input>
+      <input type='text' value='{{nickname}}' data-type='nickWordLength' bindinput='wordLength' placeholder='请输入昵称' maxlength="20" focus data-t="nickname"></input>
     </view>
     <view class='item tips'>{{nickWordLength}}/20</view>
   </view>
@@ -13,7 +13,7 @@
   <view wx:elif="{{type == 2}}" class='signature'>
     <view class='item name'>个性签名</view>
     <view class='item textarea' >
-      <textarea value='{{signature}}' data-type='signatureWordLength' bindinput='wordLength' placeholder='这个人好懒哦，居然没有个性签名！' maxlength="50"  focus></textarea>
+      <textarea value='{{signature}}' data-type='signatureWordLength' bindinput='wordLength' placeholder='这个人好懒哦，居然没有个性签名！' maxlength="50"  focus data-t="signature"></textarea>
     </view>
     <view class='item tips'>{{signatureWordLength}}/50</view>
   </view>
@@ -22,11 +22,11 @@
   <view wx:elif="{{type == 3}}" class='phone'>
     <view class='item name'>手机号码</view>
     <view class='item input' >
-      <input type='number' value='{{phone}}' data-type='phone' placeholder='请输入修改后的号码' maxlength="11"></input>
+      <input type='number' value='{{phone}}' data-type='phone' placeholder='请输入修改后的号码' maxlength="11" data-t="phone" bindinput='wordLength'></input>
       <view class='checkBtn'><button type='primary' size='mini' disabled="{{checkBtnAble}}"  bindtap='sendCheckNum'>{{checkNumStr}}</button></view>
     </view>
     <view class='item checknum'>
-      <input type='number' maxlength='6' placeholder='请输入验证码'></input>
+      <input type='number' maxlength='6' placeholder='请输入验证码' value="{{checkNum}}" data-t="checkNum" bindinput='wordLength'></input>
     </view>
   </view>
 
@@ -35,14 +35,14 @@
     <view class='item name'>邮箱</view>
     <view class='item input'>
       <view class='zhengti'>
-        <input type='text' value='{{mailBefore}}' data-type='mail-before' placeholder='example'></input>
+        <input type='text' value='{{mailBefore}}' data-type='mail-before' placeholder='example' data-t='mailBefore' bindinput='wordLength'></input>
         @
-        <input type='text' value='{{mailLater}}' data-type='mail-later' placeholder='tianqb.cn'></input>
+        <input type='text' value='{{mailLater}}' data-type='mail-later' placeholder='tianqb.cn' data-t="mailLater" bindinput='wordLength'></input>
       </view>
       <view class='checkBtn'><button type='primary' size='mini' disabled="{{checkBtnAble}}"  bindtap='sendCheckNum'>{{checkNumStr}}</button></view>
     </view>
     <view class='item checknum'>
-      <input type='number' maxlength='6' placeholder='请输入验证码'></input>
+      <input type='number' maxlength='6' placeholder='请输入验证码' data-t="checkNum" value="{{checkNum}}" bindinput='wordLength'></input>
     </view>
   </view>
 

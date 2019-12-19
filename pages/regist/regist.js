@@ -71,7 +71,8 @@ Page({
     wx.request({
       url: app.api.regist.msgcode,
       data : {
-        phone : phone
+        phone : phone,
+        type : 3
       },
       method:"GET",
       // 实际不回调 手机接收短信
