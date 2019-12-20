@@ -16,7 +16,9 @@ App({
       // 用户注册
       regist: server + "/api/short_video/regist"
     },
-    user: server + "/api/short_video/user"
+    user: server + "/api/short_video/user",
+    // 用户头像上传更新
+    userupload: server + "/api/short_video/user/upload",
   },
 
   onLaunch: function () {

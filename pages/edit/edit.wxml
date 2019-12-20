@@ -104,7 +104,7 @@
   <view wx:else="{{type == -1}}">
     遇到了一个错误
   </view>
-
+  {{errmsg}}
   <view class='save'>
     <button type='primary' bindtap='save'>保存</button>
   </view>

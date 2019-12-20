@@ -29,6 +29,7 @@ Page({
     region: [],
     customItem: '全部',
     currentLocation : "",
+    errmsg : "",// 显示错误信息
     locationFlag : true // 显示选择该地址
   },
 
@@ -379,6 +380,8 @@ Page({
       title: '保存中',
     })
 
+    var that = this;
+
     wx.request({
       url: app.api.user,
       method : "PUT",
@@ -394,9 +397,15 @@ Page({
           // 返回上一页面
           wx.navigateBack()
         }else if (data.data.status == 403) {
-          console.log(data)
+          that.setData({
+            errmsg : data.data.msg
+          })
+          // console.log(data)
         } else {
-          console.log(data)
+          that.setData({
+            errmsg : "服务器错误，请稍后再试"
+          })
+          // console.log(data)
         }
       },
       complete : function() {

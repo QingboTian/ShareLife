@@ -1,4 +1,5 @@
 // pages/personinfo/personinfo.js
+var app = getApp()
 Page({
 
   /**
@@ -14,6 +15,9 @@ Page({
   // 更换头像
   replaceThepicture : function(e) {
 
+    // 获取缓存
+    var accessToken = wx.getStorageSync("accessToken");
+    var token = accessToken.token
     var that = this
 
     wx.chooseImage({
@@ -21,11 +25,56 @@ Page({
       // sizeType: ['original', 'compressed'], // 原图 压缩图
       // sourceType: ['album', 'camera'], // 拍照 相册
       success: function(res) {
-        const tempFilePaths = res.tempFilePaths
-        that.setData({
-          src: tempFilePaths
+        var tempFilePaths = res.tempFilePaths
+        // console.log(tempFilePaths)
+
+        wx.showLoading({
+          title: '上传中',
         })
-        console.log(tempFilePaths)
+
+        wx.uploadFile({
+          url: app.api.userupload,
+          filePath : tempFilePaths[0],
+          name : "file",
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          formData : {
+            token : token
+          },
+          success: function (res) {
+            // console.log(res)
+            var data = JSON.parse(res.data);
+            if (data.status == 200) {
+              var userinfo = accessToken.userinfo
+              var avatarurl = data.data
+              userinfo.avatarurl = avatarurl
+              accessToken.userinfo = userinfo
+              wx.setStorageSync("accessToken", accessToken)
+              //info.avatarurl
+              // var info = {}
+              that.loadInfo()
+              
+              // info['avatarurl'] = avatarurl
+
+              // that.setData(info)
+              console.log(that.data.info)
+            }else {
+              wx.showToast({
+                title: '上传失败',
+                icon: 'none',
+                duration: 2000
+              })
+            }
+          },
+          complete : function(){
+            wx.hideLoading();
+          }
+        })
+        // that.setData({
+        //   src: tempFilePaths
+        // })
+        // console.log(tempFilePaths)
       },
     })
   },

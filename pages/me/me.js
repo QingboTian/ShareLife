@@ -56,8 +56,7 @@ Page({
     this.loadGongengqu(this);
     // 加载轮播图
     this.loadSlide(this);
-    // 加载头像和昵称
-    this.loadInfo();
+    
   },
 
   loadGongengqu : function (that) {
@@ -123,6 +122,8 @@ Page({
     //   isLogin: accesstoken != null
     // })
     // console.log("xianshi")
+    // 加载头像和昵称
+    this.loadInfo();
   },
 
   /**
