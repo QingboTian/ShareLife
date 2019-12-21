@@ -1,17 +1,16 @@
 <view class='container'>
   <!-- <view class='title'>发现</view> -->
 
-  <block wx:for='{{areas}}' wx:for-item='area'>
+  <block wx:for='{{explore}}' wx:for-item='area'>
     <view class='item' data-='' bindtap='tapHandler'>
       <view class='poster'>
-        <image src='../../images/beauty.png'></image>
+        <image src='{{area.explore.avatarurl}}'></image>
       </view>
       <view class='text'>
-        <view class='title'>{{area.name}}</view>
-        <view class='content'>{{area.content}}</view>
+        <view class='title'>{{area.explore.name}}</view>
+        <view class='content'>{{area.explore.content}}</view>
       </view>
-      <view class='focus' catchtap='focus'>关注</view>
-  </view>
+      <view class="{{area.isFocus?'nofocus':'focus'}}" catchtap='focus' data-id='{{area.explore.id}}' data-isFocus="{{area.isFocus}}">{{area.isFocus?"取消关注" : "关注"}}</view>
+    </view>
   </block>
-  
 </view>

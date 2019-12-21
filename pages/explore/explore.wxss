@@ -47,11 +47,26 @@ page {
   /* align-items: center; */
   /* text-align: center; */
   margin-right: 20rpx;
-  width: 100rpx;
+  width: 150rpx;
   height: 50rpx;
   border: 1px solid green;
   border-radius: 15rpx;
   background-color: greenyellow;
+  /* 关注居中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item .nofocus {
+  /* align-items: center; */
+  /* text-align: center; */
+  margin-right: 20rpx;
+  width: 150rpx;
+  height: 50rpx;
+  border: 1px solid black;
+  border-radius: 15rpx;
+  background-color: red;
   /* 关注居中 */
   display: flex;
   align-items: center;

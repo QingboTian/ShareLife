@@ -1,47 +1,12 @@
 // pages/explore/explore.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    areas : [
-      {
-        name : "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
-      {
-        name: "美女专区",
-        content: "该专区目前有500条内容"
-      },
+    explore : [
     ]
   },
 
@@ -53,7 +18,35 @@ Page({
   },
 
   focus : function (e) {
-    console.log("关注成功")
+    // console.log(e)
+    var id = e.target.dataset.id
+    // console.log(id)
+    var isFocus = e.target.dataset.isfocus
+    // console.log(isFocus)
+    // 获取token
+    var accessToken = wx.getStorageSync("accessToken")
+    var token = accessToken.token
+    var that = this
+    wx.request({
+      url: app.api.explore_focus,
+      method:"PUT",
+      header: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+      data : {
+        isFocus: !isFocus,
+        eid : id,
+        token : token
+      },
+      success : function(res) {
+        if (res.data.status == 200) {
+          // console.log(res)
+          wx.setStorageSync("explore", res.data.data)
+          that.setData({
+            explore: res.data.data
+          })
+        }
+      }
+    })
+    // console.log(e)
   },
 
   /**
@@ -63,6 +56,8 @@ Page({
     wx.setNavigationBarTitle({
       title: '发现',
     })
+
+    this.loadinfo();
   },
 
   /**
@@ -76,7 +71,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 从缓存读取
+    // var explore = wx.getStorageSync("explore")
+    // this.setData({
+    //   explore : explore
+    // })
+    
+  },
 
+  loadinfo : function() {
+
+    // 获取token
+    var accessToken = wx.getStorageSync("accessToken")
+    var token = accessToken.token;
+    var that = this
+    wx.request({
+      url: app.api.explore,
+      method : "GET",
+      data : {
+        token : token
+      },
+      success : function(res) {
+        console.log(res)
+        // 将查询结果添加到缓存中
+        wx.setStorageSync("explore", res.data.data)
+        that.setData({
+          explore : res.data.data
+        })
+      }
+    })
   },
 
   /**

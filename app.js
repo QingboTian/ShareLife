@@ -19,6 +19,8 @@ App({
     user: server + "/api/short_video/user",
     // 用户头像上传更新
     userupload: server + "/api/short_video/user/upload",
+    explore: server + "/api/short_video/explore",
+    explore_focus: server + "/api/short_video/explore/focus",
   },
 
   onLaunch: function () {
