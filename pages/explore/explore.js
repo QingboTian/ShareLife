@@ -69,7 +69,7 @@ Page({
       title: '发现',
     })
 
-    this.loadinfo();
+    // this.loadinfo();
   },
 
   /**
@@ -88,7 +88,7 @@ Page({
     // this.setData({
     //   explore : explore
     // })
-    
+    this.loadinfo();
   },
 
   loadinfo : function() {
