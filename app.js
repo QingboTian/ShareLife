@@ -21,6 +21,7 @@ App({
     userupload: server + "/api/short_video/user/upload",
     explore: server + "/api/short_video/explore",
     explore_focus: server + "/api/short_video/explore/focus",
+    visitExplore: server + "/api/short_video/explore/visit",
   },
 
   onLaunch: function () {

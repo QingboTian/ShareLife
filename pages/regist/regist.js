@@ -115,7 +115,7 @@ Page({
     // 数据简单校验
     if (phone.length < 11) {
       return;
-    }else if (password.length < 9) {
+    }else if (password.length < 8) {
       return; // 密码最少8位
     }else if(checkcode.length < 6) {
       return;
@@ -149,6 +149,7 @@ Page({
           },
           method: "POST",
           success : function (data) {
+            console.log(data)
             var status = data.data.status
             if (status == 403){
               that.setData({

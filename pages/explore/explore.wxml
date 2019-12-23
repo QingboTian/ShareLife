@@ -2,7 +2,7 @@
   <!-- <view class='title'>发现</view> -->
 
   <block wx:for='{{explore}}' wx:for-item='area'>
-    <view class='item' data-='' bindtap='tapHandler'>
+    <view class='item' bindtap='tapHandler' data-id='{{area.explore.id}}'>
       <view class='poster'>
         <image src='{{area.explore.avatarurl}}'></image>
       </view>

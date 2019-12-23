@@ -12,8 +12,20 @@ Page({
 
   // 进入专区详情页面
   tapHandler : function (e) {
+    var id = e.currentTarget.dataset.id;
+    // console.log(e)
+    var token = wx.getStorageSync("accessToken").token;
+    // 请求访问接口
+    wx.request({
+      url: app.api.visitExplore,
+      method: "GET",
+      data : {
+        id: id,
+        token: token
+      }
+    })
     wx.navigateTo({
-      url: '../classify/classify',
+      url: '../classify/classify?id=' + id,
     })
   },
 
