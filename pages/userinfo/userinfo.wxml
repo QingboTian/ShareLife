@@ -2,99 +2,59 @@
 <view class='container'>
   <view class='info'>
     <view class='poster'> 
-      <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-      <view class='id'>ID:999999</view>
+      <image src='{{userinfo.userinfo.avatarurl}}'></image>
+      <view class='id'>ID:{{userinfo.userinfo.randomid}}</view>
     </view>
     <view class='other-info'>
       <view class='other'>
-        <view class='item'>2.3w获赞</view>
-        <view class='item'>120关注</view>
-        <view class='item'>132粉丝</view>
+        <view class='item'>{{userinfo.totalLike}}获赞</view>
+        <view class='item'>{{userinfo.totalFocus}}关注</view>
+        <view class='item'>{{userinfo.totalfans}}粉丝</view>
       </view>
-      <view class='focus'>关注</view>
+      <view class="{{userinfo.isFocus ? 'nofocus' : 'focus'}}">{{userinfo.isFocus ? '取消关注' : '关注'}}</view>
     </view>
   </view>
 
-  <view class='num'>作品 120：</view>
+  <view class='num'>作品 {{userinfo.totalProduction}}：</view>
 
   <scroll-view class='zuopin' scroll-y>
-      <view class='author'>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
+      <block wx:for="{{proinfo.recordList}}" wx:for-item="item" wx:key="index">
+        <view class='author'>
+        <image src='{{userinfo.userinfo.avatarurl}}'></image>
         <view class='name'>
-          热门电影推荐
+          {{userinfo.userinfo.nick}}
         </view>
       </view>
 
       <view class='content'>
-        最佳男主角花落谁家？
+        {{item.production.content}}
       </view>      
       <view class='video'>
-        <video src='' wx:if="{{type == 1}}"></video>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg'></image>
+        <video src='{{item.production.url}}' wx:if="{{item.production.type == 1}}" poster="{{item.production.poster}}"></video>
+        <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}'></image>
         <!-- 点赞 评论 收藏等功能 -->
         <view class='option'>
           <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>10000</view>
+            <image src="{{item.islike ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
+            <view>{{item.likes}}</view>
           </view>
 
           <view class='comment'>
             <image src='../../images/comment.png'></image>
-            <view>500</view>
+            <view>{{item.comment}}</view>
           </view>
 
           <view class='collect'>
-            <image src='../../images/collect.png'></image>
+            <image src="{{item.collect ? '../../images/collect.png' : '../../images/nocollect.png'}}"></image>
             <!-- <view>10000</view> -->
           </view>
         </view>
 
         <!-- 标签 -->
         <view class='lable'>
-          <view class='item'>电影</view>
-          <view class='item'>经典</view>
-          <view class='item'>强力推荐</view>
+          <view class='item' wx:for="{{item.labelList}}" wx:for-item="label">{{label.name}}</view>
         </view>
       </view>
-
-
-      <view class='author'>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-        <view class='name'>
-          热门电影推荐
-        </view>
-      </view>
-
-      <view class='content'>
-        最佳男主角花落谁家？
-      </view>  
-      <view class='video'>
-        <video src='' wx:if="{{type == 1}}"></video>
-        <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg'></image>
-        <!-- 点赞 评论 收藏等功能 -->
-        <view class='option'>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>10000</view>
-          </view>
-
-          <view class='comment'>
-            <image src='../../images/comment.png'></image>
-            <view>500</view>
-          </view>
-
-          <view class='collect'>
-            <image src='../../images/collect.png'></image>
-            <!-- <view>10000</view> -->
-          </view>
-        </view>
-
-        <!-- 标签 -->
-        <view class='lable'>
-          <view class='item'>电影</view>
-          <view class='item'>经典</view>
-          <view class='item'>强力推荐</view>
-        </view>
-      </view>
+      </block>
   </scroll-view>
 </view>

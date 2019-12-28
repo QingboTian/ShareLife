@@ -22,6 +22,14 @@ App({
     explore: server + "/api/short_video/explore",
     explore_focus: server + "/api/short_video/explore/focus",
     visitExplore: server + "/api/short_video/explore/visit",
+    like: server + "/api/short_video/production/like",
+    collect: server + "/api/short_video/production/collect",
+    // 用户主页
+    user : {
+      userinfo: server + "/api/short_video/production/user",
+      // 作品信息
+      proinfo: server + "/api/short_video/production",
+    }
   },
 
   onLaunch: function () {

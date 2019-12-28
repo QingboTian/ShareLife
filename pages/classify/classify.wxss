@@ -168,3 +168,9 @@ page {
   padding: 0 10rpx;
   border-radius: 20rpx;
 }
+
+.bottom {
+  color: #8a8a8a;
+  display: flex;
+  justify-content: center;
+}

@@ -67,6 +67,17 @@ page {
   border-radius: 20rpx;
 }
 
+.info .other-info .nofocus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  padding-top: 5rpx;
+  padding-bottom: 5rpx;
+  background-color: red;
+  border-radius: 20rpx;
+}
+
 .num {
   margin-left: 20rpx;
   margin-bottom: 10rpx;

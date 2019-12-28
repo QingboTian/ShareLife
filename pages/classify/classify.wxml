@@ -18,8 +18,8 @@
   </view>
 
   <view class='body'>
-    <view class='item'wx:for="{{productions.recordList}}" wx:for-item="item">
-      <view class='author' bindtap='tapHandler'>
+    <view class='item'wx:for="{{productions.recordList}}" wx:for-item="item" wx:key="index">
+      <view class='author' bindtap='tapHandler' data-uid='{{item.userinfo.id}}'>
         <image src='{{item.userinfo.avatarurl}}'></image>
         <view class='name'>
           {{item.userinfo.nick}}
@@ -34,8 +34,8 @@
         <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}'></image>
         <!-- 点赞 评论 收藏等功能 -->
         <view class='option'>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
+          <view class='like' bindtap="like" data-pid="{{item.production.id}}" data-islike="{{item.islike}}" data-index="{{index}}">
+            <image src="{{item.islike ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
             <view>{{item.likes}}</view>
           </view>
 
@@ -44,8 +44,8 @@
             <view>{{item.comment}}</view>
           </view>
 
-          <view class='collect'>
-            <image src='../../images/collect.png'></image>
+          <view class='collect' bindtap="collect" data-pid="{{item.production.id}}" data-iscollect="{{item.collect}}" data-index="{{index}}">
+            <image src="{{item.collect ? '../../images/collect.png':'../../images/nocollect.png'}}"></image>
             <!-- <view>10000</view> -->
           </view>
         </view>
@@ -55,8 +55,9 @@
           <view class='item' wx:for="{{item.labelList}}" wx:for-item="label">{{label.name}}</view>
         </view>
       </view>
-    </view>
-
-    
+    </view> 
   </view>
+
+  <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>
+  <view class='bottom' wx:if="{{load}}">加载ing</view>
 </view>
