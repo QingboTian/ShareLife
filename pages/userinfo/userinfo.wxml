@@ -11,7 +11,7 @@
         <view class='item'>{{userinfo.totalFocus}}关注</view>
         <view class='item'>{{userinfo.totalfans}}粉丝</view>
       </view>
-      <view class="{{userinfo.isFocus ? 'nofocus' : 'focus'}}">{{userinfo.isFocus ? '取消关注' : '关注'}}</view>
+      <view class="{{userinfo.isFocus ? 'nofocus' : 'focus'}}" bindtap="focus" data-isfocus="{{userinfo.isFocus}}" data-uid="{{userinfo.userinfo.id}}">{{userinfo.isFocus ? '取消关注' : '关注'}}</view>
     </view>
   </view>
 
@@ -30,11 +30,11 @@
         {{item.production.content}}
       </view>      
       <view class='video'>
-        <video src='{{item.production.url}}' wx:if="{{item.production.type == 1}}" poster="{{item.production.poster}}"></video>
+        <video src="{{item.production.url}}" controls poster="{{item.production.poster}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}' wx:if="{{item.production.type == 1}}"></video>
         <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}'></image>
         <!-- 点赞 评论 收藏等功能 -->
         <view class='option'>
-          <view class='like'>
+          <view class='like' bindtap="like" data-pid="{{item.production.id}}" data-islike="{{item.islike}}" data-index="{{index}}">
             <image src="{{item.islike ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
             <view>{{item.likes}}</view>
           </view>
@@ -44,7 +44,7 @@
             <view>{{item.comment}}</view>
           </view>
 
-          <view class='collect'>
+          <view class='collect' bindtap="collect" data-pid="{{item.production.id}}" data-iscollect="{{item.collect}}" data-index="{{index}}">
             <image src="{{item.collect ? '../../images/collect.png' : '../../images/nocollect.png'}}"></image>
             <!-- <view>10000</view> -->
           </view>

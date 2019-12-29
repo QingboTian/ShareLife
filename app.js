@@ -29,6 +29,7 @@ App({
       userinfo: server + "/api/short_video/production/user",
       // 作品信息
       proinfo: server + "/api/short_video/production",
+      focus: server + "/api/short_video/production/focus",
     }
   },
 

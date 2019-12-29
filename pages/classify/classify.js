@@ -10,13 +10,14 @@ Page({
     explore : {},
     isFocus : false,
     currentPage : 1,
-    pageSize : 10,
+    pageSize : 2,
     productions : {},// 分区具体的作品
     visitnum : 0,
     eid : -1,// 专区ID
     isBottom : false,
     pageCount : 0,
-    load : false
+    load : false,
+    preplay : ""// 上一个播放视频的ID
   }, 
 
   tapHandler : function (e) {
@@ -83,8 +84,11 @@ Page({
             // 第一次加载
             that.setData({
               productions: res.data.data,
-              pageCount: res.data.data.pageCount
+              // pageSize: res.data.data.pageSize,
+              currentPage: res.data.data.currentPage,
+              pageCount: res.data.data.pageCount,
             })
+            console.log(res.data.data)
           }else {
             var temp = res.data.data
             var newlist = temp.recordList
@@ -92,7 +96,9 @@ Page({
             temp.recordList = recordList
             that.setData({
               productions: temp,
-              pageCount: res.data.data.pageCount
+              // pageSize: res.data.data.pageSize,
+              currentPage: res.data.data.currentPage,
+              pageCount: res.data.data.pageCount,
             })
           }
           
@@ -197,6 +203,27 @@ Page({
     })
 
     // console.log(e)
+  },
+
+  videoPlay : function(e) {
+    var id = e.currentTarget.id
+    var context = wx.createVideoContext(id)
+    var preplay = this.data.preplay
+    if (preplay == "") {
+      // 播放第一个视频
+      this.setData({
+        preplay : id
+      })
+    }else {
+      // 已经存在视频播放
+      // 暂停上一个视频的播放
+      var pre = wx.createVideoContext(preplay)
+      pre.pause();
+      this.setData({
+        preplay: id
+      })
+    }
+    // console.log(context)
   },
 
   /**

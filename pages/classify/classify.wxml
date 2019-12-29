@@ -30,7 +30,7 @@
         {{item.production.content}}
       </view>      
       <view class='video'>
-        <video src='{{item.production.url}}' wx:if="{{item.production.type == 1}}"></video>
+        <video src="{{item.production.url}}" controls poster="{{item.production.poster}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}' wx:if="{{item.production.type == 1}}"></video>
         <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}'></image>
         <!-- 点赞 评论 收藏等功能 -->
         <view class='option'>

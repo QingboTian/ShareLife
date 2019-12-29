@@ -6,11 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type : 0,
     userinfo : null,
     currentPage : 1,
     pageSize : 10,
-    proinfo : null
+    proinfo : null,
+    preplay: ""// 上一个播放视频的ID
   },
 
   /**
@@ -83,6 +83,113 @@ Page({
         }
       }
     })
+  },
+
+  focus : function (e) {
+    var isfocus = e.currentTarget.dataset.isfocus
+    var token = wx.getStorageSync("accessToken").token
+    var uid = e.currentTarget.dataset.uid
+
+    var userinfo = this.data.userinfo
+    // console.log(userinfo)
+    userinfo['isFocus'] = !isfocus
+    this.setData({
+      userinfo : userinfo
+    })
+
+    wx.request({
+      url: app.api.user.focus + "/" + uid,
+      method : "GET",
+      data : {
+        token : token,
+        isFocus : !isfocus
+      },
+      success : function (res) {
+        // console.log(res)
+      }
+    })
+  },
+
+  like: function (e) {
+    // console.log(e)
+    var pid = e.currentTarget.dataset.pid;
+    var islike = e.currentTarget.dataset.islike;
+    var index = e.currentTarget.dataset.index;
+
+    // 
+    var proinfo = this.data.proinfo;
+    var recordList = proinfo.recordList;
+    recordList[index].islike = !islike;
+    if (islike) {
+      recordList[index].likes = recordList[index].likes - 1;
+    } else {
+      recordList[index].likes = recordList[index].likes + 1;
+    }
+
+    this.setData({
+      proinfo: proinfo
+    })
+
+    var token = wx.getStorageSync("accessToken").token
+    wx.request({
+      url: app.api.like + "/" + pid,
+      method: "GET",
+      data: {
+        token: token,
+        islike: !islike
+      }
+    })
+
+    // console.log(index)
+  },
+
+  // 收藏
+  collect: function (e) {
+    var pid = e.currentTarget.dataset.pid;
+    var collect = e.currentTarget.dataset.iscollect;
+    var index = e.currentTarget.dataset.index;
+    var token = wx.getStorageSync("accessToken").token
+
+    // console.log(collect)
+
+    var proinfo = this.data.proinfo;
+    var recordList = proinfo.recordList;
+    recordList[index].collect = !collect;
+
+    this.setData({
+      proinfo: proinfo
+    })
+
+    wx.request({
+      url: app.api.collect + "/" + pid,
+      method: "GET",
+      data: {
+        token: token,
+        iscollect: !collect
+      },
+    })
+  },
+
+// 视频播放时触发
+  videoPlay: function (e) {
+    var id = e.currentTarget.id
+    var context = wx.createVideoContext(id)
+    var preplay = this.data.preplay
+    if (preplay == "") {
+      // 播放第一个视频
+      this.setData({
+        preplay: id
+      })
+    } else {
+      // 已经存在视频播放
+      // 暂停上一个视频的播放
+      var pre = wx.createVideoContext(preplay)
+      pre.pause();
+      this.setData({
+        preplay: id
+      })
+    }
+    // console.log(context)
   },
 
   /**
