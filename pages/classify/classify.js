@@ -10,7 +10,7 @@ Page({
     explore : {},
     isFocus : false,
     currentPage : 1,
-    pageSize : 2,
+    pageSize : 10,
     productions : {},// 分区具体的作品
     visitnum : 0,
     eid : -1,// 专区ID
@@ -55,6 +55,7 @@ Page({
   },
 
   loadExplore: function (id, currentPage, pageSize) {
+    // debugger
     var token = wx.getStorageSync("accessToken").token;
     var that = this;
 
@@ -76,26 +77,25 @@ Page({
             load : false
           })
 
-          // 先获取已经渲染的数据
-          var recordList = that.data.productions.recordList;
-          // console.log(recordList)
-          // 进行数据追加//typeof(value)=="undefined"
-          if (typeof (recordList) == "undefined") {
-            // 第一次加载
+          if (currentPage == 1) {
             that.setData({
               productions: res.data.data,
               // pageSize: res.data.data.pageSize,
               currentPage: res.data.data.currentPage,
               pageCount: res.data.data.pageCount,
             })
-            console.log(res.data.data)
           }else {
-            var temp = res.data.data
-            var newlist = temp.recordList
-            recordList.push(newlist)// 追加
-            temp.recordList = recordList
+            // 数据追加
+            // 获取之前数据
+            var productions = that.data.productions
+            var newpro = JSON.parse(JSON.stringify(productions))
+            var arrobj = newpro.recordList
+            var arr = res.data.data.recordList
+            for (var i = 0; i < arr.length; i++) {
+              arrobj.push(arr[i])
+            }
             that.setData({
-              productions: temp,
+              productions: newpro,
               // pageSize: res.data.data.pageSize,
               currentPage: res.data.data.currentPage,
               pageCount: res.data.data.pageCount,
@@ -279,7 +279,7 @@ Page({
       })
       return;
     }
-
+    // console.log("分页加载")
     var eid = this.data.eid;
     this.loadExplore(eid, currentPage + 1, pageSize);
   },

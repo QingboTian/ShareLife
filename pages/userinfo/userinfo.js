@@ -10,7 +10,10 @@ Page({
     currentPage : 1,
     pageSize : 10,
     proinfo : null,
-    preplay: ""// 上一个播放视频的ID
+    preplay: "",// 上一个播放视频的ID
+    pageCount: 0,
+    isBottom : false,
+    uid : -1
   },
 
   /**
@@ -18,6 +21,9 @@ Page({
    */
   onLoad: function (options) {
     var uid = options.uid;
+    this.setData({
+      uid : uid
+    })
 
     // console.log(options)
     var token = wx.getStorageSync("accessToken").token
@@ -75,11 +81,28 @@ Page({
       },
       success : function (res) {
         if (res.data.status == 200) {
-          that.setData({
-            proinfo : res.data.data,
-            currentPage: res.data.data.currentPage,
-            pageSize: res.data.data.pageSize
-          })
+          if (currentPage == 1) {
+            that.setData({
+              proinfo: res.data.data,
+              currentPage: res.data.data.currentPage,
+              pageSize: res.data.data.pageSize,
+              pageCount: res.data.data.pageCount,
+            })
+          } else {
+            var proinfo = that.data.proinfo
+            var newobj = JSON.parse(JSON.stringify(proinfo))
+            var arrobj = newobj.recordList
+            var arr = res.data.data.recordList
+            for (var i = 0; i < arr.length; i++) {
+              arrobj.push(arr[i])
+            }
+            that.setData({
+              proinfo: newobj,
+              currentPage: res.data.data.currentPage,
+              // pageSize: res.data.data.pageSize,
+              pageCount: res.data.data.pageCount,
+            })
+          }
         }
       }
     })
@@ -231,7 +254,37 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    // var currentPage = this.data.currentPage
+    // var pageCount = this.data.pageCount
+    // var pageSize = this.data.pageSize
+    // if (currentPage == pageCount) {
+    //   this.setData({
+    //     isBottom: true
+    //   })
+    //   return;
+    // }
 
+    // var uid = this.data.uid
+    // var token = wx.getStorageSync("accessToken").token
+
+    // this.loadproinfo(uid, token, currentPage + 1, pageSize)
+  },
+
+  bindscrolltolower : function(e) {
+    var currentPage = this.data.currentPage
+    var pageCount = this.data.pageCount
+    var pageSize = this.data.pageSize
+    if (currentPage == pageCount) {
+      this.setData({
+        isBottom: true
+      })
+      return;
+    }
+
+    var uid = this.data.uid
+    var token = wx.getStorageSync("accessToken").token
+
+    this.loadproinfo(uid, token, currentPage + 1, pageSize)
   },
 
   /**

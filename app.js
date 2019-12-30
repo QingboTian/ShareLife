@@ -6,30 +6,30 @@ App({
   api: {
     me: {
       // 我的栏 功能区
-      gongneng: server + "/api/short_video/me/op",
-      slide: server + "/api/short_video/me/slide"
+      gongneng: server + "/api/shortvideo/me/op",
+      slide: server + "/api/shortvideo/me/slide"
     },
-    login: server + "/api/short_video/login/auto",
+    login: server + "/api/shortvideo/login/auto",
     regist : {
       // 获取短信验证码
-      msgcode: server + "/api/short_video/regist/messagecode",
+      msgcode: server + "/api/shortvideo/regist/messagecode",
       // 用户注册
-      regist: server + "/api/short_video/regist"
+      regist: server + "/api/shortvideo/regist"
     },
-    user: server + "/api/short_video/user",
+    user: server + "/api/shortvideo/user",
     // 用户头像上传更新
-    userupload: server + "/api/short_video/user/upload",
-    explore: server + "/api/short_video/explore",
-    explore_focus: server + "/api/short_video/explore/focus",
-    visitExplore: server + "/api/short_video/explore/visit",
-    like: server + "/api/short_video/production/like",
-    collect: server + "/api/short_video/production/collect",
+    userupload: server + "/api/shortvideo/user/upload",
+    explore: server + "/api/shortvideo/explore",
+    explore_focus: server + "/api/shortvideo/explore/focus",
+    visitExplore: server + "/api/shortvideo/explore/visit",
+    like: server + "/api/shortvideo/production/like",
+    collect: server + "/api/shortvideo/production/collect",
     // 用户主页
     user : {
-      userinfo: server + "/api/short_video/production/user",
+      userinfo: server + "/api/shortvideo/production/user",
       // 作品信息
-      proinfo: server + "/api/short_video/production",
-      focus: server + "/api/short_video/production/focus",
+      proinfo: server + "/api/shortvideo/production",
+      focus: server + "/api/shortvideo/production/focus",
     }
   },
 

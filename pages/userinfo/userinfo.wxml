@@ -17,7 +17,7 @@
 
   <view class='num'>作品 {{userinfo.totalProduction}}：</view>
 
-  <scroll-view class='zuopin' scroll-y>
+  <scroll-view class='zuopin' scroll-y enable-back-to-top lower-threshold='100' bindscrolltolower="bindscrolltolower">
       <block wx:for="{{proinfo.recordList}}" wx:for-item="item" wx:key="index">
         <view class='author'>
         <image src='{{userinfo.userinfo.avatarurl}}'></image>
@@ -56,5 +56,8 @@
         </view>
       </view>
       </block>
+
+      <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>
+      <view class='bottom' wx:if="{{load}}">加载ing</view>
   </scroll-view>
 </view>
