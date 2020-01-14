@@ -16,7 +16,7 @@
   </view>
 
   <view class='zhengti'>
-    <view class='video'>
+    <view class='video' bindlongtap="longfunction">
       <video src='' wx:if="{{type == 1}}"></video>
       <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg'></image>
       <!-- 点赞 评论 收藏等功能 -->

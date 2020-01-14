@@ -1,6 +1,7 @@
 // pages/comment/comment.js
 let touchDotX = 0;//X按下时坐标
 let touchDotY = 0;//y按下时坐标
+const app = getApp();
 
 Page({
 
@@ -10,100 +11,14 @@ Page({
   data: {
     isChoose : true,
     showFlag : true,
-    other2me : [
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name : "用户1",
-        content : "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户2",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户3",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户1",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户2",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户3",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户1",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户2",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户3",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户1",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户2",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "用户3",
-        content: "作者每次发的作品真是太好了！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg",// 作品封面图
-      },
+    commentMe : [
+      
     ],
-    me2other: [
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "bobo",
-        content: "作品没我的好！！！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/3.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "bobo",
-        content: "挺棒的！",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/3.jpg",// 作品封面图
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "bobo",
-        content: "继续加油",
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/3.jpg",// 作品封面图
-      },
+    meComment: [
+
     ],
+    avatarurl : "",
+    nick : "",
   },
 
   // 点击切换标签
@@ -166,6 +81,52 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '评论',
+    })
+
+    var token = wx.getStorageSync("accessToken").token;
+    this.loadInfo(token);
+    this.loadUserInfo();
+  },
+
+  loadInfo : function(token){
+      var that = this;
+      wx.request({
+        url: app.api.userComment,
+        method : "GET",
+        data : {
+          token : token
+        },
+        success : function(res) {
+          if (res.data.status = 200) {
+            var data = res.data.data;
+            that.setData({
+              commentMe : data.commentMe,
+              meComment : data.meComment
+            })
+          }
+          else {
+            wx.showToast({
+              title: '发生错误！',
+            })
+          }
+        }
+      })
+  },
+
+  loadUserInfo : function() {
+    var userinfo = wx.getStorageSync("accessToken").userinfo;
+    var avatarurl = userinfo.avatarurl;
+    var nick = userinfo.nick;
+    this.setData({
+      avatarurl: avatarurl,
+      nick: nick
+    })
+  },
+
+  toProductionPage : function (e) {
+    var pid = e.currentTarget.dataset.pid;
+    wx.navigateTo({
+      url: '../video/video?pid=' + pid,
     })
   },
 

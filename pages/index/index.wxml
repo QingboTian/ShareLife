@@ -14,11 +14,11 @@
       <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
         <!-- 作品 -->
         <view class='product'>
-          <image src='{{image.url}}' mode='widthFix'></image>
+          <image src='{{image.poster}}' mode='widthFix'></image>
         </view>
         <view class='author-type'>
           <view class='poster'>
-            <image src='{{image.poster}}'></image>
+            <image src='{{image.avatarurl}}'></image>
           </view>
           <view class='type'>
             <image src="{{image.type == 1 ? '../../images/video.png' : '../../images/image.png'}}"></image>
@@ -34,11 +34,11 @@
       <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
         <!-- 作品 -->
         <view class='product'>
-          <image src='{{image.url}}' mode='widthFix'></image>
+          <image src='{{image.poster}}' mode='widthFix'></image>
         </view>
         <view class='author-type'>
           <view class='poster'>
-            <image src='{{image.poster}}'></image>
+            <image src='{{image.avatarurl}}'></image>
           </view>
           <view class='type'>
             <image src="{{image.type == 1 ? '../../images/video.png' : '../../images/image.png'}}"></image>

@@ -10,26 +10,26 @@
     <!-- 关注的人 -->
     <view class="people" hidden="{{!showFlag}}">
       <block wx:for="{{focusPeople}}" wx:for-item="item" wx:key="index">
-        <view class="item">
-          <view class="poster"><image src="{{item.poster}}"></image></view>
+        <view class="item" data-uid="{{item.id}}" bindtap="goUserPage">
+          <view class="poster"><image src="{{item.avatarurl}}"></image></view>
           <view class="body">
-            <view class="name">{{item.name}}</view>
+            <view class="name">{{item.nick}}</view>
             <view class="signature">{{item.signature}}</view>
           </view>
-          <view class="focus">关注</view>
+          <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="userFocus" data-isfocus="{{item.isFocus}}" data-uid="{{item.id}}" data-index = "{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
         </view>
       </block>
     </view>
     <!-- 关注的专区 -->
     <view class="area"  hidden="{{showFlag}}">
       <block wx:for="{{focusArea}}" wx:for-item="item" wx:key="index">
-        <view class="item">
-          <view class="poster"><image src="{{item.poster}}"></image></view>
+        <view class="item" data-eid="{{item.id}}" bindtap="goExplorePage">
+          <view class="poster"><image src="{{item.avatarurl}}"></image></view>
           <view class="body">
             <view class="name">{{item.name}}</view>
-            <view class="desc">{{item.desc}}</view>
+            <view class="desc">{{item.content}}</view>
           </view>
-          <view class="focus">关注</view>
+          <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="exploreFocus" data-isfocus="{{item.isFocus}}" data-eid="{{item.id}}" data-index = "{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
         </view>
       </block>
     </view>

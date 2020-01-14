@@ -13,6 +13,8 @@ page {
 
 .item {
   margin: 20rpx 0;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .zhengti {
@@ -170,4 +172,10 @@ page {
   display: flex;
   margin-right: 20rpx;
   align-items: center;
+}
+
+.bottom {
+  color: #8a8a8a;
+  display: flex;
+  justify-content: center;
 }

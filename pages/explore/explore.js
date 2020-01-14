@@ -33,7 +33,13 @@ Page({
     // console.log(e)
     var id = e.target.dataset.id
     // console.log(id)
-    var isFocus = e.target.dataset.isfocus
+    var isFocus = e.target.dataset.isfocus;
+    var index = e.currentTarget.dataset.index;
+    var explore = this.data.explore;
+    explore[index].isFocus = !isFocus
+    this.setData({
+      explore: explore
+    })
     // console.log(isFocus)
     // 获取token
     var accessToken = wx.getStorageSync("accessToken")
@@ -52,9 +58,9 @@ Page({
         if (res.data.status == 200) {
           // console.log(res)
           wx.setStorageSync("explore", res.data.data)
-          that.setData({
-            explore: res.data.data
-          })
+          // that.setData({
+          //   explore: res.data.data
+          // })
         }
       }
     })

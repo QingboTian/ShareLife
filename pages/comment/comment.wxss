@@ -42,6 +42,7 @@ page {
   display: flex;
   align-items: center;
   margin: 10rpx 0;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .body .other2me .item .poster image{

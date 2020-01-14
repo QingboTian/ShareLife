@@ -44,6 +44,9 @@ Page({
           isFocus: explore[i].isFocus,
           visitnum: explore[i].explore.visitnum
         })
+        wx.setNavigationBarTitle({
+          title: explore[i].explore.name,
+        })
         break;
       }
     }
@@ -52,6 +55,13 @@ Page({
     var currentPage = this.data.currentPage;
     var pageSize = this.data.pageSize;
     this.loadExplore(id, currentPage, pageSize);
+  },
+
+  goProductionPage : function(e) {
+    var pid = e.currentTarget.dataset.pid;
+    wx.navigateTo({
+      url: '../video/video?pid=' + pid,
+    })
   },
 
   loadExplore: function (id, currentPage, pageSize) {
@@ -209,7 +219,7 @@ Page({
     var id = e.currentTarget.id
     var context = wx.createVideoContext(id)
     var preplay = this.data.preplay
-    if (preplay == "") {
+    if (preplay == "" || preplay == id) {
       // 播放第一个视频
       this.setData({
         preplay : id

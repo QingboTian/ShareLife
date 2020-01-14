@@ -17,6 +17,11 @@ App({
       regist: server + "/api/shortvideo/regist"
     },
     user: server + "/api/shortvideo/user",
+    userFans: server + "/api/shortvideo/user/fans",
+    userComment: server + "/api/shortvideo/user/comment",
+    userCollect: server + "/api/shortvideo/user/collect",
+    userFocusUser: server + "/api/shortvideo/user/focus/user",
+    userFocusExplore: server + "/api/shortvideo/user/focus/explore",
     // 用户头像上传更新
     userupload: server + "/api/shortvideo/user/upload",
     explore: server + "/api/shortvideo/explore",
@@ -30,7 +35,8 @@ App({
       // 作品信息
       proinfo: server + "/api/shortvideo/production",
       focus: server + "/api/shortvideo/production/focus",
-    }
+    },
+    index: server + "/api/shortvideo/production",
   },
 
   onLaunch: function () {

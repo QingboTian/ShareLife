@@ -9,30 +9,30 @@
   <scroll-view class="body" scroll-y>
     <!-- 评论我的 -->
     <view class="other2me" hidden="{{!showFlag}}">
-      <block wx:for="{{other2me}}" wx:for-item="item" wx:key="index">
-        <view class="item">
-          <view class="poster"><image src="{{item.poster}}"></image></view>
+      <block wx:for="{{commentMe}}" wx:for-item="item" wx:key="index">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}">
+          <view class="poster"><image src="{{item.avatarUrl}}"></image></view>
           <view class="body">
-            <view class="name">{{item.name}}</view>
+            <view class="name">{{item.nick}}</view>
             <view class="content">{{item.content}}</view>
           </view>
           <view class="footer">
-            <image src="{{item.src}}" mode="aspectFill"></image>
+            <image src="{{item.poster}}" mode="aspectFill"></image>
           </view>
         </view>
       </block>
     </view>
     <!-- 我评论的 -->
     <view class="me2other"  hidden="{{showFlag}}">
-      <block wx:for="{{me2other}}" wx:for-item="item" wx:key="index">
-        <view class="item">
-          <view class="poster"><image src="{{item.poster}}"></image></view>
+      <block wx:for="{{meComment}}" wx:for-item="item" wx:key="index">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}">
+          <view class="poster"><image src="{{avatarurl}}"></image></view>
           <view class="body">
-            <view class="name">{{item.name}}</view>
+            <view class="name">{{nick}}</view>
             <view class="content">{{item.content}}</view>
           </view>
           <view class="footer">
-            <image src="{{item.src}}" mode="aspectFill"></image>
+            <image src="{{item.poster}}" mode="aspectFill"></image>
           </view>
         </view>
       </block>

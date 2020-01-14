@@ -2,7 +2,7 @@
 
 
 //                    注意：在container中存在监听滑动的操作  子元素的点击事件是catchtap
-
+const app = getApp();
 
 let touchDotX = 0;//X按下时坐标
 let touchDotY = 0;//y按下时坐标
@@ -16,45 +16,12 @@ Page({
     showFlag: true,// 内容区是否显示
     isChoose: true,// 是否选择当前标签栏
     // 以上两栏默认显示关注的人 即true为关注的人
+
     focusPeople: [
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",// 头像
-        name : "啵啵",// 名称
-        signature: "心若向阳，无畏悲伤",// 签名
-        isFocus: 1 // 是否关注
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",// 头像
-        name: "啵啵",// 名称
-        signature: "心若向阳，无畏悲伤",// 签名
-        isFocus: 1 // 是否关注
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",// 头像
-        name: "啵啵",// 名称
-        signature: "心若向阳，无畏悲伤",// 签名
-        isFocus: 1 // 是否关注
-      }
+      
     ], // 关注的人
     focusArea:[
-      {
-        poster: "../../images/beauty.png",
-        name : "美女专区",
-        desc : "美女专区的描述",
-        isFocus: 1
-      },
-      {
-        poster: "../../images/beauty.png",
-        name: "美女专区",
-        desc: "美女专区的描述",
-        isFocus: 1
-      },
-      {
-        poster: "../../images/beauty.png",
-        name: "美女专区",
-        desc: "美女专区的描述",
-        isFocus: 1
-      }
+      
     ] // 关注的专区
   },
 
@@ -118,6 +85,138 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '关注',
+    })
+
+    var token = wx.getStorageSync("accessToken").token;
+    this.loadExplore(token);
+    this.loadUser(token);
+  },
+
+  // 加载关注的人
+  loadUser : function(token) {
+    var that = this;
+    wx.request({
+      url: app.api.userFocusUser,
+      method : "GET",
+      data : {
+        token ,token
+      },
+      success : function(res) {
+        if (res.data.status == 200) {
+          var data = res.data.data;
+          for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            temp['isFocus'] = true;
+            data[i] = temp;
+          }
+          console.log(data)
+          that.setData({
+            focusPeople : data
+          })
+        }
+      }
+    })
+  },
+
+  loadExplore : function(token) {
+    var that = this;
+    wx.request({
+      url: app.api.userFocusExplore,
+      method: "GET",
+      data: {
+        token, token
+      },
+      success: function (res) {
+        if (res.data.status == 200) {
+          var data = res.data.data;
+          for (var i = 0; i < data.length; i++) {
+            var temp = data[i];
+            temp['isFocus'] = true;
+            data[i] = temp;
+          }
+          that.setData({
+            focusArea: data
+          })
+        }
+      }
+    })
+  },
+
+  goExplorePage : function(e){
+    var eid = e.currentTarget.dataset.eid;
+    wx.navigateTo({
+      url: '../classify/classify?id=' + eid,
+    })
+  },
+
+  goUserPage : function(e) {
+    var uid = e.currentTarget.dataset.uid;
+    wx.navigateTo({
+      url: '../userinfo/userinfo?uid=' + uid,
+    })
+  },
+
+  userFocus: function (e) {
+    var isfocus = e.currentTarget.dataset.isfocus
+    var token = wx.getStorageSync("accessToken").token
+    var uid = e.currentTarget.dataset.uid
+    var index = e.currentTarget.dataset.index
+
+    var focusPeople = this.data.focusPeople
+    var temp = focusPeople[index]
+    temp['isFocus'] = !isfocus
+    focusPeople[index] = temp
+    // console.log(userinfo)
+    // focusPeople['isFocus'] = !isfocus
+    this.setData({
+      focusPeople: focusPeople
+    })
+
+    wx.request({
+      url: app.api.user.focus + "/" + uid,
+      method: "GET",
+      data: {
+        token: token,
+        isFocus: !isfocus
+      },
+    })
+  },
+
+  exploreFocus: function (e) {
+    // console.log(e)
+    var eid = e.target.dataset.eid
+    // console.log(id)
+    var isFocus = e.target.dataset.isfocus
+    // console.log(isFocus)
+    // 获取token
+
+    var index = e.currentTarget.dataset.index;
+    var focusArea = this.data.focusArea;
+    var temp = focusArea[index];
+    temp['isFocus'] = !isFocus;
+    focusArea[index] = temp;
+    this.setData({
+      focusArea: focusArea
+    })
+
+    var accessToken = wx.getStorageSync("accessToken")
+    var token = accessToken.token
+    var that = this
+    wx.request({
+      url: app.api.explore_focus,
+      method: "PUT",
+      header: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
+      data: {
+        isFocus: !isFocus,
+        eid: eid,
+        token: token
+      },
+      success: function (res) {
+        if (res.data.status == 200) {
+          // console.log(res)
+          wx.setStorageSync("explore", res.data.data)
+        }
+      }
     })
   },
 

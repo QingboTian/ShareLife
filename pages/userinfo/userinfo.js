@@ -67,6 +67,29 @@ Page({
     })
   },
 
+  goProductionPage: function (e) {
+    var pid = e.currentTarget.dataset.pid;
+    wx.navigateTo({
+      url: '../video/video?pid=' + pid,
+    })
+  },
+
+  download : function (e) {
+
+    // 判断当前作品  视频/图片
+    // 根据作品类别分别做处理
+
+    wx.showActionSheet({
+      itemList: ['下载视频'],
+      success(res) {
+        console.log(res.tapIndex)
+      },
+      fail(res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+
 // 加载作品信息
   loadproinfo: function (uid, token, currentPage, pageSize) {
     var that = this;
@@ -198,7 +221,7 @@ Page({
     var id = e.currentTarget.id
     var context = wx.createVideoContext(id)
     var preplay = this.data.preplay
-    if (preplay == "") {
+    if (preplay == "" || preplay == id) {
       // 播放第一个视频
       this.setData({
         preplay: id

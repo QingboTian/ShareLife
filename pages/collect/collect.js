@@ -1,4 +1,5 @@
 // pages/collect/collect.js
+const app = getApp();
 Page({
 
   /**
@@ -6,47 +7,14 @@ Page({
    */
   data: {
     collects : [
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "学习资料",
-        content: "问卷系统开发过程",
-        like : 10000,
-        comment : 500,
-        type : 1,
-        src: "http://132.232.203.84/group1/M00/00/00/rBsADF2paFKACDiUAE_iT3tRxwc221.mp4",
-        labels : [
-          {
-            name : "学习"
-          },
-          {
-            name: "Java"
-          },
-          {
-            name: "强力推荐"
-          }
-        ]
-      },
-      {
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "热门电影推荐",
-        content: "最佳男主角花落谁家？",
-        like: 10000,
-        comment: 500,
-        type: 0,
-        src: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg",
-        labels: [
-          {
-            name: "图片"
-          },
-          {
-            name: "景色"
-          },
-          {
-            name: "强力推荐"
-          }
-        ]
-      }
-    ]
+    ],
+    currentPage: 1,
+    pageSize: 5,
+    productions: {},
+    isBottom: false,
+    pageCount: 0,
+    load: false,
+    preplay: ""// 上一个播放视频的ID
   },
 
   /**
@@ -56,6 +24,166 @@ Page({
     wx.setNavigationBarTitle({
       title: '收藏',
     })
+
+    var currentPage = this.data.currentPage;
+    var pageSize = this.data.pageSize;
+    this.loadInfo(currentPage, pageSize);
+  },
+
+  goProductionPage: function (e) {
+    var pid = e.currentTarget.dataset.pid;
+    wx.navigateTo({
+      url: '../video/video?pid=' + pid,
+    })
+  },
+
+  // 点赞
+  like: function (e) {
+    // console.log(e)
+    var pid = e.currentTarget.dataset.pid;
+    var islike = e.currentTarget.dataset.islike;
+    var index = e.currentTarget.dataset.index;
+
+    // 
+    var productions = this.data.productions;
+    var recordList = productions.recordList;
+    recordList[index].islike = !islike;
+    if (islike) {
+      recordList[index].likes = recordList[index].likes - 1;
+    } else {
+      recordList[index].likes = recordList[index].likes + 1;
+    }
+
+    this.setData({
+      productions: productions
+    })
+
+    var token = wx.getStorageSync("accessToken").token
+    wx.request({
+      url: app.api.like + "/" + pid,
+      method: "GET",
+      data: {
+        token: token,
+        islike: !islike
+      }
+    })
+
+    // console.log(index)
+  },
+
+  // 收藏
+  collect: function (e) {
+    var pid = e.currentTarget.dataset.pid;
+    var collect = e.currentTarget.dataset.iscollect;
+    var index = e.currentTarget.dataset.index;
+    var token = wx.getStorageSync("accessToken").token
+
+    // console.log(collect)
+
+    var productions = this.data.productions;
+    var recordList = productions.recordList;
+    recordList[index].collect = !collect;
+
+    this.setData({
+      productions: productions
+    })
+
+    wx.request({
+      url: app.api.collect + "/" + pid,
+      method: "GET",
+      data: {
+        token: token,
+        iscollect: !collect
+      },
+      // success:function(res) {
+      //   console.log(res)
+      // }
+    })
+
+    // console.log(e)
+  },
+
+
+  loadInfo: function (currentPage, pageSize) {
+    // debugger
+    var token = wx.getStorageSync("accessToken").token;
+    var that = this;
+
+    this.setData({
+      load: true
+    })
+
+    wx.request({
+      url: app.api.userCollect,
+      method: "GET",
+      data: {
+        currentPage: currentPage,
+        pageSize: pageSize,
+        token: token
+      },
+      success: function (res) {
+        if (res.data.status == 200) {
+          that.setData({
+            load: false
+          })
+
+          if (currentPage == 1) {
+            that.setData({
+              productions: res.data.data,
+              // pageSize: res.data.data.pageSize,
+              currentPage: res.data.data.currentPage,
+              pageCount: res.data.data.pageCount,
+            })
+          } else {
+            // 数据追加
+            // 获取之前数据
+            var productions = that.data.productions
+            var newpro = JSON.parse(JSON.stringify(productions))
+            var arrobj = newpro.recordList
+            var arr = res.data.data.recordList
+            for (var i = 0; i < arr.length; i++) {
+              arrobj.push(arr[i])
+            }
+            that.setData({
+              productions: newpro,
+              // pageSize: res.data.data.pageSize,
+              currentPage: res.data.data.currentPage,
+              pageCount: res.data.data.pageCount,
+            })
+          }
+
+        }
+      }
+    })
+  },
+
+  // 跳转到用户页面
+  tapHandler: function (e) {
+    var uid = e.currentTarget.dataset.uid
+    wx.navigateTo({
+      url: '../userinfo/userinfo?uid=' + uid,
+    })
+  },
+
+  videoPlay: function (e) {
+    var id = e.currentTarget.id
+    var context = wx.createVideoContext(id)
+    var preplay = this.data.preplay
+    if (preplay == "" || preplay == id) {
+      // 播放第一个视频
+      this.setData({
+        preplay: id
+      })
+    } else {
+      // 已经存在视频播放
+      // 暂停上一个视频的播放
+      var pre = wx.createVideoContext(preplay)
+      pre.pause();
+      this.setData({
+        preplay: id
+      })
+    }
+    // console.log(context)
   },
 
   /**
@@ -97,7 +225,22 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var pageCount = this.data.pageCount;
+    var currentPage = this.data.currentPage;
+    var pageSize = this.data.pageSize;
+    // console.log(pageCount)
+    // console.log(currentPage)
+    // console.log(pageSize)
 
+    if (pageCount == currentPage) {
+      // 最后一页
+      this.setData({
+        isBottom: true
+      })
+      return;
+    }
+    // console.log("分页加载")
+    this.loadInfo(currentPage + 1, pageSize);
   },
 
   /**

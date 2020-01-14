@@ -16,7 +16,7 @@
   </view>
 
   <view class='num'>作品 {{userinfo.totalProduction}}：</view>
-
+  <view class="hr"></view>
   <scroll-view class='zuopin' scroll-y enable-back-to-top lower-threshold='100' bindscrolltolower="bindscrolltolower">
       <block wx:for="{{proinfo.recordList}}" wx:for-item="item" wx:key="index">
         <view class='author'>
@@ -30,8 +30,8 @@
         {{item.production.content}}
       </view>      
       <view class='video'>
-        <video src="{{item.production.url}}" controls poster="{{item.production.poster}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}' wx:if="{{item.production.type == 1}}"></video>
-        <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}'></image>
+        <video src="{{item.production.url}}" controls poster="{{item.production.poster}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}' wx:if="{{item.production.type == 1}}" bindlongtap="download"></video>
+        <image src='{{item.production.url}}' wx:if="{{item.production.type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{item.production.url}}' bindlongtap="download"></image>
         <!-- 点赞 评论 收藏等功能 -->
         <view class='option'>
           <view class='like' bindtap="like" data-pid="{{item.production.id}}" data-islike="{{item.islike}}" data-index="{{index}}">
@@ -39,7 +39,7 @@
             <view>{{item.likes}}</view>
           </view>
 
-          <view class='comment'>
+          <view class='comment' bindtap="goProductionPage" data-pid="{{item.production.id}}">
             <image src='../../images/comment.png'></image>
             <view>{{item.comment}}</view>
           </view>
@@ -55,6 +55,7 @@
           <view class='item' wx:for="{{item.labelList}}" wx:for-item="label">{{label.name}}</view>
         </view>
       </view>
+      <view class="hrhr"></view>
       </block>
 
       <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>

@@ -4,14 +4,10 @@ const app = getApp()
 
 Page({
   data: {
+    currentPage : 1,
+    pageSize : 10,
     images: [// 准备展示的图片
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg", height: 313, width: 500, poster: "../../images/touxiang.jpg", type: 1 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/5.jpeg", height: 2560, width: 1440, poster: "../../images/touxiang.jpg", type: 0 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/6.jpeg", height: 1216, width: 700, poster: "../../images/touxiang.jpg", type: 1 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/1.jpg", height: 1200, width: 1920, poster: "../../images/touxiang.jpg", type: 0 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/2.jpg", height: 1200, width: 1920, poster: "../../images/touxiang.jpg", type: 1 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/3.jpg", height: 300, width: 533, poster: "../../images/touxiang.jpg", type: 1 },
-      { url: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/6.jpeg", height: 1216, width: 700, poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg", type: 1 },
+      
     ],
     leftShowImages: [],// 左边已经展示的图片
     rightShowImages: [],// 右边已经展示的图片
@@ -104,16 +100,46 @@ Page({
     })
   },
 
+  loadProductions : function(){
+    var token = wx.getStorageSync("accessToken").token;
+    var currentPage = this.data.currentPage;
+    var pageSize = this.data.pageSize;
+
+    var that = this;
+    wx.request({
+      url: app.api.index,
+      method : "GET",
+      data : {
+        token : token,
+        currentPage : currentPage,
+        pageSize : pageSize
+      },
+      success : function(res) {
+        if (res.data.status == 200) {
+          var data = res.data.data;
+          console.log(data)
+          that.setData({
+            images : data.recordList
+          })
+
+          var length = that.data.images.length;
+
+          for (var i = 0; i < length; i++) {
+            that.loadImage(that);
+          }
+        }
+      }
+    })
+  },
+
   // 登录成功后做的动作
   loginback : function(that) {
     // that.setData({
     //   search: that.search.bind(that)
     // })
-
-    var length = this.data.images.length
-    for (var i = 0; i < length; i++) {
-      this.loadImage(this)
-    }
+    // 加载作品资源
+    this.loadProductions();
+    // console.log(1)
 
     wx.setNavigationBarTitle({
       title: '短视频',
@@ -141,6 +167,7 @@ Page({
 
   // 更新版本（可根据容器中图片的实时高度（模拟）进行图片的添加）
   loadImage: function (that) {
+
     var leftHeight = this.data.leftHeight// 左容器高度
     var rightHeight = this.data.rightHeight// 右容器高度
     var index = this.data.index// 加载图片的索引

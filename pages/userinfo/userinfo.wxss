@@ -10,6 +10,16 @@ page {
   flex-direction: column;
 }
 
+.hr {
+  margin-top: 20rpx;
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.hrhr {
+  margin: 20rpx 0;
+  border-bottom: 1px solid #d2d2d2;
+}
+
 .info {
   margin-left: 20rpx;
   display: flex;

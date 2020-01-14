@@ -39,7 +39,7 @@
             <view>{{item.likes}}</view>
           </view>
 
-          <view class='comment'>
+          <view class='comment' bindtap="goProductionPage" data-pid="{{item.production.id}}">
             <image src='../../images/comment.png'></image>
             <view>{{item.comment}}</view>
           </view>

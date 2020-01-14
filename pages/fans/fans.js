@@ -1,60 +1,79 @@
 // pages/fans/fans.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    fans : [
-      {
-        id : "0",
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name : "user1",
-        signature : "签名",
-        isFocus : 1
-      },
-      {
-        id: "1",
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "user2",
-        signature: "签名",
-        isFocus: 0
-      },
-      {
-        id: "2",
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "user3",
-        signature: "签名",
-        isFocus: 1
-      },
-      {
-        id: "3",
-        poster: "https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg",
-        name: "user4",
-        signature: "签名",
-        isFocus: 0
-      }
-    ]
+    fans : null,
   },
 
-  // 点击关注按钮具体处理策略
-  focusHandler : function (e) {
-    var isFocus = e.currentTarget.dataset.isFocus
-    var id = parseInt(e.currentTarget.dataset.id)
-
-    var fans = this.data.fans
-    fans[id].isFocus = !fans[id].isFocus
-    this.setData({
-      fans : fans
-    })
-  },
+  
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    var token = wx.getStorageSync("accessToken").token
+
     wx.setNavigationBarTitle({
       title: '粉丝',
+    })
+    this.loadFans(token);
+  },
+
+  // 点击关注按钮具体处理策略
+  focusHandler : function (e) {
+    console.log(e)
+    var isFocus = e.currentTarget.dataset.isfocus;
+    console.log(isFocus)
+    var index = e.currentTarget.dataset.index;
+
+    var fans = this.data.fans;
+    fans[index].focusStatus = !fans[index].focusStatus;
+    this.setData({
+      fans : fans
+    })
+
+    var token = wx.getStorageSync("accessToken").token;
+
+    wx.request({
+      url: app.api.user.focus + "/" + fans[index].uid,
+      method: "GET",
+      data: {
+        token: token,
+        isFocus: !isFocus
+      },
+      success: function (res) {
+        // console.log(res)
+      }
+    })
+  },
+
+  // 加载粉丝列表
+  loadFans : function (token) {
+    var that = this;
+    wx.request({
+      url: app.api.userFans,
+      method : "GET",
+      data : {
+        token : token
+      },
+      success : function(res) {
+        console.log(res)
+        that.setData({
+          fans : res.data.data
+        })
+      }
+    })
+  },
+
+  toUserPage :function(e) {
+    var uid = e.currentTarget.dataset.uid;
+    wx.navigateTo({
+      url: "../userinfo/userinfo?uid=" + uid,
     })
   },
 
