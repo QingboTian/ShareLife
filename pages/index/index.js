@@ -6,6 +6,7 @@ Page({
   data: {
     currentPage : 1,
     pageSize : 10,
+    pageCount : 0,
     images: [// 准备展示的图片
       
     ],
@@ -13,6 +14,8 @@ Page({
     rightShowImages: [],// 右边已经展示的图片
     leftHeight: 0,
     rightHeight: 0,
+    load: false,
+    isBottom: false,
     index: 0// 已经加载图片的索引
   },
 
@@ -81,18 +84,17 @@ Page({
               })
               return false;
             }else {// 执行成功(登录成功之后再做的事情)
-
+              console.log("login")
+              
+              var accesstoken = data.data.data;
+              wx.setStorageSync("accessToken", accesstoken);
               that.loginback(that);
-
               // console.log(data.data.data)
               app.globalData.accesstoken = data.data.data;
-              // console.log("app")
-              // console.log(that.globalData.accesstoken)
-              var accesstoken = app.globalData.accesstoken;
-              // that.globalData.userInfo = accesstoken.data.userinfo;
-              // 将用户信息添加到缓存信息中
-              // 时长1day
-              that.setOpenIdStorageSync("accessToken", accesstoken)
+              
+              
+              
+              // that.setOpenIdStorageSync("accessToken", accesstoken)
             }
           }
         })
@@ -100,12 +102,12 @@ Page({
     })
   },
 
-  loadProductions : function(){
+  loadProductions : function(currentPage, pageSize){
     var token = wx.getStorageSync("accessToken").token;
-    var currentPage = this.data.currentPage;
-    var pageSize = this.data.pageSize;
-
     var that = this;
+    this.setData({
+      load : true
+    })
     wx.request({
       url: app.api.index,
       method : "GET",
@@ -116,10 +118,16 @@ Page({
       },
       success : function(res) {
         if (res.data.status == 200) {
-          var data = res.data.data;
-          console.log(data)
           that.setData({
-            images : data.recordList
+            load : false
+          })
+          var data = res.data.data;
+          // console.log(data)
+          that.setData({
+            images : data.recordList,
+            pageCount: data.pageCount,
+            currentPage: data.currentPage,
+            index : 0// 将索引置为0
           })
 
           var length = that.data.images.length;
@@ -138,7 +146,9 @@ Page({
     //   search: that.search.bind(that)
     // })
     // 加载作品资源
-    this.loadProductions();
+    var currentPage = this.data.currentPage;
+    var pageSize = this.data.pageSize;
+    this.loadProductions(currentPage, pageSize);
     // console.log(1)
 
     wx.setNavigationBarTitle({
@@ -222,23 +232,39 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({
-      index: 0
-    })
 
-    var length = this.data.images.length
-    for (var i = 0; i < length; i++) {
-      this.loadImage(this)
+    var pageCount = this.data.pageCount;
+    var currentPage = this.data.currentPage;
+    var pageSize = this.data.pageSize;
+    if (pageCount == currentPage){
+      this.setData({
+        isBottom: true
+      })
+      return;
     }
+
+    this.loadProductions(currentPage + 1, pageSize)
+
+    // this.setData({
+    //   index: 0
+    // })
+
+    // var length = this.data.images.length
+    // for (var i = 0; i < length; i++) {
+    //   this.loadImage(this)
+    // }
   },
 
+// 跳转到作品页面
   tapHandler : function (e) {
 
-    var type = e.currentTarget.dataset.type
+    var type = e.currentTarget.dataset.type;
+    var pid = e.currentTarget.dataset.pid;
+    var uid = e.currentTarget.dataset.uid;
     // console.log(e)
 
     wx.navigateTo({
-      url: '../video/video?type=' + type,
+      url: '../video/video?type=' + type + "&pid=" + pid + "&uid=" + uid,
     })
   }
 })

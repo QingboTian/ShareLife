@@ -49,3 +49,9 @@ page {
 .item .entry .author-type .poster{
   flex: 1;
 }
+
+.bottom {
+  color: #8a8a8a;
+  display: flex;
+  justify-content: center;
+}

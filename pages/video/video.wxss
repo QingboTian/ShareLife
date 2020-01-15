@@ -55,6 +55,15 @@ page {
   margin-right: 20rpx;
 }
 
+.author .nofocus {
+  /* font-size: 13px; */
+  padding: 0 15rpx;
+  border: 1px solid #000;
+  background-color: red;
+  border-radius: 13rpx;
+  margin-right: 20rpx;
+}
+
 .content {
   margin-top: 20rpx;
   margin-left: 20rpx;
@@ -132,16 +141,16 @@ page {
 }
 
 .comment-list .item .discussant image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 70rpx;
+  height: 70rpx;
   border-radius: 50%;
   /* margin-left: 20rpx; */
   margin-right: 20rpx;
 }
 
 .comment-list .item .comment image{
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
   /* border-radius: 50%; */
   /* margin-left: 20rpx;
   margin-right: 20rpx; */
@@ -153,6 +162,7 @@ page {
   flex-direction: column;
   margin-left: 20rpx;
   margin-bottom: 20rpx;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .comment-list .item .discussant{
@@ -175,4 +185,15 @@ page {
   display: flex;
   margin-right: 20rpx;
   align-items: center;
+}
+
+.textarea {
+  background-color: white;
+  border-radius: 15rpx;
+  margin: 20rpx 0;
+  padding: 20rpx;
+}
+
+.nocomments {
+  text-align: center
 }

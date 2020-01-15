@@ -1,146 +1,73 @@
 <!--pages/video/video.wxml-->
 <view class="{{type == 1 ? 'container-video' : 'container-image'}}">
-  <view class='author' bindtap='tapHandler'>
-    <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
+  <view class='author' data-uid="{{uid}}" bindtap='goUserPage'>
+    <image src='{{production.userinfo.avatarurl}}'></image>
     <view class='name'>
-      热门电影推荐
+      {{production.userinfo.nick}}
     </view>
     <!-- 注意：catchtap阻止事件冒泡 -->
-    <view class='focus' catchtap='focus'>
-      关注
+    <view class="{{isFocus ? 'nofocus' : 'focus'}}" catchtap='focus'>
+      {{isFocus ? '取消关注' : '关注'}}
     </view>
   </view>
 
   <view class='content'>
-    最佳男主角花落谁家？
+    {{production.production.content}}
   </view>
 
   <view class='zhengti'>
     <view class='video' bindlongtap="longfunction">
-      <video src='' wx:if="{{type == 1}}"></video>
-      <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/4.jpg'></image>
+      <video src='{{production.production.url}}' controls poster="{{production.production.poster}}" wx:if="{{type == 1}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}'></video>
+      <image src='{{production.production.url}}' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{production.production.url}}'></image>
       <!-- 点赞 评论 收藏等功能 -->
       <view class='option'>
-        <view class='like'>
-          <image src='../../images/like.png'></image>
-          <view>10000</view>
-        </view>
+          <view class='like' bindtap="like" data-pid="{{production.production.id}}" data-islike="{{production.islike}}">
+            <image src="{{production.islike ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
+            <view>{{production.likes}}</view>
+          </view>
 
-        <view class='comment'>
-          <image src='../../images/comment.png'></image>
-          <view>500</view>
-        </view>
+          <view class='comment' bindtap="comment" data-pid="{{production.production.id}}">
+            <image src='../../images/comment.png'></image>
+            <view>{{production.comment}}</view>
+          </view>
 
-        <view class='collect'>
-          <image src='../../images/collect.png'></image>
-          <!-- <view>10000</view> -->
+          <view class='collect' bindtap="collect" data-pid="{{production.production.id}}" data-iscollect="{{production.collect}}">
+            <image src="{{production.collect ? '../../images/collect.png':'../../images/nocollect.png'}}"></image>
+          </view>
         </view>
-      </view>
 
       <!-- 标签 -->
       <view class='lable'>
-        <view class='item'>电影</view>
-        <view class='item'>经典</view>
-        <view class='item'>强力推荐</view>
+          <view class='item' wx:for="{{production.labelList}}" wx:for-item="label">{{label.name}}</view>
       </view>
-    </view>
+</view>
 
 
 
-    <scroll-view class='comment-list' scroll-y>
+    <scroll-view class='comment-list' scroll-y bindscrolltolower="commentBottom">
       <!-- <></scroll-view> -->
-      <view class='item'>
-        <view class='discussant' bindtap='tapHandler'>
-          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-          <view class='name'>
-            张三
+      <view wx:if="{{comments.length == 0}}" class="nocomments">当前没有评论，快来评论抢个沙发吧！</view>
+      <view class='item' wx:for="{{comments}}" wx:key="index" wx:for-item="comment">
+        <view class='discussant'>
+          <image src='{{comment.avatarUrl}}' catchtap='goUserPage' data-uid="{{comment.userId}}"></image>
+          <view class='name' catchtap='goUserPage' data-uid="{{comment.userId}}">
+            {{comment.nick}}
           </view>
         </view>
         <view class='comment'>
           <view class='text'>
-            这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！这电影真好看！！！
+            {{comment.content}}
           </view>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>500</view>
-          </view>
-        </view>
-      </view>
-
-      <view class='item'>
-        <view class='discussant' bindtap='tapHandler'>
-          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-          <view class='name'>
-            李四
-          </view>
-        </view>
-        <view class='comment'>
-          <view class='text'>
-            这电影真好看！！！
-          </view>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>100</view>
+          <view class='like' catchtap="commentLikeHandler" data-index="{{index}}" data-cid="{{comment.id}}" data-islike="{{comment.isLikes}}">
+            <image src="{{comment.isLikes ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
+            <view>{{comment.likes}}</view>
           </view>
         </view>
       </view>
-
-      <view class='item'>
-        <view class='discussant' bindtap='tapHandler'>
-          <image src='../../images/touxiang.jpg'></image>
-          <view class='name'>
-            张三
-          </view>
-        </view>
-        <view class='comment'>
-          <view class='text'>
-            这电影真好看！！！
-          </view>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>500</view>
-          </view>
-        </view>
-      </view>
-
-      <view class='item'>
-        <view class='discussant' bindtap='tapHandler'>
-          <image src='../../images/touxiang.jpg'></image>
-          <view class='name'>
-            张三
-          </view>
-        </view>
-        <view class='comment'>
-          <view class='text'>
-            这电影真好看！！！
-          </view>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>500</view>
-          </view>
-        </view>
-      </view>
-
-      <view class='item'>
-        <view class='discussant' bindtap='tapHandler'>
-          <image src='https://share-life-image-1257756319.cos.ap-chengdu.myqcloud.com/dev/touxiang.jpg'></image>
-          <view class='name'>
-            张三
-          </view>
-        </view>
-        <view class='comment'>
-          <view class='text'>
-            这电影真好看！！！
-          </view>
-          <view class='like'>
-            <image src='../../images/like.png'></image>
-            <view>500</view>
-          </view>
-        </view>
-      </view>
-
     </scroll-view>
   </view>
 
-
+  <view class="textarea" wx:if="{{showTextArea}}">
+    <input maxlength="100" placeholder="最多输入100字" cursor-spacing="15" focus adjust-position bindconfirm="send" confirm-type="send" value="{{commentValue}}" bindinput="inputHandler"></input>
+  </view>
 </view>

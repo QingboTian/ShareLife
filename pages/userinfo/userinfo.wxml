@@ -11,7 +11,10 @@
         <view class='item'>{{userinfo.totalFocus}}关注</view>
         <view class='item'>{{userinfo.totalfans}}粉丝</view>
       </view>
-      <view class="{{userinfo.isFocus ? 'nofocus' : 'focus'}}" bindtap="focus" data-isfocus="{{userinfo.isFocus}}" data-uid="{{userinfo.userinfo.id}}">{{userinfo.isFocus ? '取消关注' : '关注'}}</view>
+      <view class="btn" >
+        <view class="{{userinfo.isFocus ? 'nofocus' : 'focus'}} item" bindtap="focus" data-isfocus="{{userinfo.isFocus}}" data-uid="{{userinfo.userinfo.id}}">{{userinfo.isFocus ? '取消关注' : '关注'}}</view>
+      <view class="focus item" bindtap="sengMessage" data-uid="{{userinfo.userinfo.id}}">发消息</view>
+      </view>
     </view>
   </view>
 
@@ -39,7 +42,7 @@
             <view>{{item.likes}}</view>
           </view>
 
-          <view class='comment' bindtap="goProductionPage" data-pid="{{item.production.id}}">
+          <view class='comment' bindtap="goProductionPage" data-pid="{{item.production.id}}" data-type="{{item.production.type}}">
             <image src='../../images/comment.png'></image>
             <view>{{item.comment}}</view>
           </view>

@@ -200,3 +200,11 @@ page {
   display: flex;
   justify-content: center;
 }
+
+.btn {
+  display: flex;
+}
+
+.btn .item{
+  flex:1
+}

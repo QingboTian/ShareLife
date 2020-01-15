@@ -21,6 +21,7 @@ App({
     userComment: server + "/api/shortvideo/user/comment",
     userCollect: server + "/api/shortvideo/user/collect",
     userFocusUser: server + "/api/shortvideo/user/focus/user",
+    isFocus: server + "/api/shortvideo/user/isFocus",// 判断当前用户是否关注
     userFocusExplore: server + "/api/shortvideo/user/focus/explore",
     // 用户头像上传更新
     userupload: server + "/api/shortvideo/user/upload",
@@ -29,11 +30,14 @@ App({
     visitExplore: server + "/api/shortvideo/explore/visit",
     like: server + "/api/shortvideo/production/like",
     collect: server + "/api/shortvideo/production/collect",
+    commentShow: server + "/api/shortvideo/production/commentShow",
+    comment: server + "/api/shortvideo/production/comment",
+    commentLike: server + "/api/shortvideo/production/comment/like",
     // 用户主页
     user : {
       userinfo: server + "/api/shortvideo/production/user",
       // 作品信息
-      proinfo: server + "/api/shortvideo/production",
+      proinfo: server + "/api/shortvideo/production/userinfo",
       focus: server + "/api/shortvideo/production/focus",
     },
     index: server + "/api/shortvideo/production",

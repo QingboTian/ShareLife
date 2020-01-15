@@ -69,8 +69,10 @@ Page({
 
   goProductionPage: function (e) {
     var pid = e.currentTarget.dataset.pid;
+    var uid = this.data.uid;
+    var type = e.currentTarget.dataset.type;
     wx.navigateTo({
-      url: '../video/video?pid=' + pid,
+      url: '../video/video?pid=' + pid + "&uid=" + uid + "&type=" + type,
     })
   },
 

@@ -11,7 +11,7 @@
     <!-- 左容器 -->
   <view class='item'>
     <block wx:for="{{leftShowImages}}" wx:for-item="image" wx:key="index">
-      <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
+      <view class='entry' data-type='{{image.type}}' data-pid="{{image.pid}}" data-uid="{{image.uid}}" bindtap='tapHandler'>
         <!-- 作品 -->
         <view class='product'>
           <image src='{{image.poster}}' mode='widthFix'></image>
@@ -31,7 +31,7 @@
   <!-- 右容器 -->
   <view class='item'>
     <block wx:for="{{rightShowImages}}" wx:for-item="image" wx:key="index">
-      <view class='entry' data-type='{{image.type}}' bindtap='tapHandler'>
+      <view class='entry' data-type='{{image.type}}' data-pid="{{image.pid}}" data-uid="{{image.uid}}" bindtap='tapHandler'>
         <!-- 作品 -->
         <view class='product'>
           <image src='{{image.poster}}' mode='widthFix'></image>
@@ -49,5 +49,6 @@
     
   </view>
   </view>
-
+  <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>
+  <view class='bottom' wx:if="{{load}}">加载ing</view>
 </view>
