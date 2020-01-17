@@ -1,7 +1,7 @@
 <!--pages/me/me.wxml-->
 <view class='container'>
   <view class='person' wx:if="{{true}}">
-    <view class='poster'>
+    <view class='poster' bindtap="goUserpage" data-uid="{{info.id}}">
       <image src='{{info.avatarUrl}}'></image>
       <!-- <view class="image" wx:if="{{info.nick == ''}}">
         <open-data type="userAvatarUrl" class="image"></open-data>
@@ -30,11 +30,11 @@
 
   <view class='more'>
     <block wx:for="{{ops}}" wx:for-item="item" wx:key="index">
-      <view class='item' data-url="{{item.url}}" bindtap="opTapHandler">
-        <view class='img'>
+      <view class='item'>
+        <view class='img' data-url="{{item.url}}" bindtap="opTapHandler">
           <image src='{{item.icon}}' mode='widthFix'></image>
         </view>
-        <view>{{item.name}}</view>
+        <view data-url="{{item.url}}" bindtap="opTapHandler" class="name">{{item.name}}</view>
       </view>  
     </block>
   </view>

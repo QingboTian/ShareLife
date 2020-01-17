@@ -32,6 +32,13 @@ Page({
     })
   },
 
+  goUserpage : function(e) {
+    var uid = e.currentTarget.dataset.uid;
+    wx.navigateTo({
+      url: '../userinfo/userinfo?uid=' + uid,
+    })
+  },
+
   opTapHandler : function(e) {
     // 访问对应页面
     var pageUrl = e.currentTarget.dataset.url
@@ -100,7 +107,8 @@ Page({
     this.setData({
       info : {
         avatarUrl: avatarUrl,
-        nick: nick
+        nick: nick,
+        id : userinfo.id
       }
     })
   },

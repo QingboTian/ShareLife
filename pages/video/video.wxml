@@ -64,6 +64,7 @@
           </view>
         </view>
       </view>
+      <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>
     </scroll-view>
   </view>
 

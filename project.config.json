@@ -152,6 +152,13 @@
 					"pathName": "pages/regist/regist",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/upload/upload",
+					"pathName": "pages/upload/upload",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -16,7 +16,8 @@ Page({
     pageCount : 1,
     comments : [],
     commentValue : "",
-    isFocus : null
+    isFocus : null,
+    isBottom : false
   },
 
   // 放大看图
@@ -186,9 +187,17 @@ Page({
   },
 
   comment : function(e) {
-    this.setData({
-      showTextArea : true
-    })
+    var flag = this.data.showTextArea;
+    if (flag) {
+      this.setData({
+        showTextArea : false,
+      })
+    }else {
+      this.setData({
+        showTextArea: true,
+        commentValue: ""
+      })
+    }
   },
 
   inputHandler : function (e) {
@@ -398,7 +407,21 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.commentBottom()
+    var currentPage = this.data.currentPage;
+    var pageCount = this.data.pageCount;
+    var pageSize = this.data.pageSize;
+    // console.log(currentPage)
+    // console.log(pageCount)
+    if (currentPage == pageCount) {
+      this.setData({
+        isBottom : true
+      })
+      return;
+    }
+
+    var token = wx.getStorageSync("accessToken").token;
+    var pid = this.data.pid;
+    this.loadComment(token, pid, currentPage + 1, pageSize);
   },
 
   /**

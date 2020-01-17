@@ -1,2 +1,29 @@
 <!--pages/upload/upload.wxml-->
-<text>pages/upload/upload.wxml</text>
+<view class="container">
+  <view class='item'>
+    <view class="icon">
+      <image src="../../images/mashangpai.png"></image>
+    </view>
+    <view class="name">
+      马上拍
+    </view>
+  </view>
+
+  <view class='item'>
+    <view class="icon">
+      <image src="../../images/localupload.png"></image>
+    </view>
+    <view class="name">
+      本地上传
+    </view>
+  </view>
+
+  <view class='item'>
+    <view class="icon">
+      <image src="../../images/more.png"></image>
+    </view>
+    <view class="name">
+      更多
+    </view>
+  </view>
+</view>

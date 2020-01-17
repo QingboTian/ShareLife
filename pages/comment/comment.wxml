@@ -10,7 +10,7 @@
     <!-- 评论我的 -->
     <view class="other2me" hidden="{{!showFlag}}">
       <block wx:for="{{commentMe}}" wx:for-item="item" wx:key="index">
-        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}" data-type="{{item.type}}" data-uid="{{item.uid}}">
           <view class="poster"><image src="{{item.avatarUrl}}"></image></view>
           <view class="body">
             <view class="name">{{item.nick}}</view>
@@ -25,7 +25,7 @@
     <!-- 我评论的 -->
     <view class="me2other"  hidden="{{showFlag}}">
       <block wx:for="{{meComment}}" wx:for-item="item" wx:key="index">
-        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}" data-type="{{item.type}}" data-uid="{{item.uid}}">
           <view class="poster"><image src="{{avatarurl}}"></image></view>
           <view class="body">
             <view class="name">{{nick}}</view>

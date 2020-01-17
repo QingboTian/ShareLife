@@ -34,9 +34,9 @@ Page({
     var pid = e.currentTarget.dataset.pid;
     var uid = e.currentTarget.dataset.uid;
     var type = e.currentTarget.dataset.type;
-    console.log(pid)
-    console.log(uid)
-    console.log(type)
+    // console.log(pid)
+    // console.log(uid)
+    // console.log(type)
     wx.navigateTo({
       url: '../video/video?pid=' + pid + "&uid=" + uid + "&type=" + type,
     })

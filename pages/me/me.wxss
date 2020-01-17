@@ -97,11 +97,34 @@ page {
 }
 
 .more .item {
-  width: 250rpx;
-  height: 250rpx;
+  width: 200rpx;
+  height: 200rpx;
+  margin: 20rpx;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .more .item image{
   width: 80rpx;
-  /* height: 100rpx; */
+  height: 80rpx;
+}
+
+.more .item .img{
+  width: 120rpx;
+  height: 120rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5rpx 5rpx 5rpx rgb(210,210,210)
+}
+
+.more .item .name{
+  margin-top: 5rpx;
+  font-size: 25rpx;
 }

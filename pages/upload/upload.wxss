@@ -1,1 +1,46 @@
 /* pages/upload/upload.wxss */
+page {
+  height: 100%;
+  background-color: #f0f0f0;  
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-top: 20rpx;
+  flex-wrap: wrap;
+}
+
+.container .item{
+  /* margin: 20rpx; */
+  display: flex;
+  /* flex: 1; */
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.container .item .icon image{
+  height: 100rpx;
+  width: 100rpx;
+}
+
+.container .item .icon{
+  background-color: #FFF;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 110rpx;
+  width: 110rpx;
+  box-shadow: 5rpx 5rpx 5rpx rgb(210,210,210)
+}
+
+.container .item .name{
+  margin-top: 5rpx;
+  font-size: 25rpx;
+}
