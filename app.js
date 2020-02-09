@@ -23,6 +23,8 @@ App({
     userFocusUser: server + "/api/shortvideo/user/focus/user",
     isFocus: server + "/api/shortvideo/user/isFocus",// 判断当前用户是否关注
     userFocusExplore: server + "/api/shortvideo/user/focus/explore",
+    userLikeComment: server + "/api/shortvideo/user/like/comment",
+    userLikeProduction: server + "/api/shortvideo/user/like/production",
     // 用户头像上传更新
     userupload: server + "/api/shortvideo/user/upload",
     explore: server + "/api/shortvideo/explore",
@@ -41,6 +43,9 @@ App({
       focus: server + "/api/shortvideo/production/focus",
     },
     index: server + "/api/shortvideo/production",
+    // 敏感词检测
+    contentSecurity: server + "/api/shortvideo/contentSecurity/text",
+    imgSecurity: server + "/api/shortvideo/contentSecurity/img",
   },
 
   onLaunch: function () {
@@ -85,6 +90,68 @@ App({
 
       
     })
+  },
+
+  // 敏感词检测
+  // 第二个参数为若检测成功后应该做的事件
+  contentSecurity: function (content, handler) {
+    wx.request({
+      url: this.api.contentSecurity,
+      method : "GET",
+      data : {
+        content : content
+      },
+      success : function(res) {
+        if (res.data.status == 87014){
+          wx.showToast({
+            title: '内容存在敏感词汇',
+            icon : "none"
+          })
+        } else if (res.data.status == 0){
+          handler();
+        } else {
+          wx.showToast({
+            title: '服务器错误',
+            icon: "none"
+          })
+        }
+      }
+
+    })
+  },
+
+  // 图像安全检测
+  // 应该在服务端调用
+  imgSecurity:function(file, handler) {
+
+    wx.uploadFile({
+      url: this.api.imgSecurity,
+      filePath: file,
+      name: "file",
+      header: {
+        "Content-Type": "multipart/form-data"
+      },
+      success: function (res) {
+        console.log(res)
+        var temp = JSON.parse(res.data);
+        if (temp.errcode == 0) {
+          handler();
+          wx.showToast({
+            title: '正常',
+            icon: "none"
+          })
+        } else if (temp.errcode == 87014) {
+          wx.showToast({
+            title: '图片含有违规内容',
+            icon: "none"
+          })
+        } else {
+          wx.showToast({
+            title: '服务器错误',
+            icon: "none"
+          })
+        }
+      }})
   },
 
   gettoken : function () {

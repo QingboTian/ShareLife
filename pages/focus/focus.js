@@ -22,7 +22,8 @@ Page({
     ], // 关注的人
     focusArea:[
       
-    ] // 关注的专区
+    ], // 关注的专区
+    isShow:false
   },
 
   // 点击切换标签
@@ -34,12 +35,31 @@ Page({
         showFlag : true,
         isChoose: true
       })
+      if (this.data.focusPeople.length == 0) {
+        this.setData({
+          isShow : true
+        })
+      }else {
+        this.setData({
+          isShow: false
+        })
+      }
     }else {
       // 关注的专区
       this.setData({
         showFlag: false,
         isChoose: false
       })
+
+      if (this.data.focusArea.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     }
   },
 
@@ -70,12 +90,30 @@ Page({
         showFlag: false,
         isChoose: false
       })
+      if (this.data.focusArea.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     } else if (currentX - touchDotX > 50){
       // 切换为关注的人
       this.setData({
         showFlag: true,
         isChoose: true
       })
+      if (this.data.focusPeople.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     }
   },
 
@@ -103,7 +141,13 @@ Page({
       },
       success : function(res) {
         if (res.data.status == 200) {
+          // console.log(res)
           var data = res.data.data;
+          if (data.length == 0) {
+            that.setData({
+              isShow : true
+            })
+          }
           for (var i = 0; i < data.length; i++) {
             var temp = data[i];
             temp['isFocus'] = true;

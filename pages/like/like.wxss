@@ -1,1 +1,93 @@
 /* pages/like/like.wxss */
+page {
+  /* background-color: #1e1e1e; */
+  background-color: #f0f0f0;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* color: white; */
+}
+
+.tabbar {
+  /* border-bottom: 1px solid #bfbfbf; */
+  display: flex;
+  padding: 10rpx 0;
+}
+
+.tabbar .item {
+  flex: 1;
+  /* align-items: center; */
+  text-align: center;
+}
+
+/* 判断是否选择 */
+.isChoose {
+  padding-bottom: 10rpx;
+  border-bottom: 5rpx solid red;
+  color: red;
+  font-weight: bold;
+}
+
+.body {
+  overflow: hidden;
+  flex: 1;
+}
+
+.body .item {
+  display: flex;
+  align-items: center;
+  margin: 10rpx 0;
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.body .other2me .item .poster image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin: 0 20rpx;
+}
+
+.body .me2other .item .poster image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin: 0 20rpx;
+}
+
+.body .item .body{
+  flex: 1;
+}
+
+/* .content .item .body .name{
+  font-weight: bold;
+} */
+
+.body .item .body .content{
+  color: #bfbfbf;
+  font-size: 14px;
+}
+
+.body .item .body .content{
+  color: #bfbfbf;
+  font-size: 14px;
+}
+
+.body .item .body .time{
+  color: #bfbfbf;
+  font-size: 11px;
+}
+
+.body .item .footer image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 15rpx;
+  border: 5rpx solid white;
+}
+
+.body .item .footer {
+  margin-right: 20rpx;
+}

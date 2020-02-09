@@ -13,7 +13,8 @@ Page({
     preplay: "",// 上一个播放视频的ID
     pageCount: 0,
     isBottom : false,
-    uid : -1
+    uid : -1,
+    isShow:false
   },
 
   /**
@@ -106,6 +107,13 @@ Page({
       },
       success : function (res) {
         if (res.data.status == 200) {
+
+          if (res.data.data.recordList.length == 0) {
+            that.setData({
+              isShow:true
+            })
+          }
+
           if (currentPage == 1) {
             that.setData({
               proinfo: res.data.data,

@@ -77,6 +77,11 @@ page {
   font-size: 14px;
 }
 
+.body .item .body .time{
+  color: #bfbfbf;
+  font-size: 11px;
+}
+
 .body .item .footer image{
   width: 100rpx;
   height: 100rpx;

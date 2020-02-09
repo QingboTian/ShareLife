@@ -174,15 +174,42 @@ page {
   width: 100%;
   display: flex;
   margin-top: 10rpx;
+  flex-direction: column;
   /* align-items: center; */
 }
 
-.comment-list .item .text{
+.comment-list .item .text {
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-.comment-list .item .like{
+.comment-list .item .text .contentTime{
   display: flex;
+  align-items: center;
+  flex:1;
+}
+
+.comment-list .item .text .contentTime .time{
+  color: #d5d5d5;
+  font-size: x-small;
+  margin: 0 20rpx;
+}
+
+/* .comment-list .item .text .contentTime .content{
+  flex: 1;
+} */
+
+.comment-list .item .comment .sonComment{
+  color: #d2d2d2;
+  font-size: x-small;
+  margin: 0 30rpx;
+  margin-bottom: 20rpx
+}
+
+.comment-list .item .text .like{
+  display: flex;
+  /* flex:1; */
   margin-right: 20rpx;
   align-items: center;
 }

@@ -1,5 +1,6 @@
 <!--pages/collect/collect.wxml-->
 <view class="container">
+  <view class="nomessage" wx:if="{{isShow}}">当前没有收藏作品哦，快去收藏吧！</view>
   <view class='item' wx:for="{{productions.recordList}}" wx:for-item="item" wx:key="index">
       <view class='author' bindtap='tapHandler' data-uid='{{item.userinfo.id}}'>
         <image src='{{item.userinfo.avatarurl}}'></image>

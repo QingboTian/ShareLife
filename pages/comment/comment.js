@@ -19,6 +19,8 @@ Page({
     ],
     avatarurl : "",
     nick : "",
+    uid: -1,
+    isShow : false
   },
 
   // 点击切换标签
@@ -30,12 +32,32 @@ Page({
         showFlag: true,
         isChoose: true
       })
+      var commentMe = this.data.commentMe;
+      if (commentMe.length == 0) {
+        this.setData({
+          isShow : true
+        })
+      }else {
+        this.setData({
+          isShow: false
+        })
+      }
     } else {
       // 关注的专区
       this.setData({
         showFlag: false,
         isChoose: false
       })
+      var meComment = this.data.meComment;
+      if (meComment.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     }
   },
 
@@ -66,12 +88,32 @@ Page({
         showFlag: false,
         isChoose: false
       })
+      var meComment = this.data.meComment;
+      if (meComment.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     } else if (currentX - touchDotX > 50) {
       // 切换为关注的人
       this.setData({
         showFlag: true,
         isChoose: true
       })
+      var commentMe = this.data.commentMe;
+      if (commentMe.length == 0) {
+        this.setData({
+          isShow: true
+        })
+      } else {
+        this.setData({
+          isShow: false
+        })
+      }
     }
   },
 
@@ -99,6 +141,12 @@ Page({
         success : function(res) {
           if (res.data.status = 200) {
             var data = res.data.data;
+            // console.log(data)
+            if (data.commentMe.length == 0) {
+              that.setData({
+                isShow:true
+              })
+            }
             that.setData({
               commentMe : data.commentMe,
               meComment : data.meComment
@@ -117,15 +165,17 @@ Page({
     var userinfo = wx.getStorageSync("accessToken").userinfo;
     var avatarurl = userinfo.avatarurl;
     var nick = userinfo.nick;
+    var uid = userinfo.id;
     this.setData({
       avatarurl: avatarurl,
-      nick: nick
+      nick: nick,
+      uid : uid
     })
   },
 
   toProductionPage : function (e) {
     var pid = e.currentTarget.dataset.pid;
-    var uid = e.currentTarget.dataset.uid;
+    var uid = this.data.uid;
     var type = e.currentTarget.dataset.type;
     wx.navigateTo({
       url: '../video/video?pid=' + pid + "&uid=" + uid + "&type=" + type,

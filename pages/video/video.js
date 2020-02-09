@@ -1,4 +1,6 @@
 // pages/video/video.js
+// 引入util(获取系统时间))
+var util = require('../../utils/util.js');
 const app = getApp();
 Page({
 
@@ -17,7 +19,8 @@ Page({
     comments : [],
     commentValue : "",
     isFocus : null,
-    isBottom : false
+    isBottom : false,
+    // intoView: "view0"
   },
 
   // 放大看图
@@ -134,6 +137,8 @@ Page({
   loadComment: function(token, pid, currentPage, pageSize) {
     // var pid = this.data.pid;
     var that = this;
+    // 获取当前时间戳
+    var timestamp = Date.parse(new Date());
     wx.request({
       url: app.api.commentShow + "/" + pid,
       method : "GET",
@@ -145,11 +150,28 @@ Page({
       success : function(res) {
         if (res.data.status = 200) {
           var data = res.data.data;
+          // console.log(data)
           var comments = that.data.comments;
           var temp = data.recordList;
+          console.log(temp)
+          // 获取评论创建时间
           for (var i = 0; i < temp.length; i++) {
+            var time = temp[i].createTime;
+            
+            // console.log(time)
+            var createTimeDate = that.formatDate(time);
+            var createTimestamp = Date.parse(createTimeDate);
+            // console.log(createTimestamp)
+            // console.log(timestamp)
+            var mins = that.timestampToMin(createTimestamp, timestamp);
+            // console.log(mins)
+            var tem = temp[i];
+            // 获取自定义的时间显示内容
+            var string = that.timeToDefineStr(mins, time);
+            tem['timestr'] = string;
             comments.push(temp[i]);
           }
+
           // console.log(data)
           that.setData({
             comments: comments,
@@ -164,6 +186,57 @@ Page({
         }
       }
     })
+  },
+
+  // 展示子评论
+  showSubComments(e) {
+    var pid = this.data.pid;
+    var cid = e.currentTarget.dataset.cid;
+    var token = wx.getStorageSync("accessToken").token;
+    
+  },
+
+  // 格式化时间 str-date
+  formatDate(strDate) {
+    strDate.replace(/-/g, "/");
+    var date = new Date(strDate);
+    return date;
+  },
+
+  // 按照时间差显示不同的内容 如1小时前等等
+  timeToDefineStr(mins, createtime){
+    var string  = "";
+    if (mins <= 5) {
+      string = "刚刚"
+    } else if (mins <= 30) {
+      string = "30分钟前"
+    } else if (mins <= 60) {
+      string = "1小时前"
+    } else if (mins <= 60 * 24) {
+      var m = parseInt(mins);
+      var hour = m / 60;
+
+      string = Math.floor(hour) + "小时前";
+    } else if (mins <= 60 * 24 * 5) {
+      var m = parseInt(mins);
+      var day = m / 60 / 24;
+      string = Math.floor(day) + "天前";
+    } else {
+      var str = createtime.split(" ");
+      var date = str[0];
+      var datearr = date.split("-");
+      var year = datearr[0];
+      var month = datearr[1];
+      var day = datearr[2];
+      string = year + "-" + month + "-" + day
+    }
+    return string;
+  },
+
+  // 将时间转为分钟数
+  timestampToMin(time, currentTime){
+    var t = currentTime - time;
+    return Math.floor(t / 1000 / 60);
   },
 
   // 评论滑动到底部
@@ -244,7 +317,8 @@ Page({
           isLikes: false,
           likes: 0,
           nick: userinfo.nick,
-          avatarUrl: userinfo.avatarurl
+          avatarUrl: userinfo.avatarurl,
+          timestr: "刚刚"
         };
         temp.push(data);
         var comments = that.data.comments;
@@ -258,9 +332,16 @@ Page({
           comments: temp,
           production : production
         })
+        that.setData(
+          { intoView: "view" + id }
+        )
       }
     })
     // console.log(e)
+    // wx.pageScrollTo({
+    //   scrollTop: 0,
+    //   duration: 300
+    // })
   },
 
   commentLikeHandler : function(e) {

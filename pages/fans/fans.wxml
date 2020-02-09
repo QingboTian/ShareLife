@@ -1,5 +1,6 @@
 <!--pages/fans/fans.wxml-->
 <view class="container">
+  <view class="nomessage" wx:if="{{isShow}}">当前没有粉丝关注你哦！快去发布作品吸引粉丝吧！</view>
   <block wx:for="{{fans}}" wx:for-item="item" wx:key="index">
         <view class="item">
           <view class="poster" bindtap="toUserPage" data-uid="{{item.uid}}"><image src="{{item.avatarUrl}}"></image></view>

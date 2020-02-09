@@ -7,6 +7,7 @@ Page({
    */
   data: {
     fans : null,
+    isShow : false
   },
 
   
@@ -63,6 +64,13 @@ Page({
       },
       success : function(res) {
         console.log(res)
+        
+        if (res.data.data.length == 0) {
+          that.setData({
+            isShow : true
+          })
+        }
+        
         that.setData({
           fans : res.data.data
         })

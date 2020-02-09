@@ -14,6 +14,7 @@ Page({
     isBottom: false,
     pageCount: 0,
     load: false,
+    isShow : false,
     preplay: ""// 上一个播放视频的ID
   },
 
@@ -131,6 +132,13 @@ Page({
           that.setData({
             load: false
           })
+
+          if (res.data.data.recordList.length == 0) {
+            that.setData({
+              isShow : true
+            })
+          }
+          // console.log(res)
 
           if (currentPage == 1) {
             that.setData({

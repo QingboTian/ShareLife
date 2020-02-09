@@ -44,10 +44,10 @@
 
 
 
-    <scroll-view class='comment-list' scroll-y bindscrolltolower="commentBottom">
+    <scroll-view class='comment-list' scroll-y bindscrolltolower="commentBottom" scroll-into-view="{{intoView}}" scroll-with-animation>
       <!-- <></scroll-view> -->
       <view wx:if="{{comments.length == 0}}" class="nocomments">当前没有评论，快来评论抢个沙发吧！</view>
-      <view class='item' wx:for="{{comments}}" wx:key="index" wx:for-item="comment">
+      <view class='item' wx:for="{{comments}}" wx:key="index" wx:for-item="comment" id="view{{comment.id}}">
         <view class='discussant'>
           <image src='{{comment.avatarUrl}}' catchtap='goUserPage' data-uid="{{comment.userId}}"></image>
           <view class='name' catchtap='goUserPage' data-uid="{{comment.userId}}">
@@ -56,12 +56,18 @@
         </view>
         <view class='comment'>
           <view class='text'>
-            {{comment.content}}
-          </view>
-          <view class='like' catchtap="commentLikeHandler" data-index="{{index}}" data-cid="{{comment.id}}" data-islike="{{comment.isLikes}}">
+            <view class="contentTime">
+              <view class="content">{{comment.content}}</view>
+              <view class="time">{{comment.timestr}}</view>
+            </view>
+            <view class='like' catchtap="commentLikeHandler" data-index="{{index}}" data-cid="{{comment.id}}" data-islike="{{comment.isLikes}}">
             <image src="{{comment.isLikes ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
             <view>{{comment.likes}}</view>
           </view>
+            
+            
+          </view>
+          <view class="sonComment" wx:if="{{comment.subCommentCount != 0}}" bindtap="showSubComments" data-cid="{{comment.id}}">—— 展开{{comment.subCommentCount}}条评论 ∨</view>
         </view>
       </view>
       <view class='bottom' wx:if="{{isBottom}}">客官到底了，别拉了</view>

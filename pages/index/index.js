@@ -108,6 +108,9 @@ Page({
     this.setData({
       load : true
     })
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     wx.request({
       url: app.api.index,
       method : "GET",
@@ -136,7 +139,10 @@ Page({
             that.loadImage(that);
           }
         }
-      }
+      },
+      // complete(){
+      //   wx.hideLoading();
+      // }
     })
   },
 

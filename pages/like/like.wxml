@@ -1,2 +1,42 @@
 <!--pages/like/like.wxml-->
-<text>pages/like/like.wxml</text>
+<view class="container" bindtouchstart="touchStartHandler" bindtouchend="touchEndHandler">
+  <view class="tabbar">
+    <view class="item {{isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="0">点赞我的评论</view>
+    <view class="item {{!isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="1">点赞我的作品</view>
+  </view>
+
+  <view class="nomessage" wx:if="{{isShow}}">当前没有点赞信息哦！</view>
+  <scroll-view class="body" scroll-y>
+    <view class="other2me" hidden="{{!showFlag}}">
+      <block wx:for="{{likeMeComment}}" wx:for-item="item" wx:key="index">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}" data-type="{{item.type}}" data-uid="{{item.uid}}">
+          <view class="poster"><image src="{{item.avatarUrl}}"></image></view>
+          <view class="body">
+            <view class="name">{{item.nick}}</view>
+            <view class="content">{{item.content}}</view>
+            <view class="time">{{item.date}}</view>
+          </view>
+          <view class="footer">
+            <image src="{{item.poster}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </block>
+    </view>
+    <!-- 我点赞的 -->
+    <view class="me2other"  hidden="{{showFlag}}">
+      <block wx:for="{{likeMeProduction}}" wx:for-item="item" wx:key="index">
+        <view class="item" bindtap="toProductionPage" data-pid="{{item.pid}}" data-type="{{item.type}}" data-uid="{{item.uid}}">
+          <view class="poster"><image src="{{item.avatarUrl}}"></image></view>
+          <view class="body">
+            <view class="name">{{item.nick}}</view>
+            <view class="content">{{item.content}}</view>
+            <view class="time">{{item.date}}</view>
+          </view>
+          <view class="footer">
+            <image src="{{item.poster}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

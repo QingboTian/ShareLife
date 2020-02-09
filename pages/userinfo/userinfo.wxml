@@ -20,6 +20,7 @@
 
   <view class='num'>作品 {{userinfo.totalProduction}}：</view>
   <view class="hr"></view>
+  <view class="nomessage" wx:if="{{isShow}}">当前作者没有作品信息哦，太懒了!</view>
   <scroll-view class='zuopin' scroll-y enable-back-to-top lower-threshold='100' bindscrolltolower="bindscrolltolower">
       <block wx:for="{{proinfo.recordList}}" wx:for-item="item" wx:key="index">
         <view class='author'>

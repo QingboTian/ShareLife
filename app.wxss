@@ -1,0 +1,4 @@
+.nomessage {
+  /* 没有消息时展示的样式 */
+  text-align: center;
+}
