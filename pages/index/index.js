@@ -7,16 +7,16 @@ Page({
     currentPage : 1,
     pageSize : 10,
     pageCount : 0,
-    images: [// 准备展示的图片
+    images: [// 准备展示的作品
       
     ],
-    leftShowImages: [],// 左边已经展示的图片
-    rightShowImages: [],// 右边已经展示的图片
+    leftShowImages: [],// 左边已经展示的作品
+    rightShowImages: [],// 右边已经展示的作品
     leftHeight: 0,
     rightHeight: 0,
     load: false,
     isBottom: false,
-    index: 0// 已经加载图片的索引
+    index: 0// 已经加载作品的索引
   },
 
   onLoad() {
@@ -259,6 +259,27 @@ Page({
     // for (var i = 0; i < length; i++) {
     //   this.loadImage(this)
     // }
+  },
+
+  // 下拉刷新页面
+  onPullDownRefresh: function (){
+    var pageSize = this.data.pageSize;
+    this.setData({
+      currentPage: 1,
+      pageSize: 10,
+      pageCount: 0,
+      images: [// 准备展示的作品
+
+      ],
+      leftShowImages: [],// 左边已经展示的作品
+      rightShowImages: [],// 右边已经展示的作品
+      leftHeight: 0,
+      rightHeight: 0,
+      load: false,
+      isBottom: false,
+      index: 0// 已经加载作品的索引
+    })
+    this.loadProductions(1, pageSize);
   },
 
 // 跳转到作品页面

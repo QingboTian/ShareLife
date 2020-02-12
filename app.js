@@ -46,6 +46,8 @@ App({
     // 敏感词检测
     contentSecurity: server + "/api/shortvideo/contentSecurity/text",
     imgSecurity: server + "/api/shortvideo/contentSecurity/img",
+    productionUpload: server + "/api/shortvideo/production/wx/upload",
+    productionUploadPoster: server + "/api/shortvideo/production/wx/upload/poster",
   },
 
   onLaunch: function () {
@@ -95,6 +97,9 @@ App({
   // 敏感词检测
   // 第二个参数为若检测成功后应该做的事件
   contentSecurity: function (content, handler) {
+    wx.showLoading({
+      title: '内容安全检测中...',
+    })
     wx.request({
       url: this.api.contentSecurity,
       method : "GET",
@@ -102,6 +107,7 @@ App({
         content : content
       },
       success : function(res) {
+        // wx.hideLoading();
         if (res.data.status == 87014){
           wx.showToast({
             title: '内容存在敏感词汇',
@@ -115,7 +121,10 @@ App({
             icon: "none"
           })
         }
-      }
+      }, 
+      // complete : function() {
+      //   wx.hideLoading();
+      // }
 
     })
   },
@@ -123,7 +132,9 @@ App({
   // 图像安全检测
   // 应该在服务端调用
   imgSecurity:function(file, handler) {
-
+    wx.showLoading({
+      title: '内容安全检测中...',
+    })
     wx.uploadFile({
       url: this.api.imgSecurity,
       filePath: file,
@@ -132,14 +143,14 @@ App({
         "Content-Type": "multipart/form-data"
       },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         var temp = JSON.parse(res.data);
         if (temp.errcode == 0) {
           handler();
-          wx.showToast({
-            title: '正常',
-            icon: "none"
-          })
+          // wx.showToast({
+          //   title: '正常',
+          //   icon: "none"
+          // })
         } else if (temp.errcode == 87014) {
           wx.showToast({
             title: '图片含有违规内容',

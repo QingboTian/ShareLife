@@ -1,0 +1,115 @@
+/* pages/publish/publish.wxss */
+page {
+  background-color: #f0f0f0;
+  height: 100%;
+  /* width: 100%; */
+}
+
+.scroll-view {
+  overflow: hidden;
+  flex: 1;
+}
+
+.container {
+  height: 100%;
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+}
+
+.prodution video{
+  width: 100%;
+  /* height: 100%; */
+}
+
+.prodution image{
+  width: 100%;
+  border-radius: 15rpx;
+  /* margin-top: 20rpx; */
+  /* height: 100%; */
+}
+
+.poster {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #d2d2d2;
+  border-top: 1px solid #d2d2d2;
+  padding: 20rpx 0;
+  /* height: 100%; */
+}
+
+.poster .title{
+  text-align: center;
+}
+
+.poster .tips{
+  text-align: center;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+
+.poster .chooseButton {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.poster .chooseButton .poster-image{
+  margin: 20rpx;
+  width: 400rpx;
+  height: 400rpx;
+  margin-left: 20rpx;
+}
+
+.poster .chooseButton .image{
+  display: flex;
+  align-items: center;
+}
+
+.poster .chooseButton button {
+  margin: 0 20rpx;
+}
+
+.poster .chooseVideo{
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  background-color: #fff;
+  border-radius: 15rpx;
+  margin: 20rpx;
+  padding: 20rpx;
+}
+
+.content textarea{
+  width: 100%;
+}
+
+.explore {
+  border-top: 1px solid #d2d2d2;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  border-bottom: 1px solid #d2d2d2;
+  margin-bottom: 20rpx
+}
+
+.explore button {
+  margin: 20rpx 20rpx;
+}
+
+.explore .text {
+  display: flex;
+  align-items: center;
+}
+
+.close {
+  width: 14px;
+  height: 14px;
+  margin-left: 10rpx;
+}
+
+.publish {
+  margin: 20rpx 20rpx;
+}

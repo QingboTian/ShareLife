@@ -61,11 +61,9 @@
               <view class="time">{{comment.timestr}}</view>
             </view>
             <view class='like' catchtap="commentLikeHandler" data-index="{{index}}" data-cid="{{comment.id}}" data-islike="{{comment.isLikes}}">
-            <image src="{{comment.isLikes ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
-            <view>{{comment.likes}}</view>
-          </view>
-            
-            
+              <image src="{{comment.isLikes ? '../../images/like.png' : '../../images/nolike.png'}}"></image>
+              <view>{{comment.likes}}</view>
+            </view>
           </view>
           <view class="sonComment" wx:if="{{comment.subCommentCount != 0}}" bindtap="showSubComments" data-cid="{{comment.id}}">—— 展开{{comment.subCommentCount}}条评论 ∨</view>
         </view>

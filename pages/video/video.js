@@ -206,8 +206,10 @@ Page({
   // 按照时间差显示不同的内容 如1小时前等等
   timeToDefineStr(mins, createtime){
     var string  = "";
-    if (mins <= 5) {
+    if (mins <= 1) {
       string = "刚刚"
+    } else if (mins <= 5) {
+      string = mins + "分钟前"
     } else if (mins <= 30) {
       string = "30分钟前"
     } else if (mins <= 60) {

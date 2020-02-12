@@ -1,0 +1,32 @@
+<!--pages/publish/publish.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="scroll-view">
+    <view class="prodution">
+    <video wx:if="{{type == 1}}" src="{{src}}"></video>
+    <image wx:if="{{type == 0}}" mode="widthFix" src="{{src}}"></image>
+  </view>
+  <view wx:if="{{type == 1}}" class="poster">
+    <view class="title">选择封面(非必须)</view>
+    <view class="tips">可以从本地上传图片选择封面哦！若不选择封面，默认视频开始位置哦！</view>
+    <view class="chooseButton">
+      <button size="mini" type="primary" bindtap="chooseLocal">本地上传</button>
+      <view class="image">
+        <image wx:if="{{chooseLocal}}" class="poster-image" src="{{chooseLocalSrc}}" mode="widthFix"></image>
+        <image wx:if="{{chooseLocal}}" class="close" src="../../images/close.png" bindtap="closePoster"></image>
+      </view>
+    </view>
+  </view>
+  <view class="content">
+    <textarea maxlength="100" placeholder="最多发表100字，同时#话题#可以创建话题哦！" value="{{content}}" bindinput="contentHandler"></textarea>
+  </view>
+  <view class="explore">
+    <button type="primary" size="mini" bindtap="chooseExplore">选择专区（非必须）</button>
+    <view class="text" wx:if="{{explore != ''}}">{{explore}}
+      <image class="close" src="../../images/close.png" bindtap="closeExplore"></image>
+    </view>
+  </view>
+  </scroll-view>
+  <view class="publish">
+    <button type="primary" bindtap="publish">发布</button>
+  </view>
+</view>
