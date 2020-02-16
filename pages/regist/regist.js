@@ -155,13 +155,30 @@ Page({
               that.setData({
                 resmsg : data.data.msg
               })
-              console.log(403)
+              // console.log(403)
             }else if (status == 200) {// 注册成功页面
               wx.setStorageSync("accessToken", data.data.data)
-              console.log(200)
-              wx.switchTab({
-                url: '../index/index',
-              })
+              // console.log(200)
+              // 点击卡片进来时携带的参数
+              // if (app.globalData.scene != null){
+              //   console.log("--------------------")
+              //   console.log(app.globalData.scene)
+              //   console.log(app.globalData.production)
+              //   console.log("--------------------")
+              //   var production = app.globalData.production;
+              //   var type = production.type;
+              //   var uid = production.uid;
+              //   var pid = production.pid;
+
+              //   wx.switchTab({
+              //     url: '../index/index?type=' + type + '&pid=' + pid + '&uid=' + uid,
+              //   })
+              // }else {
+                wx.switchTab({
+                  url: '../index/index'
+                })
+              // }
+              
             }else {
               console.log(data)
               that.setData({
@@ -189,6 +206,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '注册',
     })
+    wx.hideShareMenu();
   },
 
   /**

@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.hideShareMenu();
   },
 
   optionHandler : function(e) {
@@ -70,7 +70,7 @@ Page({
       })
     } else if (id == 4) {
       wx.showToast({
-        title: '开发中！！！',
+        title: '请耐心等待',
         icon:"none",
       })
     }

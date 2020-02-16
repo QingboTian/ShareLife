@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options.id)
-
+    wx.hideShareMenu();
     // 这里通过id进行查询聊天的内容
     // 暂时数据模拟
     wx.setNavigationBarTitle({

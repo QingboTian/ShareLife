@@ -13,14 +13,7 @@ Page({
         content : "欢迎加入我们！！！",
         time : "12:00",
         isRead : true// 已读
-      },
-      {
-        poster: "../../images/message.jpeg",
-        name: "亲爱的",
-        content: "现在在干什么呢？",
-        time: "13:00",
-        isRead: false// 未读
-      },
+      }
     ]
   },
 
@@ -28,8 +21,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu();
     wx.setNavigationBarTitle({
       title: '消息',
+    })
+
+    wx.showToast({
+      title: '正在开发中',
     })
   },
 

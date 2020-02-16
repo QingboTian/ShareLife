@@ -108,7 +108,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.hideShareMenu();
     var type = options.type
 
     // console.log(options.type)
@@ -288,26 +288,30 @@ Page({
     // ...
     // 判断当前要修改的是什么数据
     // // 1 昵称 2 个性签名 3 手机 4 邮箱 5 性别 6 生日 7 地区
+    // debugger;
     var type = this.data.type
     var value = ""
 
     // 获取本地缓存信息
     var accessToken = wx.getStorageSync("accessToken");
-    var userinfo = accessToken.userinfo;
+    // var userinfo = accessToken.userinfo;
 
     // 将userinfo赋值给新data
-    var data = JSON.parse(JSON.stringify(userinfo))// js对象赋值赋的是地址
-    console.log(userinfo)
+    // var data = JSON.parse(JSON.stringify(userinfo))// js对象赋值赋的是地址
+    // console.log(userinfo)
+    var data = {
+      token : accessToken.token,
+      type: type,
+    }; 
     if (type == 1) {
-      userinfo["nick"] = this.data.nickname;
-      data['nick'] = this.data.nickname
-      // console.log(this.data.nickname + "00000000000")
+      // userinfo["nick"] = this.data.nickname;
+      data['nick'] = this.data.nickname;
     } else if (type == 2) {
-      var signature = this.data.signature
+      var signature = this.data.signature.trim();
       if (signature == "") {
         signature = "这个人好懒哦，居然没有个性签名！"
       }
-      userinfo['signature'] = this.data.signature
+      // userinfo['signature'] = this.data.signature
       data['signature'] = this.data.signature
     } else if (type == 3) {
       // 检验手机号和验证码的长度
@@ -318,12 +322,11 @@ Page({
       }else if (checkNum.length < 6){
         return;
       }
-      userinfo['phone'] = phone
+      // userinfo['phone'] = phone
 
       // 这里必须传递type参数和验证码 后台判定是否在修改手机号
       // userinfo['type'] = 3
       data['phone'] = phone
-      data['type'] = 3
       data['checkNum'] = checkNum
       // userinfo['checkNum'] = checkNum
     } else if (type == 4) {
@@ -338,42 +341,42 @@ Page({
         return;
       }
 
-      userinfo['mail'] = mail
+      // userinfo['mail'] = mail
       data['mail'] = mail
-      data['type'] = 4
+      // data['type'] = 4
       data['checkNum'] = checkNum
     } else if (type == 5) {
       var sex = this.data.index
       data['sex'] = sex
-      console.log(1)
-      console.log(userinfo)
-      userinfo['sex'] = sex
+      // console.log(1)
+      // console.log(userinfo)
+      // userinfo['sex'] = sex
       // data['sex'] = sex
     } else if (type == 6) {
-      userinfo["birthday"] = this.data.date
+      // userinfo["birthday"] = this.data.date
       data['birthday'] = this.data.date
     } else if (type == 7) {
       var region = this.data.region
       var province = region[0]
       var city = region[1]
       var county = region[2]
-      userinfo['province'] = province
-      userinfo['city'] = city
-      userinfo['county'] = county
+      // userinfo['province'] = province
+      // userinfo['city'] = city
+      // userinfo['county'] = county
       data['province'] = province
       data['city'] = city
       data['county'] = county
     }
     
-    console.log(userinfo)
+    // console.log(userinfo)
 
     
-    accessToken.userinfo = userinfo
+    // accessToken.userinfo = userinfo
     
 
     // 获取当前token
-    var token = accessToken.token
-    data['token'] = token;
+    // var token = accessToken.token
+    // data['token'] = token;
     // console.log(data)
     // 加载loading
     wx.showLoading({
@@ -383,7 +386,7 @@ Page({
     var that = this;
 
     wx.request({
-      url: app.api.user,
+      url: app.api.userUpdate,
       method : "PUT",
       header: { "Content-Type": "application/x-www-form-urlencoded;charset=utf-8" },
       data : data,
@@ -393,6 +396,7 @@ Page({
           console.log(data)
           
           // 将修改后的信息重新放入缓存中
+          accessToken.userinfo = data.data.data;
           wx.setStorageSync("accessToken", accessToken);
           // 返回上一页面
           wx.navigateBack()

@@ -23,6 +23,20 @@ Page({
     // intoView: "view0"
   },
 
+  onShareAppMessage(res){
+    var title = this.data.production.production.content;
+    var type = this.data.type;
+    var pid = this.data.pid;
+    var uid = this.data.uid;
+    var imageUrl = this.data.production.production.poster;
+    
+    // console.log(res)
+    return {
+      title: title,
+      path: '/pages/index/index?type=' + type + '&pid= ' + pid + '&uid=' + uid,
+    }
+  },
+
   // 放大看图
   previewImage : function (e) {
     // https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg
@@ -208,16 +222,11 @@ Page({
     var string  = "";
     if (mins <= 1) {
       string = "刚刚"
-    } else if (mins <= 5) {
-      string = mins + "分钟前"
-    } else if (mins <= 30) {
-      string = "30分钟前"
     } else if (mins <= 60) {
-      string = "1小时前"
+      string = mins + "分钟前"
     } else if (mins <= 60 * 24) {
       var m = parseInt(mins);
       var hour = m / 60;
-
       string = Math.floor(hour) + "小时前";
     } else if (mins <= 60 * 24 * 5) {
       var m = parseInt(mins);
@@ -506,11 +515,4 @@ Page({
     var pid = this.data.pid;
     this.loadComment(token, pid, currentPage + 1, pageSize);
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -74,7 +74,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '发现',
     })
-
+    wx.hideShareMenu();
     // this.loadinfo();
   },
 

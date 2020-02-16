@@ -16,10 +16,26 @@ Page({
     rightHeight: 0,
     load: false,
     isBottom: false,
-    index: 0// 已经加载作品的索引
+    index: 0,// 已经加载作品的索引
+    // production : {}
   },
 
-  onLoad() {
+  onLoad(options) {
+    console.log(options)
+    // 若是点击分享卡片进来的则将作品参数信息保存下来
+    // var shareProduction = wx.getStorageSync("shareProduction");
+    if (app.globalData.scene != null && app.globalData.production == null) {
+      var production = {
+        type: options.type,
+        pid: options.pid,
+        uid: options.uid
+      }
+      // this.setData({
+      //   production: production
+      // })
+      app.globalData.production = production;
+      // wx.setStorageSync("shareProduction", production)
+    }
     // wx.getUserInfo({
     //   success: function (res) {
 
@@ -33,12 +49,13 @@ Page({
     // })
     // 首先在缓存中查询是否存在用户信息
     this.preLogin(this)
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (options) {
     
   },
 
@@ -73,7 +90,6 @@ Page({
         wx.request({
           url: app.api.login + "/" + res.code,
           success: function (data) {
-
             // 检查status状态
             // 500服务器错误 403用户不存在（跳转到登陆页面进行注册及登录）
             console.log(data.data)
@@ -151,6 +167,21 @@ Page({
     // that.setData({
     //   search: that.search.bind(that)
     // })
+
+    // 获取场景值
+    console.log(app.globalData.scene) 
+    var scene = app.globalData.scene;
+    if (scene == 1007 || scene == 1008) {
+      // 跳转到作品页面
+      var type = app.globalData.production.type;
+      var pid = app.globalData.production.pid;
+      var uid = app.globalData.production.uid;
+      console.log(app.globalData.production)
+      wx.navigateTo({
+        url: '../video/video?type=' + type + "&pid=" + pid + "&uid=" + uid,
+      })
+    }
+
     // 加载作品资源
     var currentPage = this.data.currentPage;
     var pageSize = this.data.pageSize;

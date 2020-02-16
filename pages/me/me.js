@@ -51,7 +51,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.hideShareMenu();
     // 判断用户是否登录
     // app.preLogin(app);
 

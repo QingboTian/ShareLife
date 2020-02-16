@@ -21,6 +21,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu();
     var uid = options.uid;
     this.setData({
       uid : uid
@@ -65,6 +66,12 @@ Page({
           })
         }
       }
+    })
+  },
+
+  sengMessage(){
+    wx.showToast({
+      title: '正在开发中',
     })
   },
 

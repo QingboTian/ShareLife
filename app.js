@@ -16,7 +16,7 @@ App({
       // 用户注册
       regist: server + "/api/shortvideo/regist"
     },
-    user: server + "/api/shortvideo/user",
+    userUpdate: server + "/api/shortvideo/user",
     userFans: server + "/api/shortvideo/user/fans",
     userComment: server + "/api/shortvideo/user/comment",
     userCollect: server + "/api/shortvideo/user/collect",
@@ -50,7 +50,19 @@ App({
     productionUploadPoster: server + "/api/shortvideo/production/wx/upload/poster",
   },
 
-  onLaunch: function () {
+  onLaunch: function (options) {
+    // console.log(options.scene)
+
+    // 这里获取进入小程序的场景值
+    // 若点击分享卡片 先获取场景值
+    // 如果是已经注册了的用户 在自动登录方法执行成功之后跳转到作品详细页面
+    // this.setData({
+    //   scene: options.scene 
+    // })
+    this.globalData.scene = options.scene
+    console.log(this.globalData.scene)
+    this.update();
+
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -129,6 +141,47 @@ App({
     })
   },
 
+  // 小程序更新
+  update(){
+    console.log("判断版本进行更新");
+    if (wx.canIUse('getUpdateManager')) {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onCheckForUpdate(function (res) {
+        console.log('onCheckForUpdate====', res)
+        // 请求完新版本信息的回调
+        if (res.hasUpdate) {
+          console.log('res.hasUpdate====')
+          updateManager.onUpdateReady(function () {
+            wx.showModal({
+              title: '更新提示',
+              content: '新版本已经准备好，是否重启应用？',
+              success: function (res) {
+                console.log('success====', res)
+                // res: {errMsg: "showModal: ok", cancel: false, confirm: true}
+                if (res.confirm) {
+                  // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                  updateManager.applyUpdate()
+                }
+              }
+            })
+          })
+          updateManager.onUpdateFailed(function () {
+            // 新的版本下载失败
+            wx.showModal({
+              title: '已经有新版本了哟~',
+              content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~'
+            })
+          })
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '溫馨提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+  },
+
   // 图像安全检测
   // 应该在服务端调用
   imgSecurity:function(file, handler) {
@@ -177,5 +230,7 @@ App({
   globalData: {
     // userInfo: null,
     accesstoken : null,
+    scene : null,
+    production : null
   }
 })

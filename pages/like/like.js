@@ -29,6 +29,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.hideShareMenu();
     wx.setNavigationBarTitle({
       title: '点赞',
     })
@@ -99,7 +100,12 @@ Page({
 
   toProductionPage: function (e) {
     var pid = e.currentTarget.dataset.pid;
-    var uid = e.currentTarget.dataset.uid;
+    var uid = -1;
+    if (e.currentTarget.dataset.t == "1"){
+      uid = wx.getStorageSync("accessToken").userinfo.id;
+    } else {
+      uid = e.currentTarget.dataset.uid;
+    }
     var type = e.currentTarget.dataset.type;
     wx.navigateTo({
       url: '../video/video?pid=' + pid + "&uid=" + uid + "&type=" + type,

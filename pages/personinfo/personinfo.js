@@ -83,12 +83,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    wx.hideShareMenu();
   },
 
   loadInfo : function() {
     var accessToken = wx.getStorageSync("accessToken");
     var userinfo = accessToken.userinfo;
+    // console.log(userinfo.createtime.split(" ")[0])
+    if (userinfo.birthday){
+      userinfo['birthday'] = userinfo.birthday.split(" ")[0]// 只需要年月日
+    }
+    // console.log(userinfo)
     this.setData({
       info : userinfo
     })
@@ -108,16 +113,18 @@ Page({
     })
 
     // 获取省市县的信息
-    var country = "中国"
+    // var country = "中国"
     var province = userinfo.province
     var city = userinfo.city
     var county = userinfo.county
-    var area = country;
+    var area = "";
     if (province != null && province != "") {
-      area += "-" + province
-    } else if (city != null && city != "") {
+      area = province
+    } 
+    if (city != null && city != "") {
       area += "-" + city
-    } else if (county != null && county != "") {
+    }
+    if (county != null && county != "") {
       area += "-" + county
     }
     this.setData({

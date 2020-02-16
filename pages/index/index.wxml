@@ -2,8 +2,8 @@
 <view>
   <!-- <template is='title'></template> -->
   <!-- <view>首页</view> -->
+  <!--搜索-->
   <view>
-    <!--搜索-->
     <mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" search="search"></mp-searchbar>
   </view>
 
