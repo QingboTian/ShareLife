@@ -4,7 +4,16 @@
   <!-- <view>首页</view> -->
   <!--搜索-->
   <view>
-    <mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+    <van-search value="{{ value }}" placeholder="搜索" bind:search="onSearch" bind:cancel="onCancel" bind:change="onChange" input-align='center' show-action />
+    <view class="searchResult">
+      <block wx:for="{{searchResult}}" wx:for-item="res" wx:key="index">
+        <view class="res" bindtap="searchResultHandler" data-id="{{res.id}}" data-ptype="{{res.ptype}}" data-type="{{res.type}}" data-puid="{{res.puid}}">
+          <view>{{res.text}}</view>
+          <view class="{{res.type == 1 ? 'resTypeP' : 'resTypeU'}}">{{res.type == 1 ? '作品' : '用户'}}</view>
+        </view>
+      </block>
+    </view>
+    <!-- <mp-searchbar bindselectresult="selectResult" search="{{search}}"></mp-searchbar> -->
   </view>
 
   <view class='container-flowlayout'>

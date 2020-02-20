@@ -18,6 +18,8 @@ Page({
     isBottom: false,
     index: 0,// 已经加载作品的索引
     // production : {}
+    value : "",
+    searchResult : []
   },
 
   onLoad(options) {
@@ -164,10 +166,6 @@ Page({
 
   // 登录成功后做的动作
   loginback : function(that) {
-    this.setData({
-      search: this.search.bind(this)
-    })
-
     // 获取场景值
     console.log(app.globalData.scene) 
     var scene = app.globalData.scene;
@@ -200,24 +198,31 @@ Page({
     wx.setStorageSync(key, value);
   },
 
-  search: function (value) {
-    if (value.trim() == "") {
-      return new Promise((resolve, reject) => {
-      })
-    }
-    console.log(value)// value是要查询的文本
-    return new Promise((resolve, reject) => {
-      var res = this.loadSearch(value.trim());
-      resolve(res)
-    })
+  onChange(e) {
+    this.setData({
+      value: e.detail
+    });
+    console.log("value :", e.detail)
   },
-  selectResult: function (e) {
-    console.log('select result', e.detail)
+
+  onSearch(e) {
+    // this.$toast('搜索' + this.data.value);
+    // console.log("search:" , e)
+    var value = this.data.value;
+    this.loadSearch(value)
+  },
+
+  onCancel(e) {
+    this.setData({
+      value : "",
+      searchResult : []
+    })
   },
 
   loadSearch(value){
     // console.log(resolve)
     var token = wx.getStorageSync("accessToken").token;
+    var that = this;
     wx.request({
       url: app.api.search,
       data : {
@@ -227,13 +232,30 @@ Page({
         pageSize : 10
       },
       success:(res) => {
-        // console.log(res)
-        // resolve(res.data.recordList)
-        // console.log(resolve)
-        // console.log(res)
-        // return res.data.recordList;
+        // resolve(res.data.data.recordList)
+        console.log(res)
+        that.setData({
+          searchResult : res.data.data.recordList
+        })
       }
     })
+  },
+
+  searchResultHandler(e){
+    var type = e.currentTarget.dataset.type;
+    var id = e.currentTarget.dataset.id;
+    var ptype = e.currentTarget.dataset.ptype;
+    var puid = e.currentTarget.dataset.puid;
+
+    if (type == 1) {// 作品
+      wx.navigateTo({
+        url: '../video/video?type=' + ptype + "&pid=" + id + "&uid=" + puid,
+      })
+    } else { // 用户
+      wx.navigateTo({
+        url: '../userinfo/userinfo?uid=' + id,
+      })
+    }
   },
 
   // 更新版本（可根据容器中图片的实时高度（模拟）进行图片的添加）

@@ -8,6 +8,53 @@ page {
   display: flex;
 }
 
+.searchResult {
+  /* height: 100px; */
+  background-color: #fff;
+  border-radius: 15rpx;
+  margin-bottom: 15rpx;
+  box-shadow: 5rpx 5rpx 5rpx rgb(210,210,210)
+}
+
+.searchResult .res{
+  border-bottom: 1px solid #e0e0e0;
+  border-bottom-left-radius: 15rpx;
+  border-bottom-right-radius: 15rpx;
+  display: flex;
+  justify-content: center;
+  padding: 15rpx 20rpx;
+  font-weight: bloder;
+  align-items: center;
+}
+
+.searchResult .res .resTypeP {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5rpx;
+  height: 14px;
+  width: 20px;
+  font-size: 10px;
+  background-color: red;
+  /* color: greenyellow; */
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+}
+
+.searchResult .res .resTypeU {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5rpx;
+  height: 14px;
+  width: 20px;
+  font-size: 10px;
+  background-color: greenyellow;
+  /* color: greenyellow; */
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+}
+
 .item {
   flex: 1;
   margin: 0 5rpx;
