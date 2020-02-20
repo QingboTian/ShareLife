@@ -1,0 +1,11 @@
+<!--pages/aboutSoft/aboutSoft.wxml-->
+<view class="container">
+  <view>
+    <i-cell-group>
+      <i-cell title="功能介绍" is-link url=''></i-cell>
+      <i-cell title="历史版本" is-link url='../versionList/versionList'></i-cell>
+      <i-cell title="检查更新" is-link bind:click='update'></i-cell>
+      <i-cell title="最新版本" value='{{least.version}}'></i-cell>
+    </i-cell-group>
+  </view>
+</view>

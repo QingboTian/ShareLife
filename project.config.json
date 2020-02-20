@@ -306,6 +306,33 @@
 					"pathName": "pages/video/video",
 					"query": "type=1&pid=12&uid=15",
 					"scene": 1001
+				},
+				{
+					"id": -1,
+					"name": "pages/setting/setting",
+					"pathName": "pages/setting/setting",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/feedback/feedback",
+					"pathName": "pages/feedback/feedback",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/showFeedback/showFeedback",
+					"pathName": "pages/showFeedback/showFeedback",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/feedbackList/feedbackList",
+					"pathName": "pages/feedbackList/feedbackList",
+					"scene": null
 				}
 			]
 		}

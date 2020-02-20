@@ -1,2 +1,27 @@
-<!--pages/setting/setting.wxml-->
-<text>pages/setting/setting.wxml</text>
+<view class="container">
+  <view class="cell">
+    <i-cell-group i-class='cell-group'>
+      <i-cell title="账号与安全" is-link url="../acount/acount"></i-cell>
+    </i-cell-group>
+
+    <i-cell-group i-class='cell-group'>
+      <i-cell title="清理缓存" bind:click="clear" value='{{size}}KB' label='重要数据不会清理'></i-cell>
+    </i-cell-group>
+
+    <i-cell-group i-class='cell-group'>
+      <i-cell title="我的反馈" is-link url="../feedbackList/feedbackList"></i-cell>
+    </i-cell-group>
+
+    <i-cell-group i-class='cell-group'>
+      <i-cell title="用户协议" is-link></i-cell>
+      <i-cell title="作品说明" is-link bind:click="handler"></i-cell>
+      <i-cell title="关于软件" is-link url="../aboutSoft/aboutSoft"></i-cell>
+      <i-cell title="关于作者" is-link url="../aboutAuthor/aboutAuthor"></i-cell>
+    </i-cell-group>
+  </view>
+
+  <view class="copyright">
+    <view>TianQingbo 版权所有</view>
+    <view>Copyright © 2019-2020 tianqb. All rights reserved</view>
+  </view>
+</view>

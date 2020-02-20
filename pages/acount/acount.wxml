@@ -1,0 +1,7 @@
+<!--pages/acount/acount.wxml-->
+<view class="container">
+  <i-cell-group>
+      <!-- <i-cell title="修改密码" is-link url=''></i-cell> -->
+      <i-cell title="账号信息" is-link url='../personinfo/personinfo'></i-cell>
+  </i-cell-group>
+</view>

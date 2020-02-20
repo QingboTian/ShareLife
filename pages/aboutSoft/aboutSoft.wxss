@@ -1,0 +1,14 @@
+/* pages/aboutSoft/aboutSoft.wxss */
+
+page {
+  height: 100%;
+  background-color: #f0f0f0;
+  /* margin: 0 20rpx; */
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* margin: 0 20rpx; */
+}

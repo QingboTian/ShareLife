@@ -1,0 +1,21 @@
+<!--pages/showFeedback/showFeedback.wxml-->
+<view class="container">
+  <view class="item">
+    <view class="title">反馈标题<label class="time">{{feedback.createtime}}</label></view>
+    <view class="content t">{{feedback.titlte}}</view>
+  </view>
+  
+  <view class="item">
+    <view class="title">反馈内容</view>
+    <view class="content c">{{feedback.content}}</view>
+  </view>
+
+  <view class="item">
+    <view class="title">反馈结果</view>
+    <view class="content res">{{feedback.reply ? feedback.reply : '官方还未进行回复'}}</view>
+  </view>
+
+  <view class="item">
+    <button type='primary' bindtap="button">{{feedback.status ? '已处理' : '未处理'}}</button>
+  </view>
+</view>

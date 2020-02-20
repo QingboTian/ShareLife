@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    size : 0
   },
 
   /**
@@ -13,6 +13,55 @@ Page({
    */
   onLoad: function (options) {
     wx.hideShareMenu();
+    wx.setNavigationBarTitle({
+      title: '设置',
+    })
+
+    this.getStorageInfo()
+  },
+
+  // 获取当前缓存大小
+  getStorageInfo(){
+    var that = this;
+    wx.getStorageInfo({
+      success: function (res) {
+        that.setData({
+          size : res.currentSize
+        })
+      },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+
+  clear(){
+    var that = this;
+    wx.showModal({
+      title: '消息提醒',
+      content: '是否要清理缓存数据',
+      success: function (res){
+        if (res.confirm) {
+          // 这里将专区缓存进行清除
+          wx.showLoading({
+            title: '清理缓存中',
+          })
+          wx.removeStorage({
+            key: 'explore',
+            success(res) {
+              wx.hideLoading();
+              wx.showToast({
+                title: '清理成功',
+              })
+              that.getStorageInfo()
+            }
+          })
+        }
+      }
+    })
+  },
+
+  handler() {
+    console.log(1)
   },
 
   /**

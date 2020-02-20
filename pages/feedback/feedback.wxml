@@ -1,0 +1,31 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="contanier">
+  <view class="title item">
+    <label class='primary'>标题*</label>
+    <view class="input">
+      <input maxlength="10" placeholder="不超过10个字符" value="{{title}}" data-type="title" bindinput="inputHandler"></input>
+    </view>
+  </view>
+  <view class="content item">
+    <label class='primary'>反馈内容*</label>
+    <view class="input">
+      <textarea placeholder="不超过100个字符" maxlength="100" value="{{content}}" data-type="content" bindinput="inputHandler"></textarea>
+    </view>
+  </view>
+
+  <view class="mail item">
+    <label>联系邮箱</label>
+    <view class="input">
+      <input placeholder="" value="{{email}}" data-type="email" bindinput="inputHandler"></input>
+    </view>
+  </view>
+
+  <view class="phone item">
+    <label>联系电话</label>
+    <view class="input">
+      <input placeholder="" type="number" value="{{phone}}" data-type="phone" bindinput="inputHandler"></input>
+    </view>
+  </view>
+  <view class="center">{{msg}}</view>
+  <button type="primary" bindtap="submit">提交</button>
+</view>

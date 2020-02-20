@@ -164,9 +164,9 @@ Page({
 
   // 登录成功后做的动作
   loginback : function(that) {
-    // that.setData({
-    //   search: that.search.bind(that)
-    // })
+    this.setData({
+      search: this.search.bind(this)
+    })
 
     // 获取场景值
     console.log(app.globalData.scene) 
@@ -201,15 +201,39 @@ Page({
   },
 
   search: function (value) {
+    if (value.trim() == "") {
+      return new Promise((resolve, reject) => {
+      })
+    }
+    console.log(value)// value是要查询的文本
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([{ text: '搜索结果', value: 1 }, { text: '搜索结果2', value: 2 }])
-      }, 200)
-      
+      var res = this.loadSearch(value.trim());
+      resolve(res)
     })
   },
   selectResult: function (e) {
     console.log('select result', e.detail)
+  },
+
+  loadSearch(value){
+    // console.log(resolve)
+    var token = wx.getStorageSync("accessToken").token;
+    wx.request({
+      url: app.api.search,
+      data : {
+        token : token,
+        text : value,
+        currentPage : 1,
+        pageSize : 10
+      },
+      success:(res) => {
+        // console.log(res)
+        // resolve(res.data.recordList)
+        // console.log(resolve)
+        // console.log(res)
+        // return res.data.recordList;
+      }
+    })
   },
 
   // 更新版本（可根据容器中图片的实时高度（模拟）进行图片的添加）

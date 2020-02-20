@@ -17,7 +17,8 @@ Page({
     height: -1,
     width: -1,
     content : "",
-    exploreId : null
+    exploreId : null,
+    explores : null
   },
 
   /**
@@ -41,6 +42,8 @@ Page({
     wx.setNavigationBarTitle({
       title: '发布作品',
     })
+
+    this.loadExplore()
   },
   
   contentHandler : function(e) {
@@ -70,9 +73,32 @@ Page({
     })
   },
 
+  loadExplore(){
+    var accessToken = wx.getStorageSync("accessToken")
+    var token = accessToken.token;
+    var that = this
+    wx.request({
+      url: app.api.explore,
+      method: "GET",
+      data: {
+        token: token
+      },
+      success: function (res) {
+        // console.log(res)
+        // 将查询结果添加到缓存中
+        // wx.setStorageSync("explore", res.data.data)
+        that.setData({
+          explores: res.data.data
+        })
+      }
+    })
+  },
+
   chooseExplore : function() {
+    // 这里改为请求接口
+    
     var that = this;
-    var explore = wx.getStorageSync("explore");
+    var explore = this.data.explores;
     var data = [];
     for (var i = 0; i < explore.length; i++) {
       data.push(explore[i].explore.name)
@@ -164,6 +190,9 @@ Page({
         },
         formData: formData,
         success: function (res) {
+          console.log('------------')
+          console.log(res)
+          console.log('------------')
           var temp = JSON.parse(res.data);
           console.log(temp)
           if (temp.status == 200) {

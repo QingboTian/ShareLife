@@ -18,7 +18,14 @@
     "pages/like/like",
     "pages/setting/setting",
     "pages/regist/regist",
-    "pages/publish/publish"
+    "pages/publish/publish",
+    "pages/aboutSoft/aboutSoft",
+    "pages/aboutAuthor/aboutAuthor",
+    "pages/feedback/feedback",
+    "pages/acount/acount",
+    "pages/feedbackList/feedbackList",
+    "pages/showFeedback/showFeedback",
+    "pages/versionList/versionList"
   ],
   "window": {
     "backgroundTextStyle": "light",

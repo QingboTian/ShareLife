@@ -1,9 +1,13 @@
-const server = "http://127.0.0.1:8080"
+// const server = "https://tianqb.cn"
+const server = "http://localhost:8080"
 
 //app.js
 App({
 
   api: {
+    search: server + "/api/shortvideo/production/search",
+    feedback: server + "/api/shortvideo/feedback",
+    version: server + "/api/shortvideo/version",
     me: {
       // 我的栏 功能区
       gongneng: server + "/api/shortvideo/me/op",
@@ -104,6 +108,24 @@ App({
 
       
     })
+  },
+
+  isPhoneAvailable(number) {
+    var phoneReg = /^1[3-578]\d{9}$/;
+    if (phoneReg.test(number)) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  isMailAvailable(mail){
+    var mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+    if(mailReg.test(mail)){
+      return true;
+    }else{
+      return false;
+    }
   },
 
   // 敏感词检测
