@@ -1,0 +1,10 @@
+<!--pages/versionShow/versionShow.wxml-->
+<view class="container">
+  <view class="title c-item">{{version.version}}</view>
+  <view class="time c-item">
+    <view class="item"></view>
+    <view class="item">{{version.createtime}}</view>
+  </view>
+  <view class="introduce c-item">版本介绍：</view>
+  <view class="content c-item">{{version.desc}}</view>
+</view>

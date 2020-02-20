@@ -19,6 +19,28 @@ Page({
     wx.hideShareMenu();
   },
 
+  handler(e){
+    // console.log(e)
+    var text = e.currentTarget.dataset.text;
+    wx.showModal({
+      title: '提示',
+      content: '点击复制地址按钮打开浏览器进行查看',
+      confirmText: '复制地址',
+      success(res) {
+        if (res.confirm) {
+          wx.setClipboardData({
+            data: text,
+            success(res) {
+              wx.showToast({
+                title: '复制成功',
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

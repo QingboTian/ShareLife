@@ -3,7 +3,7 @@
   <view>
     <i-cell-group>
       <block wx:for="{{versionList}}" wx:for-item="version" wx:key="index">
-        <i-cell title="{{version.version}}" label='{{version.createtime}}' value="查看更新内容" is-link url='../showVersion/showVersion?id={{version.id}}'></i-cell>
+        <i-cell title="{{version.version}}" label='{{version.createtime}}' value="查看更新内容" is-link url='../versionShow/versionShow?id={{version.id}}'></i-cell>
       </block>
     </i-cell-group>
   </view>

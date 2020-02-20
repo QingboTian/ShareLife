@@ -1,4 +1,4 @@
-// pages/versionList/versionList.js
+// pages/versionShow/versionShow.js
 const app = getApp();
 Page({
 
@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    versionList : null
+    id : null,
+    version : null
   },
 
   /**
@@ -15,18 +16,24 @@ Page({
   onLoad: function (options) {
     wx.hideShareMenu();
     wx.setNavigationBarTitle({
-      title: '历史版本',
+      title: '版本详情',
     })
-    this.getVersions();
+    var id = options.id;
+    this.setData({
+      id : id
+    })
+
+    this.loadVersionInfo();
   },
 
-  getVersions(){
+  loadVersionInfo(){
+    var id = this.data.id;
     var that = this;
     wx.request({
-      url: app.api.version,
+      url: app.api.version + "/" + id,
       success(res) {
         that.setData({
-          versionList : res.data.data
+          version : res.data.data
         })
       }
     })

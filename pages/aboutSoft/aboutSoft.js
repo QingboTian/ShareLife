@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    least : "V1.0.0"
+    least : "V1.0.0",
+    link : "https://tianqb.cn"
   },
 
   /**
@@ -20,6 +21,28 @@ Page({
     wx.hideShareMenu();
 
     this.getLeastVersion();
+  },
+
+  features(){
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '点击复制地址按钮打开浏览器进行查看',
+      confirmText : '复制地址',
+      success(res) {
+        if (res.confirm) {
+          var link = that.data.link;
+          wx.setClipboardData({
+            data: link,
+            success(res) {
+              wx.showToast({
+                title: '复制成功',
+              })
+            }
+          })
+        }
+      }
+    })
   },
 
   getLeastVersion(){

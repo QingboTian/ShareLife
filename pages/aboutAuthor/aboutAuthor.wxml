@@ -1,2 +1,15 @@
 <!--pages/aboutAuthor/aboutAuthor.wxml-->
-<text>pages/aboutAuthor/aboutAuthor.wxml</text>
+<view class="container">
+  <view>
+    <i-cell-group>
+      <i-cell title="姓名" label='' value="田清波"></i-cell>
+      <i-cell title="学校" label='' value="西安邮电大学"></i-cell>
+      <i-cell title="学院" label='' value="计算机学院"></i-cell>
+      <i-cell title="专业" label='' value="网络工程"></i-cell>
+      <i-cell title="主页" label='' value="https://tianqb.cn" is-link bind:click='handler' data-text='https://tianqb.cn'></i-cell>
+      <i-cell title="博客" label='' value="http://blog.tianqb.cn" is-link bind:click='handler' data-text='http://blog.tianqb.cn'></i-cell>
+      <i-cell title="GitHub" label='' value="https://github.com/QingboTian" is-link bind:click='handler' data-text='https://github.com/QingboTian'></i-cell>
+      <i-cell title="联系方式 " label='' value="tianqingbo@tianqb.cn"></i-cell>
+    </i-cell-group>
+  </view>
+</view>

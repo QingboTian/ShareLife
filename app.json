@@ -25,7 +25,8 @@
     "pages/acount/acount",
     "pages/feedbackList/feedbackList",
     "pages/showFeedback/showFeedback",
-    "pages/versionList/versionList"
+    "pages/versionList/versionList",
+    "pages/versionShow/versionShow"
   ],
   "window": {
     "backgroundTextStyle": "light",
