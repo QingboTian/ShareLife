@@ -141,7 +141,7 @@ App({
         content : content
       },
       success : function(res) {
-        // wx.hideLoading();
+        wx.hideLoading();
         if (res.data.status == 87014){
           wx.showToast({
             title: '内容存在敏感词汇',
@@ -155,7 +155,14 @@ App({
             icon: "none"
           })
         }
-      }, 
+      },
+      fail(){
+        wx.hideLoading();
+        wx.showToast({
+          title: '发生一个错误',
+          icon: "none"
+        })
+      }
       // complete : function() {
       //   wx.hideLoading();
       // }
@@ -221,17 +228,20 @@ App({
         // console.log(res)
         var temp = JSON.parse(res.data);
         if (temp.errcode == 0) {
+          wx.hideLoading()
           handler();
           // wx.showToast({
           //   title: '正常',
           //   icon: "none"
           // })
         } else if (temp.errcode == 87014) {
+          wx.hideLoading()
           wx.showToast({
             title: '图片含有违规内容',
             icon: "none"
           })
         } else {
+          wx.hideLoading()
           wx.showToast({
             title: '服务器错误',
             icon: "none"

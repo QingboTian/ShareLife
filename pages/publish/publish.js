@@ -120,7 +120,7 @@ Page({
     var that = this;
     wx.chooseImage({
       count: 1,
-      sizeType: ['original', 'compressed'],
+      sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
@@ -196,6 +196,7 @@ Page({
           var temp = JSON.parse(res.data);
           console.log(temp)
           if (temp.status == 200) {
+            wx.hideLoading();
             wx.showToast({
               title: '作品上传成功',
               icon : 'success'
@@ -213,8 +214,11 @@ Page({
             })  
           }
         },
-        complete: function () {
+        fail : function() {
           wx.hideLoading();
+          wx.showToast({
+            title: '发生错误，请稍后再试',
+          })  
         }
       })
 
@@ -241,6 +245,10 @@ Page({
             var uploadPoster = function () {
               // 获取文件
               var file = that.data.chooseLocalSrc;
+              wx.hideLoading();
+              wx.showLoading({
+                title: '作品上传中...',
+              })
               wx.uploadFile({
                 url: app.api.productionUploadPoster,
                 filePath: file,
@@ -255,6 +263,7 @@ Page({
                 success: function (res) {
                   var t = JSON.parse(res.data);
                   if (t.status == 200) {
+                    wx.hideLoading();
                     wx.showToast({
                       title: '作品上传成功',
                       icon: 'success'
@@ -265,33 +274,29 @@ Page({
                       })
                     }, 1500)
                   } else {
+                    wx.hideLoading();
                     wx.showToast({
                       title: '上传失败，请稍后再试',
                     })
                   }
                 },
                 fail : function () {
+                  wx.hideLoading();
                   wx.showToast({
-                    title: '上传失败，请稍后再试',
+                    title: '发生错误，请稍后再试',
                   })
                 },
-                complete: function () {
-                  wx.hideLoading();
-                }
               })
             }
             uploadPoster();
           }
         },
         fail : function() {
+          wx.hideLoading();
           wx.showToast({
             title: '上传失败，请稍后再试',
-          })
-          wx.hideLoading();
-        },  
-        complete : function(){
-          
-        }
+          })  
+        },
       })
     }
 

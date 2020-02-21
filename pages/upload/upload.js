@@ -22,7 +22,7 @@ Page({
       // 马上拍
       wx.chooseVideo({
         sourceType: ['camera'],// 拍摄
-        compressed:false,// 是否压缩
+        compressed: false,// 是否压缩
         maxDuration:60,// 拍摄时长
         camera : 'back',// 默认打开后置
         success:function(res) {
@@ -54,7 +54,7 @@ Page({
     } else if (id == 3) {
       wx.chooseImage({
         count: 1,
-        sizeType: ['original'],
+        sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
         success(res) {
           // tempFilePath可以作为img标签的src属性显示图片

@@ -18,7 +18,7 @@
   <view class='zhengti'>
     <view class='video' bindlongtap="longfunction">
       <video src='{{production.production.url}}' controls poster="{{production.production.poster}}" wx:if="{{type == 1}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}'></video>
-      <image src='{{production.production.url}}' wx:if="{{type == 0}}" mode='widthFix' class='video-image' bindtap="previewImage" data-src='{{production.production.url}}'></image>
+      <image src='{{production.production.url}}' wx:if="{{type == 0}}" mode='widthFix' class='video-image' data-src='{{production.production.url}}'></image>
       <!-- 点赞 评论 收藏等功能 -->
       <view class='option'>
           <view class='like' bindtap="like" data-pid="{{production.production.id}}" data-islike="{{production.islike}}">
