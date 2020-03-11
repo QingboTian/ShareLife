@@ -1,35 +1,39 @@
 // pages/video/video.js
 // 引入util(获取系统时间))
 var util = require('../../utils/util.js');
+const filePath = `${wx.env.USER_DATA_PATH}/cn/tianqb/download/`
 const app = getApp();
+const fs = wx.getFileSystemManager()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    type : 0, // 1 ：video    0 ：image 
-    pid : -1,
-    uid : -1,
-    production : null,
-    showTextArea : false,
-    currentPage : 1,
-    pageSize : 20,
-    pageCount : 1,
-    comments : [],
-    commentValue : "",
-    isFocus : null,
-    isBottom : false,
+    type: 0, // 1 ：video    0 ：image 
+    pid: -1,
+    uid: -1,
+    production: null,
+    showTextArea: false,
+    currentPage: 1,
+    pageSize: 20,
+    pageCount: 1,
+    comments: [],
+    commentValue: "",
+    isFocus: null,
+    isBottom: false,
     // intoView: "view0"
   },
 
-  onShareAppMessage(res){
+  onShareAppMessage(res) {
     var title = this.data.production.production.content;
     var type = this.data.type;
     var pid = this.data.pid;
     var uid = this.data.uid;
     var imageUrl = this.data.production.production.poster;
-    
+
+    title = title ? title : 'ta的作品太好看了，快去瞧瞧吧...'
+
     // console.log(res)
     return {
       title: title,
@@ -38,7 +42,7 @@ Page({
   },
 
   // 放大看图
-  previewImage : function (e) {
+  previewImage: function(e) {
     // https://tianqb.cn/group1/M00/00/00/rBsADF0lvz6AEcuXAAFZp27uQQc209.jpg
     // var current = e.target.dataset.src
     var current = e.currentTarget.dataset.src;
@@ -49,20 +53,20 @@ Page({
     urls.push(current)
 
     wx.previewImage({
-      current : current, // 此处传递的地址值必须是网络资源的链接 本地的无法显示
+      current: current, // 此处传递的地址值必须是网络资源的链接 本地的无法显示
       urls: urls
     })
   },
 
   // 点击作者或者评论者的头像或名称区域进行跳转
-  goUserPage : function(e) {
+  goUserPage: function(e) {
     var uid = e.currentTarget.dataset.uid;
     wx.navigateTo({
       url: '../userinfo/userinfo?uid=' + uid,
     })
   },
 
-  focus : function (e) {
+  focus: function(e) {
     var isFocus = this.data.isFocus;
     var token = wx.getStorageSync("accessToken").token;
     var uid = this.data.uid;
@@ -78,29 +82,113 @@ Page({
         token: token,
         isFocus: !isFocus
       },
-      success: function (res) {
+      success: function(res) {
         // console.log(res)
       }
     })
     // console.log("关注成功")
   },
 
-  longfunction : function(e) {
-    // console.log(e)
+  longfunction: function(e) {
+    var src = e.currentTarget.dataset.src
+    wx.showActionSheet({
+      itemList: ['下载作品', '举报'],
+      success(res) {
+        if (res.tapIndex == 0) {
+          wx.showModal({
+            title: '提示',
+            content: '点击复制地址按钮打开浏览器进行查看',
+            confirmText: '复制地址',
+            success(res) {
+              if (res.confirm) {
+                wx.setClipboardData({
+                  data: src,
+                  success(res) {
+                    wx.showToast({
+                      title: '复制成功',
+                    })
+                  }
+                })
+              }
+            }
+          })
+          // wx.showLoading({
+          //   title: '下载中，请稍后',
+          // })
+          // // 下载
+          // wx.downloadFile({
+          //   url: src,
+          //   timeout : 10000,
+          //   success(res) {
+          //     // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，
+          //     // 业务需要自行判断是否下载到了想要的内容
+          //     console.log("success" ,res)
+          //     wx.hideLoading();
+          //     if (res.statusCode === 200) {
+          //       // console.log(res)
+          //       try{
+          //         var flag = fs.accessSync(filePath)
+          //         console.log("文件存在")
+          //       }catch(e) {
+          //         // 文件不存咋 进行创建
+          //         try{
+          //           fs.mkdirSync(filePath, true)
+          //           console.log("文件创建成功")
+          //         }catch(e) {
+          //           console.log("文件创建失败")
+          //         }
+
+          //       }
+
+          //       try{
+          //         var localPath = fs.saveFileSync(res.tempFilePath, filePath)
+          //         console.log('localPath ',localPath)
+          //         wx.showToast({
+          //           title: '下载成功',
+          //         })
+          //       }catch (e) {
+          //         wx.showToast({
+          //           title: '下载失败',
+          //         })
+          //       }
+          //     }else {
+          //       wx.showToast({
+          //         title: '下载失败',
+          //       })
+          //     }
+          //   },
+          //   fail(err) {
+          //     console.log(err)
+          //     wx.hideLoading();
+          //     wx.showToast({
+          //       title: '下载失败',
+          //     })
+          //   }
+          // })
+        } else if (res.tapIndex == 1) {
+          // 举报
+        } else {
+          // 取消 不做处理
+        }
+      },
+      fail(res) {
+        console.log(res.errMsg)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // console.log(options)
     var type = options.type;
     var pid = options.pid;
     var uid = options.uid;
     this.setData({
-      type : type,
-      pid : pid,
-      uid : uid
+      type: type,
+      pid: pid,
+      uid: uid
     })
 
     var token = wx.getStorageSync("accessToken").token;
@@ -112,16 +200,16 @@ Page({
     this.loadIsFocus(token, uid);
   },
 
-  loadIsFocus : function(token, uid){
+  loadIsFocus: function(token, uid) {
     var that = this;
     wx.request({
       url: app.api.isFocus,
-      method : "GET",
+      method: "GET",
       data: {
         token: token,
-        uid : uid
+        uid: uid
       },
-      success : function(res) {
+      success: function(res) {
         console.log(res)
         that.setData({
           isFocus: res.data.data
@@ -130,18 +218,18 @@ Page({
     })
   },
 
-  loadInfo : function(pid, uid, token) {
+  loadInfo: function(pid, uid, token) {
     var that = this;
     wx.request({
       url: app.api.index + "/" + pid,
-      method : "GET",
-      data : {
-        token : token,
-        uid : uid
+      method: "GET",
+      data: {
+        token: token,
+        uid: uid
       },
-      success : function(res) {
+      success: function(res) {
         that.setData({
-          production : res.data.data
+          production: res.data.data
         })
       }
     })
@@ -155,13 +243,13 @@ Page({
     var timestamp = Date.parse(new Date());
     wx.request({
       url: app.api.commentShow + "/" + pid,
-      method : "GET",
-      data : {
-        token : token,
-        currentPage : currentPage,
-        pageSize : pageSize
+      method: "GET",
+      data: {
+        token: token,
+        currentPage: currentPage,
+        pageSize: pageSize
       },
-      success : function(res) {
+      success: function(res) {
         if (res.data.status = 200) {
           var data = res.data.data;
           // console.log(data)
@@ -171,7 +259,7 @@ Page({
           // 获取评论创建时间
           for (var i = 0; i < temp.length; i++) {
             var time = temp[i].createTime;
-            
+
             // console.log(time)
             var createTimeDate = that.formatDate(time);
             var createTimestamp = Date.parse(createTimeDate);
@@ -192,10 +280,10 @@ Page({
             pageCount: data.pageCount,
             currentPage: data.currentPage
           })
-        }else {
+        } else {
           wx.showToast({
             title: '发生了一个错误',
-            icon:'none'
+            icon: 'none'
           })
         }
       }
@@ -207,7 +295,7 @@ Page({
     var pid = this.data.pid;
     var cid = e.currentTarget.dataset.cid;
     var token = wx.getStorageSync("accessToken").token;
-    
+
   },
 
   // 格式化时间 str-date
@@ -218,8 +306,8 @@ Page({
   },
 
   // 按照时间差显示不同的内容 如1小时前等等
-  timeToDefineStr(mins, createtime){
-    var string  = "";
+  timeToDefineStr(mins, createtime) {
+    var string = "";
     if (mins <= 1) {
       string = "刚刚"
     } else if (mins <= 60) {
@@ -245,13 +333,13 @@ Page({
   },
 
   // 将时间转为分钟数
-  timestampToMin(time, currentTime){
+  timestampToMin(time, currentTime) {
     var t = currentTime - time;
     return Math.floor(t / 1000 / 60);
   },
 
   // 评论滑动到底部
-  commentBottom : function () {
+  commentBottom: function() {
     var currentPage = this.data.currentPage;
     var pageCount = this.data.pageCount;
     var pageSize = this.data.pageSize;
@@ -260,7 +348,7 @@ Page({
     if (currentPage == pageCount) {
       wx.showToast({
         title: '评论已经到底了，别再滑了!',
-        icon : "none"
+        icon: "none"
       })
       return;
     }
@@ -270,13 +358,13 @@ Page({
     this.loadComment(token, pid, currentPage + 1, pageSize);
   },
 
-  comment : function(e) {
+  comment: function(e) {
     var flag = this.data.showTextArea;
     if (flag) {
       this.setData({
-        showTextArea : false,
+        showTextArea: false,
       })
-    }else {
+    } else {
       this.setData({
         showTextArea: true,
         commentValue: ""
@@ -284,14 +372,14 @@ Page({
     }
   },
 
-  inputHandler : function (e) {
+  inputHandler: function(e) {
     // console.log(e)
     this.setData({
       commentValue: e.detail.value
     })
   },
 
-  send : function(e) {
+  send: function(e) {
     this.setData({
       showTextArea: false
     })
@@ -314,12 +402,12 @@ Page({
         token: token,
         productionId: pid,
       },
-      success: function (res) {
+      success: function(res) {
         var id = res.data.data;
         var temp = [];
         var userinfo = wx.getStorageSync("accessToken").userinfo;
         var data = {
-          id : id,
+          id: id,
           productionId: pid,
           userId: uid,
           isDelete: false,
@@ -341,11 +429,11 @@ Page({
         production.comment = production.comment + 1;
         that.setData({
           comments: temp,
-          production : production
+          production: production
         })
-        that.setData(
-          { intoView: "view" + id }
-        )
+        that.setData({
+          intoView: "view" + id
+        })
       }
     })
     // console.log(e)
@@ -355,7 +443,7 @@ Page({
     // })
   },
 
-  commentLikeHandler : function(e) {
+  commentLikeHandler: function(e) {
     var pid = this.data.pid;
     var isLike = e.currentTarget.dataset.islike;
     var cid = e.currentTarget.dataset.cid;
@@ -370,35 +458,35 @@ Page({
     if (isLike) {
       // 取消点赞
       comments[index].likes = comments[index].likes - 1;
-    }else {
+    } else {
       // 正常点赞
       comments[index].likes = comments[index].likes + 1;
     }
-    
+
     this.setData({
       comments: comments
     })
 
     wx.request({
       url: app.api.commentLike,
-      method : "PUT",
-      header:{
+      method: "PUT",
+      header: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
-      data : {
-        token:token,
-        cid : cid,
-        isLike : !isLike,
-        pid : pid
+      data: {
+        token: token,
+        cid: cid,
+        isLike: !isLike,
+        pid: pid
       },
-      success : function(res) {
+      success: function(res) {
 
       }
     })
   },
 
   // 点赞
-  like: function (e) {
+  like: function(e) {
     // console.log(e)
     var pid = e.currentTarget.dataset.pid;
     var islike = e.currentTarget.dataset.islike;
@@ -406,13 +494,13 @@ Page({
     // 
     var production = this.data.production;
     production.islike = !islike;
-    if (islike){
+    if (islike) {
       production.likes = production.likes - 1
-    }else {
+    } else {
       production.likes = production.likes + 1
     }
-    
-    
+
+
     this.setData({
       production: production
     })
@@ -431,7 +519,7 @@ Page({
   },
 
   // 收藏
-  collect: function (e) {
+  collect: function(e) {
     var pid = e.currentTarget.dataset.pid;
     var collect = e.currentTarget.dataset.iscollect;
     var token = wx.getStorageSync("accessToken").token
@@ -463,42 +551,42 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     var currentPage = this.data.currentPage;
     var pageCount = this.data.pageCount;
     var pageSize = this.data.pageSize;
@@ -506,7 +594,7 @@ Page({
     // console.log(pageCount)
     if (currentPage == pageCount) {
       this.setData({
-        isBottom : true
+        isBottom: true
       })
       return;
     }

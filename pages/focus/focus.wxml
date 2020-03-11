@@ -5,33 +5,39 @@
     <view class="item {{!isChoose ? 'isChoose' : ''}}" catchtap="switchTabHandler" data-id="1">专区</view>
   </view>
 
-  <view class="nomessage" wx:if="{{isShow}}">当前没有关注信息哦！</view>
-  <view class="content">
-    <!-- 关注的人 -->
-    <view class="people" hidden="{{!showFlag}}">
-      <block wx:for="{{focusPeople}}" wx:for-item="item" wx:key="index">
-        <view class="item" data-uid="{{item.id}}" bindtap="goUserPage">
-          <view class="poster"><image src="{{item.avatarurl}}"></image></view>
-          <view class="body">
-            <view class="name">{{item.nick}}</view>
-            <view class="signature">{{item.signature}}</view>
+  <scroll-view class="bodyy" scroll-y>
+    <view class="nomessage" wx:if="{{isShow}}">当前没有关注信息哦！</view>
+    <view class="content">
+      <!-- 关注的人 -->
+      <view class="people" hidden="{{!showFlag}}">
+        <block wx:for="{{focusPeople}}" wx:for-item="item" wx:key="index">
+          <view class="item" data-uid="{{item.id}}" bindtap="goUserPage">
+            <view class="poster">
+              <image src="{{item.avatarurl}}"></image>
+            </view>
+            <view class="body">
+              <view class="name">{{item.nick}}</view>
+              <view class="signature">{{item.signature}}</view>
+            </view>
+            <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="userFocus" data-isfocus="{{item.isFocus}}" data-uid="{{item.id}}" data-index="{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
           </view>
-          <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="userFocus" data-isfocus="{{item.isFocus}}" data-uid="{{item.id}}" data-index = "{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
-        </view>
-      </block>
-    </view>
-    <!-- 关注的专区 -->
-    <view class="area"  hidden="{{showFlag}}">
-      <block wx:for="{{focusArea}}" wx:for-item="item" wx:key="index">
-        <view class="item" data-eid="{{item.id}}" bindtap="goExplorePage">
-          <view class="poster"><image src="{{item.avatarurl}}"></image></view>
-          <view class="body">
-            <view class="name">{{item.name}}</view>
-            <view class="desc">{{item.content}}</view>
+        </block>
+      </view>
+      <!-- 关注的专区 -->
+      <view class="area" hidden="{{showFlag}}">
+        <block wx:for="{{focusArea}}" wx:for-item="item" wx:key="index">
+          <view class="item" data-eid="{{item.id}}" bindtap="goExplorePage">
+            <view class="poster">
+              <image src="{{item.avatarurl}}"></image>
+            </view>
+            <view class="body">
+              <view class="name">{{item.name}}</view>
+              <view class="desc">{{item.content}}</view>
+            </view>
+            <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="exploreFocus" data-isfocus="{{item.isFocus}}" data-eid="{{item.id}}" data-index="{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
           </view>
-          <view class="{{item.isFocus ? 'focus' : 'nofocus'}}" catchtap="exploreFocus" data-isfocus="{{item.isFocus}}" data-eid="{{item.id}}" data-index = "{{index}}">{{item.isFocus ? "取消关注" : "关注"}}</view>
-        </view>
-      </block>
+        </block>
+      </view>
     </view>
-  </view>
+  </scroll-view>
 </view>

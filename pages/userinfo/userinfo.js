@@ -6,25 +6,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userinfo : null,
-    currentPage : 1,
-    pageSize : 10,
-    proinfo : null,
-    preplay: "",// 上一个播放视频的ID
+    userinfo: null,
+    currentPage: 1,
+    pageSize: 10,
+    proinfo: null,
+    preplay: "", // 上一个播放视频的ID
     pageCount: 0,
-    isBottom : false,
-    uid : -1,
-    isShow:false
+    isBottom: false,
+    uid: -1,
+    isShow: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.hideShareMenu();
     var uid = options.uid;
     this.setData({
-      uid : uid
+      uid: uid
     })
 
     // console.log(options)
@@ -38,27 +38,27 @@ Page({
     this.loadproinfo(uid, token, currentPage, pageSize)
   },
 
-// 加载用户信息
-  loaduserinfo : function (uid, token) {
+  // 加载用户信息
+  loaduserinfo: function(uid, token) {
 
-    var that = this;   
-    
+    var that = this;
+
     wx.request({
       url: app.api.user.userinfo + "/" + uid,
-      method : "GET",
-      data : {
-        token : token,
+      method: "GET",
+      data: {
+        token: token,
       },
-      success : function(res) {
-        if(res.data.status == 200) {
+      success: function(res) {
+        if (res.data.status == 200) {
           that.setData({
-            userinfo : res.data.data
+            userinfo: res.data.data
           })
 
           wx.setNavigationBarTitle({
             title: res.data.data.userinfo.nick,
           })
-        }else {
+        } else {
           wx.showToast({
             title: '请求失败',
             icon: 'none',
@@ -69,13 +69,17 @@ Page({
     })
   },
 
-  sengMessage(){
-    wx.showToast({
-      title: '正在开发中',
+  sengMessage() {
+    var uid = this.data.uid;
+    // 此处获取用户openid
+
+    wx.navigateTo({
+      url: '../chat/chat?uid=' + uid,
     })
+
   },
 
-  goProductionPage: function (e) {
+  goProductionPage: function(e) {
     var pid = e.currentTarget.dataset.pid;
     var uid = this.data.uid;
     var type = e.currentTarget.dataset.type;
@@ -84,7 +88,7 @@ Page({
     })
   },
 
-  download : function (e) {
+  download: function(e) {
 
     // 判断当前作品  视频/图片
     // 根据作品类别分别做处理
@@ -100,24 +104,24 @@ Page({
     })
   },
 
-// 加载作品信息
-  loadproinfo: function (uid, token, currentPage, pageSize) {
+  // 加载作品信息
+  loadproinfo: function(uid, token, currentPage, pageSize) {
     var that = this;
-    
+
     wx.request({
       url: app.api.user.proinfo + "/" + uid,
-      method : "GET",
-      data : {
-        token : token,
+      method: "GET",
+      data: {
+        token: token,
         pageSize: pageSize,
         currentPage: currentPage
       },
-      success : function (res) {
+      success: function(res) {
         if (res.data.status == 200) {
 
           if (res.data.data.recordList.length == 0) {
             that.setData({
-              isShow:true
+              isShow: true
             })
           }
 
@@ -148,7 +152,7 @@ Page({
     })
   },
 
-  focus : function (e) {
+  focus: function(e) {
     var isfocus = e.currentTarget.dataset.isfocus
     var token = wx.getStorageSync("accessToken").token
     var uid = e.currentTarget.dataset.uid
@@ -157,23 +161,23 @@ Page({
     // console.log(userinfo)
     userinfo['isFocus'] = !isfocus
     this.setData({
-      userinfo : userinfo
+      userinfo: userinfo
     })
 
     wx.request({
       url: app.api.user.focus + "/" + uid,
-      method : "GET",
-      data : {
-        token : token,
-        isFocus : !isfocus
+      method: "GET",
+      data: {
+        token: token,
+        isFocus: !isfocus
       },
-      success : function (res) {
+      success: function(res) {
         // console.log(res)
       }
     })
   },
 
-  like: function (e) {
+  like: function(e) {
     // console.log(e)
     var pid = e.currentTarget.dataset.pid;
     var islike = e.currentTarget.dataset.islike;
@@ -207,7 +211,7 @@ Page({
   },
 
   // 收藏
-  collect: function (e) {
+  collect: function(e) {
     var pid = e.currentTarget.dataset.pid;
     var collect = e.currentTarget.dataset.iscollect;
     var index = e.currentTarget.dataset.index;
@@ -233,8 +237,8 @@ Page({
     })
   },
 
-// 视频播放时触发
-  videoPlay: function (e) {
+  // 视频播放时触发
+  videoPlay: function(e) {
     var id = e.currentTarget.id
     var context = wx.createVideoContext(id)
     var preplay = this.data.preplay
@@ -258,42 +262,42 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     // var currentPage = this.data.currentPage
     // var pageCount = this.data.pageCount
     // var pageSize = this.data.pageSize
@@ -310,7 +314,7 @@ Page({
     // this.loadproinfo(uid, token, currentPage + 1, pageSize)
   },
 
-  bindscrolltolower : function(e) {
+  bindscrolltolower: function(e) {
     var currentPage = this.data.currentPage
     var pageCount = this.data.pageCount
     var pageSize = this.data.pageSize
@@ -330,7 +334,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

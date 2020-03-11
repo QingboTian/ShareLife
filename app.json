@@ -68,6 +68,12 @@
     }
     ]
   },
+  "networkTimeout": {
+    "request": 1000000,
+    "connectSocket": 100000,
+    "uploadFile": 500000,
+    "downloadFile": 100000
+  },
   "sitemapLocation": "sitemap.json",
   "permission" : {
     "scope.userLocation" : {

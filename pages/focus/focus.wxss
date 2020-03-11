@@ -44,6 +44,11 @@ page {
   margin: 0 20rpx;
 }
 
+.bodyy {
+  overflow: hidden;
+  flex: 1;
+}
+
 .content .item .body{
   flex: 1;
 }

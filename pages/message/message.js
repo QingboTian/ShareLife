@@ -7,13 +7,6 @@ Page({
   data: {
     flag : true, // 从本地缓存或者数据库读取是否存在消息列表
     lists : [
-      {
-        poster: "../../images/message.jpeg",
-        name : "官方宝宝",
-        content : "欢迎加入我们！！！",
-        time : "12:00",
-        isRead : true// 已读
-      }
     ]
   },
 
@@ -26,8 +19,11 @@ Page({
       title: '消息',
     })
 
-    wx.showToast({
-      title: '正在开发中',
+    // wx.showToast({
+    //   title: '正在开发中',
+    // })
+    wx.removeTabBarBadge({
+      index : 2
     })
   },
 
@@ -40,7 +36,7 @@ Page({
 
     wx.showModal({
       title: '系统提示',
-      content: '是否删除对话',
+      content: '是否删除对话,删除后聊天记录也没有了哦',
       success(res) {
         if (res.confirm) {
           var index = e.currentTarget.dataset.id
@@ -66,6 +62,7 @@ Page({
 
     // console.log(e.currentTarget.dataset.id)
     var index = e.currentTarget.dataset.id
+    var uid = e.currentTarget.dataset.uid
 
     // var isRead = this.data.lists[index].isRead
     var lists = this.data.lists
@@ -82,7 +79,7 @@ Page({
 
     wx.navigateTo({
       // 跳转到聊天页面
-      url: '../chat/chat?id=' + index,
+      url: '../chat/chat?uid=' + uid,
     })
   },
 
@@ -97,7 +94,59 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.loadMessages();
+  },
 
+  loadMessages() {
+    // debugger
+    var chatMessages = wx.getStorageSync("chatMessage");
+    console.log(chatMessages, "-------chatMessages")
+    // console.log(chatMessages)
+    if (!chatMessages) {
+      
+      this.setData({
+        flag :false
+      })
+      return;
+    }
+    
+    // console.log()
+    var keyArr = Object.keys(chatMessages)
+
+    var dataArr = []
+    for (var i = 0; i < keyArr.length; i++) {
+      var userMessage = chatMessages[keyArr[i]]// 单独用户的所有本地聊天记录
+      // var userinfo = userMessage[userMessage.length - 1].userinfo
+      // 获取最新消息
+      // console.log(userMessage[userMessage.length - 1])
+      var userinfo;
+      for (var j = 0; j < userMessage.length; j++) {
+        userinfo = userMessage[j].userinfo
+        if (userinfo) {
+          break;
+        }
+        if (j == userMessage.length - 1) {
+          console.log("所有消息都没有用户信息")
+        }
+      }
+      
+      console.log(userinfo)
+      var tempContent = userMessage[userMessage.length - 1].content;
+      if (tempContent.length > 10) {
+        tempContent = tempContent.substring(0, 10) + "......"
+      }
+      var data = {};
+      data['content'] = tempContent;
+      data['poster'] = userinfo.avatarurl;
+      data['name'] = userinfo.nick;
+      data['uid'] = userinfo.id;
+      data['time'] = userMessage[userMessage.length - 1].date
+
+      dataArr.push(data)
+    }
+    this.setData({
+      lists: dataArr
+    })
   },
 
   /**

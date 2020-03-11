@@ -74,7 +74,7 @@ page {
 
 .slider {
   /* height: 150px; */
-  margin-top: 20rpx;
+  margin-top: 30rpx;
   width: 100%;
 }
 
@@ -85,7 +85,7 @@ page {
 }
 
 .more {
-  margin-top: 40rpx;
+  /* margin-top: 40rpx; */
   flex: 1;
   display: flex;
   /* 自动换行 */

@@ -1,25 +1,27 @@
 //index.js
 //获取应用实例
 const app = getApp()
+// const isReadUrl = "http://192.168.1.104:8989/shortvideo/message/isRead/"
+const isReadUrl = "https://tianqb.cn/shortvideo/message/isRead/"
 
 Page({
   data: {
-    currentPage : 1,
-    pageSize : 10,
-    pageCount : 0,
-    images: [// 准备展示的作品
-      
+    currentPage: 1,
+    pageSize: 10,
+    pageCount: 0,
+    images: [ // 准备展示的作品
+
     ],
-    leftShowImages: [],// 左边已经展示的作品
-    rightShowImages: [],// 右边已经展示的作品
+    leftShowImages: [], // 左边已经展示的作品
+    rightShowImages: [], // 右边已经展示的作品
     leftHeight: 0,
     rightHeight: 0,
     load: false,
     isBottom: false,
-    index: 0,// 已经加载作品的索引
+    index: 0, // 已经加载作品的索引
     // production : {}
-    value : "",
-    searchResult : []
+    value: "",
+    searchResult: []
   },
 
   onLoad(options) {
@@ -37,6 +39,8 @@ Page({
       // })
       app.globalData.production = production;
       // wx.setStorageSync("shareProduction", production)
+
+
     }
     // wx.getUserInfo({
     //   success: function (res) {
@@ -51,35 +55,35 @@ Page({
     // })
     // 首先在缓存中查询是否存在用户信息
     this.preLogin(this)
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (options) {
-    
+  onShow: function(options) {
+
   },
 
-  preLogin: function (that) {
+  preLogin: function(that) {
     var accesstoken = wx.getStorageSync("accessToken")
-    var timestamp = Date.parse(new Date());// 获取当前时间的时间戳与expired进行比较
+    var timestamp = Date.parse(new Date()); // 获取当前时间的时间戳与expired进行比较
     var flag = true;
     if (timestamp > accesstoken.expires) {
-      flag = false;// token 过期
+      flag = false; // token 过期
     }
 
     var tempflag = accesstoken && flag;
     tempflag || this.login(that)
-    
-    if (tempflag) {// 从注册页面跳转过来执行的动作----（已经登录，缓存中存在用户信息）
+
+    if (tempflag) { // 从注册页面跳转过来执行的动作----（已经登录，缓存中存在用户信息）
       // console.log("regist")
       that.loginback();
     }
-    
+
   },
 
-  login: function (that) {
+  login: function(that) {
     console.log("没有缓存或缓存过期，正在登录")
     // 登录
     wx.login({
@@ -91,7 +95,7 @@ Page({
         // console.log(this.globalData.userInfo)
         wx.request({
           url: app.api.login + "/" + res.code,
-          success: function (data) {
+          success: function(data) {
             // 检查status状态
             // 500服务器错误 403用户不存在（跳转到登陆页面进行注册及登录）
             console.log(data.data)
@@ -101,17 +105,17 @@ Page({
                 url: '../regist/regist',
               })
               return false;
-            }else {// 执行成功(登录成功之后再做的事情)
+            } else { // 执行成功(登录成功之后再做的事情)
               console.log("login")
-              
+
               var accesstoken = data.data.data;
               wx.setStorageSync("accessToken", accesstoken);
               that.loginback(that);
               // console.log(data.data.data)
               app.globalData.accesstoken = data.data.data;
-              
-              
-              
+
+
+
               // that.setOpenIdStorageSync("accessToken", accesstoken)
             }
           }
@@ -120,35 +124,35 @@ Page({
     })
   },
 
-  loadProductions : function(currentPage, pageSize){
+  loadProductions: function(currentPage, pageSize) {
     var token = wx.getStorageSync("accessToken").token;
     var that = this;
     this.setData({
-      load : true
+      load: true
     })
     // wx.showLoading({
     //   title: '加载中',
     // })
     wx.request({
       url: app.api.index,
-      method : "GET",
-      data : {
-        token : token,
-        currentPage : currentPage,
-        pageSize : pageSize
+      method: "GET",
+      data: {
+        token: token,
+        currentPage: currentPage,
+        pageSize: pageSize
       },
-      success : function(res) {
+      success: function(res) {
         if (res.data.status == 200) {
           that.setData({
-            load : false
+            load: false
           })
           var data = res.data.data;
           // console.log(data)
           that.setData({
-            images : data.recordList,
+            images: data.recordList,
             pageCount: data.pageCount,
             currentPage: data.currentPage,
-            index : 0// 将索引置为0
+            index: 0 // 将索引置为0
           })
 
           var length = that.data.images.length;
@@ -165,9 +169,9 @@ Page({
   },
 
   // 登录成功后做的动作
-  loginback : function(that) {
+  loginback: function(that) {
     // 获取场景值
-    console.log(app.globalData.scene) 
+    console.log(app.globalData.scene)
     var scene = app.globalData.scene;
     if (scene == 1007 || scene == 1008) {
       // 跳转到作品页面
@@ -186,6 +190,8 @@ Page({
     this.loadProductions(currentPage, pageSize);
     // console.log(1)
 
+    this.loadIsReadMsg();
+
     wx.setNavigationBarTitle({
       title: '短视频',
     })
@@ -193,8 +199,62 @@ Page({
     // wx.hideShareMenu()
   },
 
+  // 查询是否存在未读消息
+  loadIsReadMsg() {
 
-  setOpenIdStorageSync: function (key, value) {
+    var openid = wx.getStorageSync("accessToken").userinfo.openid;
+
+    wx.request({
+      url: isReadUrl + openid,
+      success(res) {
+        console.log(res)
+        if (res.data.data.length != 0) {
+
+          console.log("存在未读消息")
+          console.log(res, "---- 未读消息结果集")
+
+          wx.setTabBarBadge({
+            index: 3,
+            text: res.data.data.length + ""
+          })
+
+          // 向缓存中添加未读消息
+          var chatMessage = wx.getStorageSync("chatMessage");
+          console.log(chatMessage, "-----主页中获取的消息缓存")
+          if (!chatMessage) {
+            chatMessage = {}
+          }
+          var data = res.data.data;
+          for (var i = 0; i < data.length; i++) {
+            var sender = data[i].chat.sender;
+            var msg = chatMessage[sender];
+            if (!msg) {
+              msg = []
+            }
+            var tempDate = {
+              content: data[i].chat.content,
+              sender: data[i].chat.sender,
+              receiver: data[i].chat.receiver,
+              position: "left",
+              userinfo: data[i].userinfo,
+              date: data[i].chat.createtime
+            }
+            msg.push(tempDate);
+            chatMessage[sender] = msg;
+          }
+          
+          wx.setStorage({
+            key: 'chatMessage',
+            data: chatMessage,
+          })
+
+        }
+      }
+    })
+  },
+
+
+  setOpenIdStorageSync: function(key, value) {
     wx.setStorageSync(key, value);
   },
 
@@ -214,40 +274,40 @@ Page({
 
   onCancel(e) {
     this.setData({
-      value : "",
-      searchResult : []
+      value: "",
+      searchResult: []
     })
   },
 
-  loadSearch(value){
+  loadSearch(value) {
     // console.log(resolve)
     var token = wx.getStorageSync("accessToken").token;
     var that = this;
     wx.request({
       url: app.api.search,
-      data : {
-        token : token,
-        text : value,
-        currentPage : 1,
-        pageSize : 10
+      data: {
+        token: token,
+        text: value,
+        currentPage: 1,
+        pageSize: 10
       },
-      success:(res) => {
+      success: (res) => {
         // resolve(res.data.data.recordList)
         console.log(res)
         that.setData({
-          searchResult : res.data.data.recordList
+          searchResult: res.data.data.recordList
         })
       }
     })
   },
 
-  searchResultHandler(e){
+  searchResultHandler(e) {
     var type = e.currentTarget.dataset.type;
     var id = e.currentTarget.dataset.id;
     var ptype = e.currentTarget.dataset.ptype;
     var puid = e.currentTarget.dataset.puid;
 
-    if (type == 1) {// 作品
+    if (type == 1) { // 作品
       wx.navigateTo({
         url: '../video/video?type=' + ptype + "&pid=" + id + "&uid=" + puid,
       })
@@ -259,18 +319,18 @@ Page({
   },
 
   // 更新版本（可根据容器中图片的实时高度（模拟）进行图片的添加）
-  loadImage: function (that) {
+  loadImage: function(that) {
 
-    var leftHeight = this.data.leftHeight// 左容器高度
-    var rightHeight = this.data.rightHeight// 右容器高度
-    var index = this.data.index// 加载图片的索引
-    var images = this.data.images// 总共要加载的图片
+    var leftHeight = this.data.leftHeight // 左容器高度
+    var rightHeight = this.data.rightHeight // 右容器高度
+    var index = this.data.index // 加载图片的索引
+    var images = this.data.images // 总共要加载的图片
 
     // 这个值在不同的手机中是不同的，但是不影响整体的效果，因为最终的高度是按照每张图片的
     // 长宽比进行计算，虽然不是容器的实时高度，但是左右容器高度的大小关系是可以计算出来的
-    var widthFix = 201;// 左（右）容器中图片的固定宽度（iPhone6P）
+    var widthFix = 201; // 左（右）容器中图片的固定宽度（iPhone6P）
 
-    var min = Math.min(leftHeight, rightHeight)// 计算左右容器高度的最小值
+    var min = Math.min(leftHeight, rightHeight) // 计算左右容器高度的最小值
     // 添加要新加载的图
     if (min == leftHeight) {
       var leftShowImages = this.data.leftShowImages
@@ -314,12 +374,12 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
     var pageCount = this.data.pageCount;
     var currentPage = this.data.currentPage;
     var pageSize = this.data.pageSize;
-    if (pageCount == currentPage){
+    if (pageCount == currentPage) {
       this.setData({
         isBottom: true
       })
@@ -339,28 +399,28 @@ Page({
   },
 
   // 下拉刷新页面
-  onPullDownRefresh: function (){
+  onPullDownRefresh: function() {
     var pageSize = this.data.pageSize;
     this.setData({
       currentPage: 1,
       pageSize: 10,
       pageCount: 0,
-      images: [// 准备展示的作品
+      images: [ // 准备展示的作品
 
       ],
-      leftShowImages: [],// 左边已经展示的作品
-      rightShowImages: [],// 右边已经展示的作品
+      leftShowImages: [], // 左边已经展示的作品
+      rightShowImages: [], // 右边已经展示的作品
       leftHeight: 0,
       rightHeight: 0,
       load: false,
       isBottom: false,
-      index: 0// 已经加载作品的索引
+      index: 0 // 已经加载作品的索引
     })
     this.loadProductions(1, pageSize);
   },
 
-// 跳转到作品页面
-  tapHandler : function (e) {
+  // 跳转到作品页面
+  tapHandler: function(e) {
 
     var type = e.currentTarget.dataset.type;
     var pid = e.currentTarget.dataset.pid;

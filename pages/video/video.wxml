@@ -16,7 +16,7 @@
   </view>
 
   <view class='zhengti'>
-    <view class='video' bindlongtap="longfunction">
+    <view class='video' bindlongpress="longfunction" data-src="{{production.production.url}}">
       <video src='{{production.production.url}}' controls poster="{{production.production.poster}}" wx:if="{{type == 1}}" show-mute-btn enable-play-gesture bindplay="videoPlay" id='video{{item.production.id}}'></video>
       <image src='{{production.production.url}}' wx:if="{{type == 0}}" mode='widthFix' class='video-image' data-src='{{production.production.url}}'></image>
       <!-- 点赞 评论 收藏等功能 -->

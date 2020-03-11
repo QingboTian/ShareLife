@@ -1,40 +1,50 @@
 <!--pages/chat/chat.wxml-->
 <view class='container'>
   <!-- 聊天主体 -->
-  <view class='chat'>
-    <view class='item'>
-    <view class='time'>12:00</view>
-    <view class='body'>
-      <view class='poster'>
-        <image src='../../images/message.jpeg'></image>
+  <!-- <view class='chat'> -->
+  <scroll-view class='chat' scroll-y scroll-with-animation scroll-into-view="{{intoView}}">
+    <block wx:for="{{messages}}" wx:for-item="message" wx:key="index">
+      <view class='item' wx:if="{{message.position == 'left'}}" id="view{{index}}">
+        <view class='time'>{{message.createtime}}</view>
+        <view class='left-item'>
+          <view class='body'>
+            <view class='poster'>
+              <image src='{{receiver.avatarurl}}'></image>
+            </view>
+            <view class='left-content content'>
+              {{message.content}}
+            </view>
+          </view>
+          <view class="blank"></view>
+        </view>
       </view>
-      <view class='content'>
-        欢迎加入我们
-      </view>
-    </view>
-  </view>
 
-  <view class='item'>
-    <view class='time'>12:00</view>
-    <view class='body'>
-      <view class='poster'>
-        <image src='../../images/message.jpeg'></image>
+      <view class='item' wx:else id="view{{index}}">
+        <view class='time'>{{message.createtime}}</view>
+        <view class="right-item">
+          <view class="blank"></view>
+          <view class='body'>
+            <view class='right-content content'>
+              {{message.content}}
+            </view>
+            <view class='poster'>
+              <image src='{{sender.avatarurl}}'></image>
+            </view>
+          </view>
+        </view>
       </view>
-      <view class='content'>
-        你好呀
-      </view>
-    </view>
-  </view>
-  </view>
-  
+    </block>
+    <!-- </view> -->
+  </scroll-view>
+
   <!-- 操作区域 内容编辑 发送-->
   <view class='option'>
     <view class='edit'>
       <image src='../../images/keyboard.png'></image>
-      <input></input>
+      <input value="{{inputContent}}" bindinput="inputHandler"></input>
     </view>
-    <view class='send'>发送</view>
+    <view class='send' bindtap="send">发送</view>
   </view>
 
-  
+
 </view>

@@ -10,22 +10,22 @@
 <!-- 存在消息列表显示的内容 -->
 <view wx:else class='container'>
   <block wx:for="{{lists}}" wx:for-item="message" wx:key="index">
-    <view class='item' data-id='{{index}}' bindlongtap='longTapHandler' bindtap='tapHandler'>
-    <view class='poster'>
-      <image src='{{message.poster}}'></image>
-    </view>
-    <view class='body'>
-      <view class='title'>
-        {{message.name}}
+    <view class='item' data-id='{{index}}' data-uid="{{message.uid}}" bindlongtap='longTapHandler' bindtap='tapHandler'>
+      <view class='poster'>
+        <image src='{{message.poster}}'></image>
       </view>
-      <view class='content'>
-        {{message.content}}
+      <view class='body'>
+        <view class='title'>
+          {{message.name}}
+        </view>
+        <view class='content'>
+          {{message.content}}
+        </view>
+      </view>
+      <view class='warn'>
+        <view class='time'>{{message.time}}</view>
+        <!-- <view class='new' wx:if="{{!message.isRead}}"></view> -->
       </view>
     </view>
-    <view class='warn'>
-      <view class='time'>{{message.time}}</view>
-      <view class='new' wx:if="{{!message.isRead}}"></view>
-    </view>
-  </view>
   </block>
 </view>

@@ -1,5 +1,6 @@
-// const server = "https://tianqb.cn"
-const server = "http://localhost:8080"
+const server = "https://tianqb.cn"
+// const server = "http://localhost:8080"
+// const server = "http://192.168.1.103:8080"
 
 //app.js
 App({
