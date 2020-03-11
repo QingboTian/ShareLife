@@ -10,7 +10,7 @@
 <!-- 存在消息列表显示的内容 -->
 <view wx:else class='container'>
   <block wx:for="{{lists}}" wx:for-item="message" wx:key="index">
-    <view class='item' data-id='{{index}}' data-uid="{{message.uid}}" bindlongtap='longTapHandler' bindtap='tapHandler'>
+    <view class='item' data-id='{{index}}' data-uid="{{message.uid}}" data-openid="{{message.openid}}" bindlongtap='longTapHandler' bindtap='tapHandler'>
       <view class='poster'>
         <image src='{{message.poster}}'></image>
       </view>

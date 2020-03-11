@@ -31,7 +31,9 @@ Page({
   longTapHandler : function (e) {
     // console.log(e.currentTarget.dataset.id)
     // console.log("长按")
-
+    var openid = e.currentTarget.dataset.openid;
+    var id = e.currentTarget.dataset.id;
+    console.log(openid, "openid")
     var that = this
 
     wx.showModal({
@@ -39,9 +41,16 @@ Page({
       content: '是否删除对话,删除后聊天记录也没有了哦',
       success(res) {
         if (res.confirm) {
-          var index = e.currentTarget.dataset.id
+          // var index = e.currentTarget.dataset.id
+          var chatMessage = wx.getStorageSync("chatMessage");
+          console.log(chatMessage, "前");
+          delete chatMessage[openid];
+          console.log(chatMessage, "后");
+
+          wx.setStorageSync("chatMessage", chatMessage);
+
           var lists = that.data.lists
-          lists.splice(index, 1)
+          lists.splice(id, 1)
           that.setData({
             lists: lists
           })
@@ -108,6 +117,10 @@ Page({
         flag :false
       })
       return;
+    } else {
+      this.setData({
+        flag: true
+      })
     }
     
     // console.log()
@@ -140,6 +153,7 @@ Page({
       data['poster'] = userinfo.avatarurl;
       data['name'] = userinfo.nick;
       data['uid'] = userinfo.id;
+      data['openid'] = userinfo.openid;
       data['time'] = userMessage[userMessage.length - 1].date
 
       dataArr.push(data)

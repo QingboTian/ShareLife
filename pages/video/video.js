@@ -112,61 +112,12 @@ Page({
               }
             }
           })
-          // wx.showLoading({
-          //   title: '下载中，请稍后',
-          // })
-          // // 下载
-          // wx.downloadFile({
-          //   url: src,
-          //   timeout : 10000,
-          //   success(res) {
-          //     // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，
-          //     // 业务需要自行判断是否下载到了想要的内容
-          //     console.log("success" ,res)
-          //     wx.hideLoading();
-          //     if (res.statusCode === 200) {
-          //       // console.log(res)
-          //       try{
-          //         var flag = fs.accessSync(filePath)
-          //         console.log("文件存在")
-          //       }catch(e) {
-          //         // 文件不存咋 进行创建
-          //         try{
-          //           fs.mkdirSync(filePath, true)
-          //           console.log("文件创建成功")
-          //         }catch(e) {
-          //           console.log("文件创建失败")
-          //         }
-
-          //       }
-
-          //       try{
-          //         var localPath = fs.saveFileSync(res.tempFilePath, filePath)
-          //         console.log('localPath ',localPath)
-          //         wx.showToast({
-          //           title: '下载成功',
-          //         })
-          //       }catch (e) {
-          //         wx.showToast({
-          //           title: '下载失败',
-          //         })
-          //       }
-          //     }else {
-          //       wx.showToast({
-          //         title: '下载失败',
-          //       })
-          //     }
-          //   },
-          //   fail(err) {
-          //     console.log(err)
-          //     wx.hideLoading();
-          //     wx.showToast({
-          //       title: '下载失败',
-          //     })
-          //   }
-          // })
+          
         } else if (res.tapIndex == 1) {
           // 举报
+          wx.showToast({
+            title: '开发ing',
+          })
         } else {
           // 取消 不做处理
         }
