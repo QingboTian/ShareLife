@@ -24,8 +24,9 @@
       </view>
       <view class='warn'>
         <view class='time'>{{message.time}}</view>
-        <!-- <view class='new' wx:if="{{!message.isRead}}"></view> -->
+        
       </view>
+      <view class='new' wx:if="{{!message.isread}}"></view>
     </view>
   </block>
 </view>

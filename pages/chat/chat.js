@@ -15,8 +15,8 @@ Page({
     receiver: null, // 聊天的对方
     sender: null, // 自己
     userinfo: null,
-    messages: [
-    ]
+    messages: [],
+    isFocus: false
   },
 
 
@@ -29,6 +29,10 @@ Page({
     var token = wx.getStorageSync("accessToken").token
     this.loadUserinfo(uid, token);
     wx.hideShareMenu();
+
+    wx.removeTabBarBadge({
+      index:3
+    })
 
     this.loadSender();
 
@@ -70,7 +74,7 @@ Page({
         receiver: receiver,
         position: "left",
         userinfo: userinfo,
-        date: date
+        date: date,
       }
 
       if (sender != that.data.receiver.openid) {
@@ -110,6 +114,10 @@ Page({
         messages: messages,
         intoView: "view" + (messages.length - 1)
       })
+
+      // 将消息设置到缓存中去
+      that.setMessage();
+
       console.log(res)
     })
   },
@@ -176,9 +184,16 @@ Page({
       console.log("内容为空，不得发送")
       return;
     }
+
+    // 清空输入的内容
     this.setData({
-      inputContent: ""
+      isfocus: false,
+    }, () => {
+      this.setData({
+        inputContent: '',
+      })
     })
+
     var receiver = this.data.receiver; // 对方
     var sender = this.data.sender; // 自己
     // 封装消息格式
@@ -204,6 +219,9 @@ Page({
       intoView: "view" + (messages.length - 1)
     })
 
+    // 将消息设置到缓存中去
+    this.setMessage();
+
     if (sender.openid == receiver.openid) {
       // 给自己发消息不占用服务器资源
       // return;
@@ -222,7 +240,7 @@ Page({
   getDate() {
     var now = new Date();
     var year = now.getFullYear();
-    var month = now.getMonth() + 1; 
+    var month = now.getMonth() + 1;
     var date = now.getDate();
     var day = now.getDay();
     var hour = now.getHours();
@@ -269,6 +287,11 @@ Page({
     })
 
 
+    
+    //wx.setStorageSync("chatMessage", chatMessage);
+  },
+
+  setMessage() {
     // 获取当前聊天数据
     var messages = this.data.messages;
 
@@ -291,7 +314,6 @@ Page({
       key: 'chatMessage',
       data: chatMessage,
     })
-    //wx.setStorageSync("chatMessage", chatMessage);
   },
 
   /**

@@ -22,9 +22,16 @@ Page({
     // wx.showToast({
     //   title: '正在开发中',
     // })
-    wx.removeTabBarBadge({
-      index : 2
-    })
+    try {
+      wx.removeTabBarBadge({
+        index: 3,
+        fail(err) {
+          console.log("无消息，不清除----------", err)
+        }
+      })
+    }catch(e) {
+      console.log("无消息，不清除----------", e)
+    }
   },
 
   // 长按删除对话列表
@@ -72,23 +79,51 @@ Page({
     // console.log(e.currentTarget.dataset.id)
     var index = e.currentTarget.dataset.id
     var uid = e.currentTarget.dataset.uid
+    var openid = e.currentTarget.dataset.openid;
 
     // var isRead = this.data.lists[index].isRead
     var lists = this.data.lists
-    var isRead = lists[index].isRead
+    var isread = lists[index].isread
 
-    if (!isRead){
+    if (!isread){
       // 若消息已读 则不修改状态 若消息未读 则修改状态为true
-      lists[index].isRead = true
-
+      lists[index].isread = true
       this.setData({
         lists: lists
       })
+      this.setMessage(openid)
     }
 
     wx.navigateTo({
       // 跳转到聊天页面
       url: '../chat/chat?uid=' + uid,
+    })
+  },
+
+  setMessage(openid) {
+    // 重新向缓存中添加消息
+    // 获取当前聊天缓存
+    var chatMessage = wx.getStorageSync("chatMessage");
+    if (chatMessage) {
+      // 若存在这个值 什么都不用管 因为他就是一个对象
+    } else {
+      // 需要初始化这个值
+      chatMessage = {}
+    }
+    var message = chatMessage[openid]
+
+    console.log(message)
+
+    // 修改最后一条消息为已读
+    var m = message[message.length - 1];
+    console.log(m, "m--")
+    m['isread'] = true;
+    message[message.length - 1] = m;
+    chatMessage[openid] = message;
+
+    wx.setStorage({
+      key: 'chatMessage',
+      data: chatMessage,
     })
   },
 
@@ -155,9 +190,17 @@ Page({
       data['uid'] = userinfo.id;
       data['openid'] = userinfo.openid;
       data['time'] = userMessage[userMessage.length - 1].date
-
+      var isread = userMessage[userMessage.length - 1].isread;
+      console.log(isread, "---isread")
+      if (typeof (isread) == "undefined") {
+        data['isread'] = true;
+      } else {
+        data['isread'] = isread;
+      }
+      
       dataArr.push(data)
     }
+    console.log(dataArr)
     this.setData({
       lists: dataArr
     })

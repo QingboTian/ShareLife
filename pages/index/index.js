@@ -237,7 +237,8 @@ Page({
               receiver: data[i].chat.receiver,
               position: "left",
               userinfo: data[i].userinfo,
-              date: data[i].chat.createtime
+              date: data[i].chat.createtime,
+              isread: false
             }
             msg.push(tempDate);
             chatMessage[sender] = msg;

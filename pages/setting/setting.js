@@ -5,13 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    size : 0
+    size: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.hideShareMenu();
     wx.setNavigationBarTitle({
       title: '设置',
@@ -21,25 +21,25 @@ Page({
   },
 
   // 获取当前缓存大小
-  getStorageInfo(){
+  getStorageInfo() {
     var that = this;
     wx.getStorageInfo({
-      success: function (res) {
+      success: function(res) {
         that.setData({
-          size : res.currentSize
+          size: res.currentSize
         })
       },
-      fail: function (res) { },
-      complete: function (res) { },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 
-  clear(){
+  clear() {
     var that = this;
     wx.showModal({
       title: '消息提醒',
-      content: '是否要清理缓存数据',
-      success: function (res){
+      content: '是否要清理缓存数据(包含聊天记录)',
+      success: function(res) {
         if (res.confirm) {
           // 这里将专区缓存进行清除
           wx.showLoading({
@@ -48,11 +48,28 @@ Page({
           wx.removeStorage({
             key: 'explore',
             success(res) {
+              wx.removeStorage({
+                key: 'chatMessage',
+                success: function(res) {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '清理成功',
+                  })
+                  that.getStorageInfo()
+                },
+                fail(err) {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '发生错误',
+                  })
+                }
+              })
+            },
+            fail(err) {
               wx.hideLoading();
               wx.showToast({
-                title: '清理成功',
+                title: '发生错误',
               })
-              that.getStorageInfo()
             }
           })
         }
@@ -67,49 +84,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

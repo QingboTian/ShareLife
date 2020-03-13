@@ -41,7 +41,9 @@
   <view class='option'>
     <view class='edit'>
       <image src='../../images/keyboard.png'></image>
-      <input value="{{inputContent}}" bindinput="inputHandler"></input>
+      <input value="{{inputContent}}" bindinput="inputHandler">
+        <!-- <button bindtap="send">发送</button> -->
+      </input>
     </view>
     <view class='send' bindtap="send">发送</view>
   </view>

@@ -75,3 +75,13 @@ page {
   margin-left: 30rpx;
   /* margin-right: 15rpx; */
 }
+
+.container .item .new{
+  width: 15rpx;
+  height: 15rpx;
+  background-color: red;
+  border-radius: 50%;
+  margin-top: 20rpx;
+  /* margin-left: 15rpx; */
+  margin-right: 20rpx;
+}
