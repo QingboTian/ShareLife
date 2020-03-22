@@ -92,11 +92,37 @@ Page({
 
     // 判断当前作品  视频/图片
     // 根据作品类别分别做处理
-
+    var src = e.currentTarget.dataset.src
     wx.showActionSheet({
-      itemList: ['下载视频'],
+      itemList: ['下载作品', '举报'],
       success(res) {
-        console.log(res.tapIndex)
+        if (res.tapIndex == 0) {
+          wx.showModal({
+            title: '提示',
+            content: '点击复制地址按钮打开浏览器进行查看',
+            confirmText: '复制地址',
+            success(res) {
+              if (res.confirm) {
+                wx.setClipboardData({
+                  data: src,
+                  success(res) {
+                    wx.showToast({
+                      title: '复制成功',
+                    })
+                  }
+                })
+              }
+            }
+          })
+
+        } else if (res.tapIndex == 1) {
+          // 举报
+          wx.showToast({
+            title: '开发ing',
+          })
+        } else {
+          // 取消 不做处理
+        }
       },
       fail(res) {
         console.log(res.errMsg)

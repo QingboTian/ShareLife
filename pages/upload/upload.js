@@ -22,7 +22,7 @@ Page({
       // 马上拍
       wx.chooseVideo({
         sourceType: ['camera'],// 拍摄
-        compressed: false,// 是否压缩
+        compressed: true,// 是否压缩
         maxDuration:60,// 拍摄时长
         camera : 'back',// 默认打开后置
         success:function(res) {
@@ -35,7 +35,7 @@ Page({
       // });
       wx.chooseVideo({
         sourceType: ['album'],// 拍摄
-        compressed: false,// 是否压缩
+        compressed: true,// 是否压缩
         success: function (res) {
           if (res.duration > 120) {
             wx.showToast({

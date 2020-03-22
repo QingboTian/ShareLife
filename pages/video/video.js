@@ -112,7 +112,7 @@ Page({
               }
             }
           })
-          
+
         } else if (res.tapIndex == 1) {
           // 举报
           wx.showToast({
@@ -331,11 +331,18 @@ Page({
   },
 
   send: function(e) {
+
+    var content = this.data.commentValue;
+
+    if (content.trim() == "") {
+      return;
+    }
+
     this.setData({
       showTextArea: false
     })
 
-    var content = this.data.commentValue;
+
     var pid = this.data.pid;
     var uid = this.data.uid;
     var that = this;
