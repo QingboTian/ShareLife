@@ -3,7 +3,12 @@
   <view class="title item">
     <label class='primary'>标题*</label>
     <view class="input">
-      <input maxlength="10" placeholder="不超过10个字符" value="{{title}}" data-type="title" bindinput="inputHandler"></input>
+      <!-- <input maxlength="10" placeholder="不超过10个字符" value="{{title}}" data-type="title" bindinput="inputHandler"></input> -->
+      <mp-cells>
+        <mp-checkbox-group  prop="radio" multi="{{false}}" bindchange="radioChange">
+          <mp-checkbox ext-class='checkbox' wx:for="{{radioItems}}" wx:key="value" label="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}"></mp-checkbox>
+        </mp-checkbox-group>
+      </mp-cells>
     </view>
   </view>
   <view class="content item">

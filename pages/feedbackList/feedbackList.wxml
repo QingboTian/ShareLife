@@ -1,11 +1,12 @@
 <view class="container">
-  <view class="feedbackList">
+  <scroll-view scroll-y class="feedbackList" >
     <i-cell-group>
       <block wx:for="{{feedbackList}}" wx:for-item="feedback" wx:key="index">
-        <i-cell title="{{feedback.titlte}}" label='{{feedback.createtime}}' value="{{feedback.status ? '已处理':'未处理'}}" is-link url='../showFeedback/showFeedback?id={{feedback.id}}'></i-cell>
+        <i-cell i-class="{{feedback.status ? '' : 'not-deal'}}" title="{{feedback.titlte}}" label='{{feedback.createtime}}' value="{{feedback.status ? '已处理':'未处理'}}" is-link url='../showFeedback/showFeedback?id={{feedback.id}}'></i-cell>
       </block>
     </i-cell-group>
-  </view>
+    <view wx:if="{{feedbackList == 0}}" style="text-align: center;color:gray">您还没有反馈内容，有任何问题都可以在这里进行反馈哦！</view>
+  </scroll-view>
   <view>
     <i-cell-group>
       <i-cell title="我要反馈" is-link url="../feedback/feedback"></i-cell> 

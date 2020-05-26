@@ -3,7 +3,7 @@
   <view class='info'>
     <view class='poster'> 
       <image src='{{userinfo.userinfo.avatarurl}}'></image>
-      <view class='id'>ID:{{userinfo.userinfo.randomid}}</view>
+      <view class='id' bindtap="clickIdHandler">ID:{{userinfo.userinfo.randomid}}</view>
     </view>
     <view class='other-info'>
       <view class='other'>

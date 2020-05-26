@@ -102,9 +102,15 @@ App({
           })
         }
 
-        // if (res.authSetting['scope.userLocation']) {
-        //   console.log(res)
-        // }
+        if (res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success(res) {
+              console.log(res, "---授权成功")
+            }
+          })
+          
+        }
       }
 
       

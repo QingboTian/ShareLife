@@ -193,7 +193,7 @@ Page({
     this.loadIsReadMsg();
 
     wx.setNavigationBarTitle({
-      title: '短视频',
+      title: '邮你拾光',
     })
 
     // wx.hideShareMenu()

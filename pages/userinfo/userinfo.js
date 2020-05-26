@@ -69,6 +69,20 @@ Page({
     })
   },
 
+  clickIdHandler() {
+    var randomid = this.data.userinfo.userinfo.randomid
+    wx.setClipboardData({
+      data: randomid,
+      success(res) {
+        // wx.show
+        wx.showToast({
+          title: '复制成功',
+          icon: "none"
+        })
+      }
+    })
+  },
+
   sengMessage() {
     var uid = this.data.uid;
     // 此处获取用户openid

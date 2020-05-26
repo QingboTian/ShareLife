@@ -6,12 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title : "",
+    title: "闪退、卡顿或界面错位",
     content : "",
     email : "",
     phone : "",
     msg : "",
-    token : null
+    token : null,
+    radioItems: [
+      { name: '闪退、卡顿或界面错位', value: '0', checked: true },
+      { name: '无法登录或登录失败', value: '1' },
+      { name: '无法接收/发送消息', value: '2' },
+      { name: '发布作品超时/失败', value: '3' },
+      { name: '举报(如作品、言论等违反法律法规，请提供用户ID)', value: '4' },
+      { name: '其他(如使用反馈或其他Bug等)', value: '5' }
+    ],
   },
 
   /**
@@ -28,6 +36,27 @@ Page({
     })
 
     wx.hideShareMenu();
+  },
+
+  radioChange: function (e) {
+    // console.log('radio发生change事件，携带value值为：', e.detail.value);
+    // console.log(e);
+
+    var radioItems = this.data.radioItems;
+    for (var i = 0, len = radioItems.length; i < len; ++i) {
+      radioItems[i].checked = radioItems[i].value == e.detail.value;
+      if (radioItems[i].checked) {
+        console.log(radioItems[i].name)
+        this.setData({
+          title: radioItems[i].name
+        })
+      }
+    }
+
+    this.setData({
+      radioItems: radioItems,
+      [`formData.radio`]: e.detail.value
+    });
   },
 
   inputHandler : function(e){

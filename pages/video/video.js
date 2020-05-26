@@ -90,28 +90,90 @@ Page({
   },
 
   longfunction: function(e) {
-    var src = e.currentTarget.dataset.src
+    var src = e.currentTarget.dataset.src;
+    var that = this;
     wx.showActionSheet({
-      itemList: ['下载作品', '举报'],
+      itemList: ['保存本地', '举报'],
       success(res) {
         if (res.tapIndex == 0) {
-          wx.showModal({
-            title: '提示',
-            content: '点击复制地址按钮打开浏览器进行查看',
-            confirmText: '复制地址',
+          wx.showLoading({
+            title: '保存中...',
+          })
+          wx.downloadFile({
+            url: src,
             success(res) {
-              if (res.confirm) {
-                wx.setClipboardData({
-                  data: src,
+              var tempFilePath = res.tempFilePath
+              var type = that.data.type;
+              if (type == 0) {
+                // 图片
+                wx.saveImageToPhotosAlbum({
+                  filePath: tempFilePath,
                   success(res) {
+                    wx.hideLoading()
                     wx.showToast({
-                      title: '复制成功',
+                      title: '保存成功',
+                      icon: "none"
+                    })
+                  },
+                  fail(err) {
+                    wx.hideLoading()
+                    wx.showModal({
+                      title: '消息提醒',
+                      content: '保存失败，请点击右上角按钮查看相册权限是否开放！',
+                    })
+                    // wx.showToast({
+                    //   title: '保存失败',
+                    //   icon: "none"
+                    // })
+                  }
+                })
+              } else if (type == 1) {
+                // 视频
+                wx.saveVideoToPhotosAlbum({
+                  filePath: tempFilePath,
+                  success(res) {
+                    wx.hideLoading()
+                    wx.showToast({
+                      title: '保存成功',
+                      icon: "none"
+                    })
+                  },
+                  fail(err) {
+                    wx.hideLoading()
+                    wx.showToast({
+                      title: '保存失败',
+                      icon: "none"
                     })
                   }
                 })
               }
+
+            },
+            fail(err) {
+              wx.hideLoading()
+              wx.showToast({
+                title: '下载失败',
+                icon: "none"
+              })
             }
           })
+          // wx.showModal({
+          //   title: '提示',
+          //   content: '点击复制地址按钮打开浏览器进行查看',
+          //   confirmText: '复制地址',
+          //   success(res) {
+          //     if (res.confirm) {
+          //       wx.setClipboardData({
+          //         data: src,
+          //         success(res) {
+          //           wx.showToast({
+          //             title: '复制成功',
+          //           })
+          //         }
+          //       })
+          //     }
+          //   }
+          // })
 
         } else if (res.tapIndex == 1) {
           // 举报

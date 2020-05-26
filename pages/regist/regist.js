@@ -114,12 +114,28 @@ Page({
 
     // 数据简单校验
     if (phone.length < 11) {
+      wx.showToast({
+        title: '手机格式错误',
+        icon: "none"
+      })
       return;
     }else if (password.length < 8) {
+      wx.showToast({
+        title: '密码小于8位',
+        icon: "none"
+      })
       return; // 密码最少8位
     }else if(checkcode.length < 6) {
+      wx.showToast({
+        title: '验证码小于6位',
+        icon: "none"
+      })
       return;
     }else if (password != repwd) {
+      wx.showToast({
+        title: '前后密码不一致',
+        icon: "none"
+      })
       return;
     }
 

@@ -12,6 +12,10 @@ page {
   /* margin: 0 20rpx; */
 }
 
+.checkbox {
+  font-size: small
+}
+
 .item {
   display: flex;
   flex-direction: column;

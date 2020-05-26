@@ -9,9 +9,16 @@ page {
   height: 100%;
   display: flex;
   flex-direction: column;
+  
   /* margin: 0 20rpx; */
 }
 
 .feedbackList {
   margin-bottom: 10rpx;
+  flex: 1;
+  overflow: hidden;
+}
+
+.not-deal {
+  color: red;
 }

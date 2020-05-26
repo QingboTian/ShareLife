@@ -16,6 +16,6 @@
   </view>
 
   <view class="item">
-    <button type='primary' bindtap="button">{{feedback.status ? '已处理' : '未处理'}}</button>
+    <button type="{{feedback.status ? 'primary' : 'warn'}}" bindtap="button">{{feedback.status ? '已处理' : '未处理'}}</button>
   </view>
 </view>
